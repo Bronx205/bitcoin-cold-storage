@@ -1,8 +1,6 @@
 module AddressesHelper
 	require 'bitcoin'
-	@key = Bitcoin::generate_key
 
-	@address = Bitcoin::pubkey_to_address(@key[1])
 
 	# p 'generate_address: ' 
 	# p Bitcoin::generate_address
