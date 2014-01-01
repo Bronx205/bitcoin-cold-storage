@@ -3,6 +3,7 @@ class AddressesController < ApplicationController
 	include AddressesHelper
   
   def private
+  	@title=private_title
 		@key = Bitcoin::generate_key
 		@address = Bitcoin::pubkey_to_address(@key[1])  	
 		@qr = RQRCode::QRCode.new( @address, :size => 8, :level => :h )

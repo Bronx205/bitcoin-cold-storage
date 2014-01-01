@@ -1,5 +1,5 @@
 h3 
 b Bitcoin Address: 
 | #{@address}
-
-= render 'shared/qr', qr: @qr
+.qrcode id="#{@address}"
+	= render 'shared/qr', qr: @qr
