@@ -1,26 +1,31 @@
 module AddressesHelper
 	require 'bitcoin'
+	require 'rqrcode'
 
 
-	# p 'generate_address: ' 
-	# p Bitcoin::generate_address
+	def generate_address_hash
+		address_hash={}
+		address_array=Bitcoin::generate_address
+		address_hash[:pubkey]=address_array[2]
+		address_hash[:prvkey]=address_array[1]
+		address_hash[:address]=address_array[0]
+		address_hash[:qr_address] = RQRCode::QRCode.new( address_hash[:address], :size => 8, :level => :h )
+		address_hash[:qr_prvkey] = RQRCode::QRCode.new( address_hash[:prvkey], :size => 8, :level => :h )
+		return address_hash
+	end
 
-	# p key
-	# p address
-
-	# x=Bitcoin::pubkey_to_address('04ac7493447d11e1923e3fe40f08c0660af227ead05697ea0f62c282fb4a9cbb28d41e2e995828ff3d4d8906d770ac19b9ca1857c91976c0045c1b2ac95225ee0f')
-	# p Bitcoin::valid_address? '04ac7493447d11e1923e3fe40f08c0660af227ead05697ea0f62c282fb4a9cbb28d41e2e995828ff3d4d8906d770ac19b9ca1857c91976c0045c1b2ac95225ee0f'
+	def generate_addresses_array(array_size)
+		address_array=[]
+		(0..array_size-1).each do |counter|
+			address_hash=generate_address_hash
+			address_hash[:id]=counter
+			address_array<<address_hash
+		end
+		return address_array
+	end
 
 	# def generate_address
 	#   prvkey, pubkey = generate_key
 	#   [ pubkey_to_address(pubkey), prvkey, pubkey, hash160(pubkey) ]
-	# end
-
-
-	# (1..10).each do |c|
-	# result = []
-	# result << c
-	# result << Bitcoin::generate_address[0,3]	
-	# p result
 	# end
 end
