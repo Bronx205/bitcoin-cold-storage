@@ -1,7 +1,7 @@
 = form_tag :sessions do
-	table cellpadding="5" id="setup"
+	table id="setup"
 		tr
-			td
+			td 
 				= text_field_tag :howmany,nil, placeholder: howmany_placeholder, class: "input-large"
-			td
+			td 
 				= submit_tag howmany_button_title,  id: "howmany_button", class: "btn btn-primary btn-align"
