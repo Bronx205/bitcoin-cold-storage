@@ -17,7 +17,7 @@ module ViewsHelper
 	end
 
 	def howmany_placeholder
-		'How many addresses?'
+		'How many?'
 	end
 
 	def private_title

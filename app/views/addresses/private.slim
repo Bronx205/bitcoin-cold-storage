@@ -1,5 +1,5 @@
 h3 
 b Bitcoin Address: 
-| #{@address}
+| #{@address} #{Rails.cache.read('foo')}
 .qrcode id="#{@address}"
 	= render 'shared/qr', qr: @qr

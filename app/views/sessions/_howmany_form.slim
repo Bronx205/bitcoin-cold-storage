@@ -2,6 +2,6 @@
 	table id="setup"
 		tr
 			td 
-				= text_field_tag :howmany,nil, placeholder: howmany_placeholder, class: "input-large"
+				= text_field_tag :howmany,@howmany, placeholder: howmany_placeholder, class: "input-small"
 			td 
 				= submit_tag howmany_button_title,  id: "howmany_button", class: "btn btn-primary btn-align"
