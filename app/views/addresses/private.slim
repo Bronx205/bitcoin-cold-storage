@@ -1,15 +1,4 @@
-table.private_output id="private_output"
-	tr
-		th
-			| Bitcoin Address 
-		th
-			| Address QR code
-	- (1..@howmany).each do |row|
-		tr id="row_#{row}"
-			td
-				
+h2
+	= "You requested #{@howmany} addresses"
 
-			
-| #{@address}
-.qrcode id="#{@address}"
-	= render 'shared/qr', qr: @qr
+= render 'addresses'

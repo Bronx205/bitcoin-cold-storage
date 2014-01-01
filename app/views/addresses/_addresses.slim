@@ -1,0 +1,11 @@
+table.private_output id="private_output"
+	tr
+		th id="text_title"
+			| Bitcoin Address 
+		th id="qr_title" 
+			| QR code
+	- @addresses.each do |address|
+		= render 'address', address: address
+	tr
+		td colspan="2"
+			hr

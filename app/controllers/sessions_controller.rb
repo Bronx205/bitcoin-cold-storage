@@ -9,7 +9,11 @@ class SessionsController < ApplicationController
 		@title=full_title(setup_title)
 		@howmany=params[:howmany]
 		cookies[:howmany]=@howmany
-		redirect_to private_path
+		if @howmany.to_i > 0
+			redirect_to private_path 
+		else
+			render 'new'
+		end
 	end
 
 end
