@@ -14,7 +14,7 @@ describe AddressesHelper do
 
 	describe "generate addresses array" do
 		subject { addresses_array }
-		let!(:howmany) { 1 }
+		let!(:howmany) { 2 }
 		let!(:addresses_array) { generate_addresses_array(howmany) }
 		its(:class) { should == Array }
 		its(:length) { should == howmany }		
