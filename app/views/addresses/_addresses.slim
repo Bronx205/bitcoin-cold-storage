@@ -1,11 +1,15 @@
 table.private_output id="private_output"
 	tr
-		th id="text_title"
+		th.text_pubkey
 			| Bitcoin Address 
-		th id="qr_title" 
+		th.qr_pubkey
 			| QR code
+		th.text_prvkey
+			| Private Key 
+		th.qr_prvkey
+			| QR code			
 	- @addresses.each do |address|
 		= render 'address', address: address
 	tr
-		td colspan="2"
+		td colspan="5"
 			hr

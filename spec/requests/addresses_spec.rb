@@ -43,7 +43,10 @@ describe "Addresses" do
 			(1..2).each do |x|
 				it { should have_selector("td#address_#{x-1}") }
 				it { should have_selector("td#qr_address_#{x-1}") }
-				it { should have_selector('div.qrcode') }
+				it { should have_selector('div.qr_address') }
+				it { should have_selector("td#prvkey_#{x-1}") }
+				it { should have_selector("td#qr_prvkey_#{x-1}") }
+				it { should have_selector('div.qr_prvkey') }				
 			end
 		end
 	end
