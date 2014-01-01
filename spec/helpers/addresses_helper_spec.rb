@@ -19,4 +19,8 @@ describe AddressesHelper do
 		its(:class) { should == Array }
 		its(:length) { should == howmany }		
 	end
+
+	describe "generate_qr" do
+		specify {generate_qr('hello').to_s[0,50].should == "xxxxxxx     xx x   xx xx  x  xx   x  x  x xxxxxxx\n"}
+	end
 end
