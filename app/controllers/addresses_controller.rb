@@ -7,8 +7,9 @@ class AddressesController < ApplicationController
 		@key = Bitcoin::generate_key
 		@address = Bitcoin::pubkey_to_address(@key[1])  	
 		@qr = RQRCode::QRCode.new( @address, :size => 8, :level => :h )		
+
 		@howmany=cookies[:howmany].to_i
-		# @addresses=generate_addresses_array(@howmany)
+		@addresses=generate_addresses_array(@howmany)				
   end
 
   def public

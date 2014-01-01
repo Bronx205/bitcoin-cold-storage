@@ -9,8 +9,6 @@ module AddressesHelper
 		address_hash[:pubkey]=address_array[2]
 		address_hash[:prvkey]=address_array[1]
 		address_hash[:address]=address_array[0]
-		address_hash[:qr_address] = RQRCode::QRCode.new( address_hash[:address], :size => 8, :level => :h )
-		address_hash[:qr_prvkey] = RQRCode::QRCode.new( address_hash[:prvkey], :size => 8, :level => :h )
 		return address_hash
 	end
 
@@ -23,6 +21,13 @@ module AddressesHelper
 		end
 		return address_array
 	end
+
+	def generate_qr(string)
+		RQRCode::QRCode.new( string, :size => 8, :level => :h )		
+	end
+
+		# address_hash[:qr_address] = RQRCode::QRCode.new( address_hash[:address], :size => 8, :level => :h )
+		# address_hash[:qr_prvkey] = RQRCode::QRCode.new( address_hash[:prvkey], :size => 8, :level => :h )
 
 	# def generate_address
 	#   prvkey, pubkey = generate_key
