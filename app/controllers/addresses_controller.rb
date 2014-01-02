@@ -8,8 +8,13 @@ class AddressesController < ApplicationController
 		# @address = Bitcoin::pubkey_to_address(@key[1])  	
 		# @qr = RQRCode::QRCode.new( @address, :size => 8, :level => :h )		
 		@howmany=cookies[:howmany].to_i
-		@addresses=generate_addresses_array(@howmany)				
-		# send_data(render_to_string, :filename => "object.html", :type => "text/html")
+		@addresses=generate_addresses_array(@howmany)
+		@download=params[:download]				
+		send_data(render_to_string, :filename => "coldstorage.html") if @download
+		# respond_to do |format|
+		#   # format.html
+		#   format.svg  { render :qrcode => request.url, :level => :l, :unit => 10 }
+		# end		
   end
 
   def public

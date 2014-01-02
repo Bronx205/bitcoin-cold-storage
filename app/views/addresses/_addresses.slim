@@ -1,5 +1,6 @@
 table.private_output id="private_output"
 	= render 'address_headers'	
+	= render 'enable_download_css' if @download
 	- @addresses.each do |address|
 		= render 'address', address: address, counter: @addresses.index(address)+1
 	tr

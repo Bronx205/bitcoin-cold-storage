@@ -1,4 +1,4 @@
 h2
 	= "You requested #{@howmany} addresses"
-
+	= link_to '  (download html page)', private_path(@object, :download => true), target: "_blank", class: "download"
 = render 'addresses'
