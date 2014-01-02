@@ -364,6 +364,14 @@ table#private_output{
     width:50;
     border-right:solid #eeeeee;
   }
+  .separator_thin{
+    width:5;
+    border-right:solid #eeeeee;
+  }  
+  .counter{
+    width:20;
+    text-align:center;
+  }
 }
 .normal{
   font-weight:normal;
