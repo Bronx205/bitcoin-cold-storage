@@ -337,23 +337,37 @@ li.tile{
   margin-bottom: 10px;  
 }
 table#private_output{
- th, td {
+ th {
+    font-size:20;
+    text-align:center;
+  }
+ td {
     font-size:16;
     text-align:center;
-    font-weight:bold;
   }
+  .title_pubkey{
+    color:blue; 
+  }
+  .title_prvkey{
+    color:red; 
+  }  
   .text_pubkey{
       width:400;
-      font-weight:normal;
   }
-  .qr_pubkey{
+  .qr_pubkey, .qr_prvkey{
       width:100;
   }
   .text_prvkey{
-      width:600;
-      font-weight:normal;
+      width:600;      
   }
-  .qr_prvkey{
-      width:100;
-  }  
+  .separator{
+    width:50;
+    border-right:solid #eeeeee;
+  }
+}
+.normal{
+  font-weight:normal;
+  display:inline;
+  font-size:16;
+  color:-webkit-text;
 }

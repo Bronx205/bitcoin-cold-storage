@@ -7,6 +7,7 @@ tr
 	td.qr_pubkey id="qr_address_#{counter}"
 		.qr_address 
 			= render 'shared/qr', qr: generate_qr(address.addr)
+	td.separator
 	td.text_prvkey id="prvkey_wif_#{counter}"
 		= address.to_base58
 	td.qr_prvkey id="qr_prvkey_wif_#{counter}"

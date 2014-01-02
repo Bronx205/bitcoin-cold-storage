@@ -1,13 +1,5 @@
 table.private_output id="private_output"
-	tr
-		th.text_pubkey
-			| Bitcoin Address 
-		th.qr_pubkey
-			| QR code
-		th.text_prvkey
-			| Private Key 
-		th.qr_prvkey
-			| QR code			
+	= render 'address_headers'	
 	- @addresses.each do |address|
 		= render 'address', address: address, counter: @addresses.index(address)
 	tr
