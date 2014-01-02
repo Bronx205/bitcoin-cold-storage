@@ -9,7 +9,7 @@ table.private_output id="private_output"
 		th.qr_prvkey
 			| QR code			
 	- @addresses.each do |address|
-		= render 'address', address: address
+		= render 'address', address: address, counter: @addresses.index(address)
 	tr
 		td colspan="5"
 			hr
