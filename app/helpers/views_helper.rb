@@ -23,4 +23,8 @@ module ViewsHelper
 	def private_title
 		'Private'
 	end
+
+	def public_title
+		'Public'
+	end	
 end

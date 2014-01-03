@@ -14,5 +14,6 @@ class AddressesController < ApplicationController
   end
 
   def public
+  	@title=public_title
   end
 end

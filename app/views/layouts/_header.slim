@@ -1,9 +1,8 @@
 header.navbar.navbar-fixed-top.navbar-inverse
   .navbar-inner
     .container
-      / = link_to app_title, root_path, id: "logo"
-      / = link_to signin_link, signin_path, id: "location", title: "Change location" 
+      = link_to app_title, root_path, id: "logo"
       nav
-        / ul#head-links.nav.pull-right
-          / li= link_to new_title, new_post_path        
-          / li= link_to index_title, posts_path
+        ul#head-links.nav.pull-right
+      		li = link_to private_title, private_path, id: "private", title: "Show private keys" 
+      		li = link_to public_title, public_path, id: "public", title: "Show Bitcoin addresses" 
