@@ -3,6 +3,7 @@ class SessionsController < ApplicationController
 	def new
 		@title=full_title(setup_title)
 		@howmany=cookies[:howmany] 
+		@howmany=1 if @howmany.blank? 
 	end
 	
 	def create
