@@ -1,28 +1,20 @@
 require 'spec_helper'
+require 'shared_examples'
 include ViewsHelper
 
 describe "Addresses" do
 	subject { page }
 	before { visit root_path }
-	it { should have_title full_title(setup_title) }
-	it { should have_button howmany_button_title}
-	it { should have_selector('input#howmany') }
-	it { should have_xpath("//input[@value=1]")}
+	it_should_behave_like 'default_setup'
 	describe "submitting should stay on setup if the request was not a positive number is requested" do
-		before do
-		  fill_in 'howmany', with: ''
-		  click_button howmany_button_title			  
+		['',0,-5,'foo',nil].each do |example|
+			before do
+			  fill_in 'howmany', with: example
+			  click_button howmany_button_title			  
+			end
+			it_should_behave_like 'default_setup'			
 		end
-		it { should have_title setup_title }
 	end
-	describe "if the requested number is zero, redirect home" do
-		before do
-		  fill_in 'howmany', with: 0
-		  click_button howmany_button_title
-		  visit private_path
-		end
-		it { should have_title setup_title }
-	end			
 	describe "submitting should redirect to private if a positive number is requested" do
 		before do
 		  fill_in 'howmany', with: '2'
@@ -32,7 +24,7 @@ describe "Addresses" do
 		describe "cookie persistance of howmany" do
 			before { visit root_path }
 			it { find_field('howmany').value.should == '2' }
-			it { find_field('howmany').value.should_not == '' }
+			it { find_field('howmany').value.should_not == 1 }
 		end
 	end
 	describe "private page should show the correct number of addresses" do

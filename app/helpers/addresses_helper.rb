@@ -2,27 +2,18 @@ module AddressesHelper
 	require 'bitcoin'
 	require 'rqrcode'
 
+	def set_amount(amount=1)
+		self.howmany=[amount.to_i,1].max
+	end
 
-	# Bitcoin::Key.generate gives [k.priv, k.pub, k.addr, k.to_base58=Wallet import format]	
+	def howmany=(int)
+		@howmany=[int,1].max
+		cookies[:howmany]=@howmany
+	end
 
-	# def generate_address_hash
-	# 	address_hash={}
-	# 	Key=Bitcoin::Key.generate
-	# 	address_hash[:pubkey]=Key[2]
-	# 	address_hash[:prvkey]=Key[1]
-	# 	address_hash[:address]=Key[0]
-	# 	return address_hash
-	# end
-
-	# def generate_addresses_array(array_size)
-	# 	address_array=[]
-	# 	(0..array_size-1).each do |counter|
-	# 		address_hash=generate_address_hash
-	# 		address_hash[:id]=counter
-	# 		address_array<<address_hash
-	# 	end
-	# 	return address_array
-	# end
+	def howmany
+		@howmany=[cookies[:howmany].to_i,1].max 		
+	end
 
 	def generate_addresses_array(array_size)
 		address_array=[]
@@ -36,12 +27,13 @@ module AddressesHelper
 		RQRCode::QRCode.new( string, :size => 8, :level => :h )		
 	end
 
-		# address_hash[:qr_address] = RQRCode::QRCode.new( address_hash[:address], :size => 8, :level => :h )
-		# address_hash[:qr_prvkey] = RQRCode::QRCode.new( address_hash[:prvkey], :size => 8, :level => :h )
-
-	# def generate_address
-	#   prvkey, pubkey = generate_key
-	#   [ pubkey_to_address(pubkey), prvkey, pubkey, hash160(pubkey) ]
-	# end
-
 end
+
+
+# address_hash[:qr_address] = RQRCode::QRCode.new( address_hash[:address], :size => 8, :level => :h )
+# address_hash[:qr_prvkey] = RQRCode::QRCode.new( address_hash[:prvkey], :size => 8, :level => :h )
+
+# def generate_address
+#   prvkey, pubkey = generate_key
+#   [ pubkey_to_address(pubkey), prvkey, pubkey, hash160(pubkey) ]
+# end
