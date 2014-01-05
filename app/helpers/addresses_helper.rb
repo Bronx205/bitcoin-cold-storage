@@ -1,7 +1,8 @@
 module AddressesHelper
 	require 'bitcoin'
 	require 'rqrcode'
-
+	@@addresses_array=[]
+	
 	def set_amount(amount=1)
 		self.howmany=[amount.to_i,1].max
 	end
@@ -15,17 +16,31 @@ module AddressesHelper
 		@howmany=[cookies[:howmany].to_i,1].max 		
 	end
 
-	def generate_addresses_array(array_size)
-		address_array=[]
-		(0..array_size-1).each do |counter|
-			address_array << Bitcoin::Key.generate
-		end
-		return address_array
+	def set_addresses_array
+		self.addresses_array=generate_addresses_array(@howmany)
+	end
+
+	def addresses_array=(array)
+		@@addresses_array=array
 	end
 
 	def generate_qr(string)
 		RQRCode::QRCode.new( string, :size => 8, :level => :h )		
-	end
+	end	
+
+
+
+
+	private
+
+		def generate_addresses_array(array_size)
+			temp=[]
+			(0..array_size-1).each do |counter|
+				temp << Bitcoin::Key.generate
+			end
+			return temp
+		end
+
 
 end
 
