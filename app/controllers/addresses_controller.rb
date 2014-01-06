@@ -10,6 +10,7 @@ class AddressesController < ApplicationController
 	
 	def create
 		@title=full_title(setup_title)
+		Rails.cache.clear
 		set_amount params[:howmany]
 		set_password params[:password]
 		if params[:howmany].to_i > 0
