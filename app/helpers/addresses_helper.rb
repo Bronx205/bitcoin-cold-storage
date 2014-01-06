@@ -2,22 +2,22 @@ module AddressesHelper
 	require 'bitcoin'
 	require 'rqrcode'
 	@@addresses_array=[]
-	
+	@@howmany=1
+
 	def set_amount(amount=1)
-		self.howmany=[amount.to_i,1].max
-	end
-
-	def howmany=(int)
-		@howmany=[int,1].max
-		cookies[:howmany]=@howmany
-	end
-
-	def howmany
-		@howmany=[cookies[:howmany].to_i,1].max 		
+		@@howmany=[amount.to_i,1].max
 	end
 
 	def set_addresses_array
-		self.addresses_array=generate_addresses_array(@howmany)
+		self.addresses_array=generate_addresses_array(@@howmany)
+	end
+
+	def addresses_array
+		@@addresses_array
+	end
+
+	def howmany
+		@@howmany
 	end
 
 	def addresses_array=(array)

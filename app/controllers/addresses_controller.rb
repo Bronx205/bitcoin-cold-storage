@@ -21,7 +21,7 @@ class AddressesController < ApplicationController
   def private
   	@title=private_title
 		redirect_to root_path unless howmany > 0
-		@addresses=@@addresses_array
+		@addresses=addresses_array
 		@download=params[:download]				
 		send_data(render_to_string, :filename => "coldstorage.html") if @download
 
