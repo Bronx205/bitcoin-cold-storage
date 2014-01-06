@@ -6,6 +6,7 @@ describe "Addresses" do
 	subject { page }
 	before { visit root_path }
 	it_should_behave_like 'default_setup'
+	it { should have_xpath("//input[@value=1]")}
 	describe "submitting should stay on setup if the request was not a positive number is requested" do
 		['',0,-5,'foo',nil].each do |example|
 			before do
@@ -21,16 +22,15 @@ describe "Addresses" do
 		  click_button howmany_button_title			  
 		end
 		it { should have_title private_title }
-		describe "cookie persistance of howmany" do
+		describe "persistance of howmany" do
 			before { visit root_path }
 			it { find_field('howmany').value.should == '2' }
 			it { find_field('howmany').value.should_not == 1 }
 		end
 	end
-	describe "private page should show the correct number of addresses" do
-		let!(:num) { 2 }
+	describe "private page should show the correct number of addresses" do		
 		before do
-		  fill_in 'howmany', with: num
+		  fill_in 'howmany', with: 2
 		  click_button howmany_button_title			  
 		end
 		it { should have_title full_title(private_title) }

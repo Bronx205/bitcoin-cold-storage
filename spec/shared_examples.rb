@@ -9,6 +9,5 @@ end
 shared_examples_for "default_setup" do
 	it { should have_title full_title(setup_title) }
 	it { should have_button howmany_button_title}
-	it { should have_selector('input#howmany') }
-	it { should have_xpath("//input[@value=1]")}
+	it { should have_selector('input#howmany') }	
 end

@@ -10,6 +10,7 @@ gem 'bootstrap-will_paginate', '0.0.9'
 gem 'slim'
 gem 'rqrcode-rails3'
 gem 'bitcoin-ruby'
+gem 'aes'
 # gem 'protected_attributes'
 
 group :development, :test do
