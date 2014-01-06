@@ -1,6 +1,7 @@
 class AddressesController < ApplicationController
 	require 'rqrcode'
 	include AddressesHelper
+	include CryptoHelper
 
   def new
 		@title=full_title(setup_title)
@@ -22,9 +23,11 @@ class AddressesController < ApplicationController
   	@title=private_title
 		redirect_to root_path unless howmany > 0
 		@addresses=addresses_array
-		@download=params[:download]				
-		send_data(render_to_string, :filename => "coldstorage.html") if @download
-
+		@download=params[:download]
+		encrypted_page=encrypt_my_page(render_to_string)				
+		unencrypted_page=render_to_string
+		send_data(unencrypted_page, :filename => "colds.html") if @download=='plain'
+		send_data(encrypted_page, :filename => "cold.html.aes") if @download=='encrypted'
   end
 
   def public

@@ -28,21 +28,25 @@ describe "Addresses" do
 			it { find_field('howmany').value.should_not == 1 }
 		end
 	end
+	describe "private page layout" do
+		before do
+			fill_in 'howmany', with: 1		  
+		  click_button howmany_button_title			  
+		end		
+		it_should_behave_like 'the private page'		
+		describe "reload" do
+			before { visit current_path }
+			it_should_behave_like 'the private page'
+		end
+	end
 	describe "private page should show the correct number of addresses" do		
 		before do
 		  fill_in 'howmany', with: 2
 		  click_button howmany_button_title			  
 		end
-		it { should have_title full_title(private_title) }
-		it { should have_selector('th', text: 'Bitcoin Address') }		
-		it { should have_selector('table.private_output#private_output') }						
-		(1..2).each do |x|
-			it { should have_selector("td#address_#{x}") }
-			it { should have_selector("td#qr_address_#{x}") }
-			it { should have_selector('div.qr_address') }
-			it { should have_selector("td#prvkey_wif_#{x}") }
-			it { should have_selector("td#qr_prvkey_wif_#{x}") }
-			it { should have_selector('div.qr_prvkey') }				
-		end
+		it { should have_selector("td#address_1") }
+		it { should have_selector("td#qr_address_2") }
+		it { should have_selector("td#prvkey_wif_1") }
+		it { should have_selector("td#qr_prvkey_wif_2") }
 	end
 end

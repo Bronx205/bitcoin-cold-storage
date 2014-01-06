@@ -1,5 +1,6 @@
 h2
 	= "You requested #{pluralize(howmany,'address')} " 
 	.invisible.five
-	= link_to ' (download html)', private_path(@object, :download => true), target: "_blank", class: "download"
+	= link_to ' (download html)', private_path(@object, download: :plain), target: "_blank", class: "download"
+	= link_to ' (download encrypted)', private_path(@object, download: :encrypted), target: "_blank", class: "download"	
 = render 'addresses'
