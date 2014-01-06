@@ -11,6 +11,7 @@ class AddressesController < ApplicationController
 	def create
 		@title=full_title(setup_title)
 		set_amount params[:howmany]
+		set_password params[:password]
 		if params[:howmany].to_i > 0
 			set_addresses_array			
 			redirect_to private_path 
@@ -25,7 +26,7 @@ class AddressesController < ApplicationController
 		@addresses=addresses_array
 		@download=params[:download]
 		send_data(render_to_string, :filename => "colds.html") if @download=='plain'
-		send_data(encrypt_my_page(render_to_string), :filename => "cold.html.aes") if @download=='encrypted'
+		send_data(encrypt_my_page(render_to_string,password), :filename => "cold.html.aes") if @download=='encrypted'
   end
 
   def public

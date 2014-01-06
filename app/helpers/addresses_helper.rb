@@ -3,6 +3,7 @@ module AddressesHelper
 	require 'rqrcode'
 	@@addresses_array=[]
 	@@howmany=1
+	@@password=''
 
 	def set_amount(amount=1)
 		@@howmany=[amount.to_i,1].max
@@ -28,7 +29,13 @@ module AddressesHelper
 		RQRCode::QRCode.new( string, :size => 8, :level => :h )		
 	end	
 
+	def set_password(string)
+		@@password=string
+	end
 
+	def password
+		@@password
+	end
 
 
 	private
