@@ -27,4 +27,12 @@ module ViewsHelper
 	def public_title
 		'Public'
 	end	
+
+	def password_placeholder
+		'Your password'
+	end
+
+	def password_button_title
+		'submit'
+	end
 end

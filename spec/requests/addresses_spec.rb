@@ -2,6 +2,10 @@ require 'spec_helper'
 require 'shared_examples'
 include ViewsHelper
 
+RSpec.configure do |c|
+  c.filter_run_excluding :slow => true
+end
+
 describe "Addresses" do
 	subject { page }
 	before { visit root_path }
@@ -16,7 +20,7 @@ describe "Addresses" do
 			it_should_behave_like 'default_setup'			
 		end
 	end
-	describe "submitting should redirect to private if a positive number is requested" do
+	describe "submitting should redirect to private if a positive number is requested", slow: true  do
 		before do
 		  fill_in 'howmany', with: '2'
 		  click_button howmany_button_title			  
@@ -28,7 +32,7 @@ describe "Addresses" do
 			it { find_field('howmany').value.should_not == 1 }
 		end
 	end
-	describe "private page layout" do
+	describe "private page layout", slow: true  do
 		before do
 			fill_in 'howmany', with: 1		  
 		  click_button howmany_button_title			  
@@ -39,7 +43,7 @@ describe "Addresses" do
 			it_should_behave_like 'the private page'
 		end
 	end
-	describe "private page should show the correct number of addresses" do		
+	describe "private page should show the correct number of addresses", slow: true do		
 		before do
 		  fill_in 'howmany', with: 2
 		  click_button howmany_button_title			  

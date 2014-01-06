@@ -1,0 +1,12 @@
+= form_tag :addresses do
+	table id="setup"
+		tr
+			td 
+				= text_field_tag :howmany,howmany, placeholder: howmany_placeholder, class: "input-small"
+			td 
+				= submit_tag howmany_button_title,  id: "howmany_button", class: "btn btn-primary btn-align"
+		tr
+			td 
+				= password_field_tag :password,nil, placeholder: password_placeholder, class: "input-xxlarge"
+			td 
+				= submit_tag password_button_title,  id: "pswd_button", class: "btn btn-primary btn-align"				
