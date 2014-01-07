@@ -11,6 +11,7 @@ gem 'slim'
 gem 'rqrcode-rails3'
 gem 'bitcoin-ruby'
 gem 'aes'
+gem 'aescrypt'
 # gem 'protected_attributes'
 
 group :development, :test do

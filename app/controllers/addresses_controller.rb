@@ -12,11 +12,12 @@ class AddressesController < ApplicationController
 		@title=full_title(setup_title)
 		Rails.cache.clear
 		set_amount params[:howmany]
-		set_password params[:password]
+		set_password strong_password
 		if params[:commit] == howmany_button_title && params[:howmany].to_i > 0
 			set_addresses_array			
 			redirect_to private_path 
 		elsif params[:commit] == password_button_title
+			set_password params[:password]
 			redirect_to root_path
 		else
 			render 'new'
