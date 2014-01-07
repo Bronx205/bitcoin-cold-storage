@@ -1,4 +1,4 @@
-h2
+h2.hide_on_download
 	= "You requested #{pluralize(howmany,'address')} " 
 	.invisible.five
 	= link_to ' (download html)', private_path(@object, download: :plain), target: "_blank", class: "download"

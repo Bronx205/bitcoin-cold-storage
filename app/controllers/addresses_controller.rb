@@ -26,7 +26,7 @@ class AddressesController < ApplicationController
 		redirect_to root_path unless howmany > 0
 		@addresses=addresses_array
 		@download=params[:download]
-		send_data(render_to_string, :filename => "colds.html") if @download=='plain'
+		send_data(inject_css(render_to_string), :filename => "colds.html") if @download=='plain'
 		send_data(encrypt_my_page(render_to_string,password), :filename => "cold.html.aes") if @download=='encrypted'
   end
 
