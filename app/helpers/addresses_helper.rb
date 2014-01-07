@@ -1,4 +1,5 @@
 module AddressesHelper
+	
 	require 'bitcoin'
 	require 'rqrcode'
 	@@addresses_array=[]
