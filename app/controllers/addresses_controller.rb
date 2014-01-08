@@ -16,6 +16,7 @@ class AddressesController < ApplicationController
 		if params[:howmany].to_i > 0						
 			@coldstorage=ColdStorage.new(params[:password],params[:howmany])
 			flash[:var]=@coldstorage
+			Rails.cache.clear
 			redirect_to private_path 
 		else
 			render 'new'

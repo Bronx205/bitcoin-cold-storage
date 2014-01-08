@@ -26,11 +26,11 @@ describe "Addresses" do
 		  click_button generate_button			  
 		end
 		it { should have_title private_title }
-		describe "persistance of howmany" do
-			before { visit root_path }
-			it { find_field('howmany').value.should == '2' }
-			it { find_field('howmany').value.should_not == 1 }
-		end
+		# describe "persistance of howmany" do
+		# 	before { visit root_path }
+		# 	it { find_field('howmany').value.should == '2' }
+		# 	it { find_field('howmany').value.should_not == 1 }
+		# end
 	end
 	describe "private page layout", slow: true  do
 		before do
@@ -38,10 +38,6 @@ describe "Addresses" do
 		  click_button generate_button			  
 		end		
 		it_should_behave_like 'the private page'		
-		describe "reload" do
-			before { visit current_path }
-			it_should_behave_like 'the private page'
-		end
 	end
 	describe "private page should show the correct number of addresses", slow: true do		
 		before do
