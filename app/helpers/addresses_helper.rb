@@ -38,11 +38,16 @@ module AddressesHelper
 	private
 
 		def generate_addresses_array(array_size)
-			temp=[]
+			result=[]
 			(0..array_size-1).each do |counter|
-				temp << Bitcoin::Key.generate
+				temp={}
+				key = Bitcoin::Key.generate
+				temp[:addr] = key.addr
+				temp[:pub] = key.pub
+				temp[:private_wif] = key.to_base58
+				result << temp
 			end
-			return temp
+			return result
 		end
 
 

@@ -1,12 +1,11 @@
 h2.hide_on_download
-	= "You requested #{pluralize(howmany,'address')} " 
+	= "You requested #{pluralize(@howmany,'address')} " 
 	.invisible.five
 	= link_to ' (download html)', private_path(@object, download: :plaintext), target: "_blank", class: "download"
 	= link_to ' (download encrypted)', private_path(@object, download: :encrypted), target: "_blank", class: "download"
 h1 id="show_password"
 	= "Encrypted with: "
 	.highlight_password
-		= password		
+		= @password		
 - cache('addresses')	do
 	= render 'addresses'
-= debug(params[:howmany]) if Rails.root.to_s.index('assaf')==6	

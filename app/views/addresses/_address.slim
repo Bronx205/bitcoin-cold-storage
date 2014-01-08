@@ -6,13 +6,13 @@ tr
 		= "#{counter}"
 	td.separator_thin
 	td.text_pubkey id="address_#{counter}"
-		= address.addr
+		= address[:addr]
 	td.qr_pubkey id="qr_address_#{counter}"
 		.qr_address 
-			= render 'shared/qr', qr: generate_qr(address.addr)
+			= render 'shared/qr', qr: generate_qr(address[:addr])
 	td.separator
 	td.text_prvkey id="prvkey_wif_#{counter}"
-		= address.to_base58
+		= address[:private_wif]
 	td.qr_prvkey id="qr_prvkey_wif_#{counter}"
 		.qr_prvkey
-			= render 'shared/qr', qr: generate_qr(address.to_base58)
+			= render 'shared/qr', qr: generate_qr(address[:private_wif])

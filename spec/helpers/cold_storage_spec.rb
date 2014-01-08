@@ -16,7 +16,7 @@ describe "cold storage" do
 		subject { cold2 }
 		its(:howmany) { should == 2 }
 		its(:user_password) { should=='foo' }
-		its(:addresses) { should_not be_blank }
+		its(:addresses) { should_not be_blank }		
 		it { cold2.addresses.length.should == cold2.howmany }
 		describe "addresses array" do
 			specify {Bitcoin::valid_address?(cold2.addresses[0].addr).should be_true}	

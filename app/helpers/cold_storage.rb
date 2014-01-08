@@ -8,7 +8,7 @@ class ColdStorage
 		@howmany = set_number(howmany)
 		@strong_password=set_strong_password
 		@addresses=generate_addresses_array(@howmany)
-		# Rails.cache.clear(:addresses)
+		@@current_addresses=@addresses
 	end
 
 	def password

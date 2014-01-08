@@ -8,8 +8,8 @@ describe AddressesHelper do
 		let!(:addresses_array) { generate_addresses_array(howmany) }
 		its(:class) { should == Array }
 		its(:length) { should == howmany }	
-		specify {Bitcoin::valid_address?(addresses_array[0].addr).should be_true}	
-		specify {Bitcoin::pubkey_to_address(addresses_array[1].pub).should == addresses_array[1].addr}	
+		specify {Bitcoin::valid_address?(addresses_array[0][:addr]).should be_true}	
+		specify {Bitcoin::pubkey_to_address(addresses_array[1][:pub]).should == addresses_array[1][:addr]}	
 	end
 
 	describe "generate_qr" do
