@@ -25,7 +25,8 @@ class AddressesController < ApplicationController
   
   def private
   	@title=private_title
-		@coldstorage=flash[:var]		
+		@coldstorage=flash[:var]
+		flash[:var]=@coldstorage		
 		if @coldstorage.nil?
 			redirect_to root_path 
 		else

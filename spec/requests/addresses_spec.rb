@@ -29,7 +29,7 @@ describe "Addresses" do
 		# describe "persistance of howmany" do
 		# 	before { visit root_path }
 		# 	it { find_field('howmany').value.should == '2' }
-		# 	it { find_field('howmany').value.should_not == 1 }
+		# 	it { find_field('howmany').value.should_not == 0 }
 		# end
 	end
 	describe "private page layout", slow: true  do
@@ -39,6 +39,18 @@ describe "Addresses" do
 		end		
 		it_should_behave_like 'the private page'		
 	end
+	describe "directly clicking the private link should redirect home" do
+		before { click_link private_title }
+		it_should_behave_like 'default_setup'
+	end	
+	describe "clicking the private link with addresses should remain on the page" do
+		before do
+			fill_in 'howmany', with: 1		  
+		  click_button generate_button		
+		  click_link private_title	  
+		end				
+		it_should_behave_like 'the private page'
+	end	
 	describe "private page should show the correct number of addresses", slow: true do		
 		before do
 		  fill_in 'howmany', with: 2
