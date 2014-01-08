@@ -26,7 +26,7 @@ describe CryptoHelper do
 	end
 
 	describe "strong password" do
-		it {strong_password(10).length.should == 10}
+		it {generate_strong_password(10).length.should == 10}
 	end
 	describe "encrypt my page" do
 		it { encrypt_my_page('<html><head><title></title></head><body></body></html>','foo').should == 

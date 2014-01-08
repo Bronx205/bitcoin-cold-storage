@@ -3,12 +3,13 @@ module CryptoHelper
 	require 'aes'
 
 	@@password=""
+	@@user=false
 
 	def encrypt_my_page(page,password='foobar')
 		AESCrypt.encrypt(page,password)
 	end
 
-	def strong_password(howlong=30)
+	def generate_strong_password(howlong=30)
 		result=""
 		while result.length < howlong
 			kind=meta_array.sample						
@@ -18,13 +19,14 @@ module CryptoHelper
 		result
 	end
 
-	def set_password(string)
+	def set_password(string,user=false)
 		@@password=string
+		@@user=user
 	end
 
-	def password
-		@@password
-	end	
+	# def password
+	# 	@@password
+	# end	
 
 	private
 

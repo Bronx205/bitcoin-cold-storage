@@ -53,7 +53,7 @@ describe "Addresses" do
 		it { should have_selector("td#prvkey_wif_1") }
 		it { should have_selector("td#qr_prvkey_wif_2") }
 	end
-	describe "submitting a password leaves you on the setup page" do
+	describe "submitting a user password leaves you on the setup page" do
 		before do
 		  fill_in 'password', with: 'foobar'
 		  click_button password_button_title			  
@@ -61,10 +61,19 @@ describe "Addresses" do
 		it { should have_title(setup_title) }		
 		it { should have_xpath("//input[@id='password'][@value='foobar']")}
 		it { should_not have_xpath("//input[@id='password'][@value='quuax']")}
-		describe "the password should be displayed on the private page" do
+		describe "the user password should be displayed on the private page" do
 			before { click_button howmany_button_title }
 			it { should have_title(private_title) }
 			it { should have_selector('h1#show_password', text: 'Encrypted with: foobar') }
 		end
+	end
+	describe "not submitting a user password should encrypt with strong password" do
+		before { click_button howmany_button_title }
+		it { should have_title(private_title) }
+		it { should have_selector('h1#show_password', text: 'Encrypted with: foobar') }
+	end
+	describe "navigating directly to the private page should redirect to setup" do
+		before { visit private_path }
+		it { should have_title(setup_title) }
 	end
 end

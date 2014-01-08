@@ -3,21 +3,25 @@ class AddressesController < ApplicationController
 	include AddressesHelper
 	include CryptoHelper
 
+	# before_filter :clear_cache
+
   def new
 		@title=full_title(setup_title)
-		set_amount howmany
+		@coldstorage=ColdStorage.new
 	end
 	
 	def create
 		@title=full_title(setup_title)
-		Rails.cache.clear
-		set_amount params[:howmany]
-		set_password strong_password if password.blank?
-		if params[:commit] == howmany_button_title && params[:howmany].to_i > 0
+		@coldstorage=ColdStorage.new(params[:password],params[:howmany])
+		# Rails.cache.clear
+		# set_amount params[:howmany]
+		# set_password strong_password if params[:password].blank?
+		# raise params.inspect	
+		if params[:commit] == howmany_button_title && @coldstorage.howmany > 0
 			set_addresses_array			
 			redirect_to private_path 
 		elsif params[:commit] == password_button_title
-			set_password params[:password]
+			set_password(params[:password], true)
 			redirect_to root_path
 		else
 			render 'new'
@@ -35,6 +39,16 @@ class AddressesController < ApplicationController
 
   def public
   	@title=public_title
-
   end
+
+  private
+
+  def address_params
+    params.require(:address).permit(:howmany, :password)
+  end
+
+  def clear_cache
+  	Rails.cache.clear unless howmany > 0
+  end
+
 end
