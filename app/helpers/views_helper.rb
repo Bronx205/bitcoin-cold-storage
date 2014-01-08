@@ -12,7 +12,7 @@ module ViewsHelper
 		'Setup'
 	end
 
-	def howmany_button_title
+	def generate_button
 		'Generate Addresses'
 	end
 
@@ -29,11 +29,7 @@ module ViewsHelper
 	end	
 
 	def password_placeholder
-		'Your password'
-	end
-
-	def password_button_title
-		'submit'
+		'Password: ' + @coldstorage.strong_password
 	end
 
 	def get_css_from_file

@@ -9,9 +9,8 @@ end
 shared_examples_for "default_setup" do
 	it { should have_title full_title(setup_title) }
 	it { should have_selector('input#howmany') }
-	it { should have_button howmany_button_title}
+	it { should have_button generate_button}
 	it { should have_selector('input#password.input-xxlarge') }
-	it { should have_button password_button_title}	
 end
 
 shared_examples_for "the private page" do

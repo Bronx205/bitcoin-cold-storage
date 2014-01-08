@@ -35,37 +35,6 @@ module AddressesHelper
 		self.current_storage=coldstorage
 	end
 
-	# def signed_in?
-	# 	!current_user.nil?
-	# end
-
-	# def current_user=(user)
-	# 	@current_user=user
-	# end
-
-	# def current_user
-	# 	@current_user ||=User.find_by_remember_token(cookies[:remember_token])		
-	# end
-
-	# def current_user?(user)
-	# 	user==current_user		
-	# end
-
-	# def sign_out
-	# 	self.current_user=nil # I don't think this is necessary
-	# 	cookies.delete(:remember_token)		
-	# end
-
-
-	def current_storage=(coldstorage)
-		@current_storage=coldstorage
-	end
-
-	def current_storage
-		@cu
-	end
-
-
 	private
 
 		def generate_addresses_array(array_size)

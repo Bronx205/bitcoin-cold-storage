@@ -12,17 +12,10 @@ class AddressesController < ApplicationController
 	
 	def create
 		@title=full_title(setup_title)
-		@coldstorage=ColdStorage.new(params[:password],params[:howmany])
-		# Rails.cache.clear
-		# set_amount params[:howmany]
-		# set_password strong_password if params[:password].blank?
-		# raise params.inspect	
-		if params[:commit] == howmany_button_title && @coldstorage.howmany > 0
-			set_addresses_array			
+		@coldstorage=ColdStorage.new
+		if params[:howmany] > 0						
+			@coldstorage=ColdStorage.new(params[:password],params[:howmany])
 			redirect_to private_path 
-		elsif params[:commit] == password_button_title
-			set_password(params[:password], true)
-			redirect_to root_path
 		else
 			render 'new'
 		end
