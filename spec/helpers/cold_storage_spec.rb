@@ -19,8 +19,8 @@ describe "cold storage" do
 		its(:addresses) { should_not be_blank }		
 		it { cold2.addresses.length.should == cold2.howmany }
 		describe "addresses array" do
-			specify {Bitcoin::valid_address?(cold2.addresses[0].addr).should be_true}	
-			specify {Bitcoin::pubkey_to_address(cold2.addresses[1].pub).should == cold2.addresses[1].addr}	
+			specify {Bitcoin::valid_address?(cold2.addresses[0][:addr]).should be_true}	
+			specify {Bitcoin::pubkey_to_address(cold2.addresses[1][:pub]).should == cold2.addresses[1][:addr]}	
 		end
 	end
 

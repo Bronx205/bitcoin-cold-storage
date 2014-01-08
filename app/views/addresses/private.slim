@@ -4,8 +4,10 @@ h2.hide_on_download
 	= link_to ' (download html)', private_path(@object, download: :plaintext), target: "_blank", class: "download"
 	= link_to ' (download encrypted)', private_path(@object, download: :encrypted), target: "_blank", class: "download"
 h1 id="show_password"
-	= "Encrypted with: "
+	= "Encrypted with: ["
 	.highlight_password
-		= @password		
+		= @password
+	= "]"		
 - cache('addresses')	do
 	= render 'addresses'
+= debug(@howmany)

@@ -57,7 +57,7 @@ describe "Addresses" do
 		before do
 		  fill_in 'password', with: 'foobar'
 		  fill_in 'howmany', with: 1
-		  click_button
+		  click_button generate_button
 		end
 		it { should have_title(private_title) }		
 		it { should have_selector('h1#show_password', text: 'Encrypted with: [foobar]') }
@@ -68,7 +68,8 @@ describe "Addresses" do
 		  click_button generate_button
 		end
 		it { should have_title(private_title) }
-		it { should have_selector('h1#show_password', text: 'Encrypted with: []') }
+		it { should_not have_selector('h1#show_password', text: 'Encrypted with: []') }
+		it { should have_selector('h1#show_password', text: 'Encrypted with: [') }
 	end
 	describe "navigating directly to the private page should redirect to setup" do
 		before { visit private_path }

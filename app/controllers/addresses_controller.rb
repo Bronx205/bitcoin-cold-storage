@@ -24,14 +24,17 @@ class AddressesController < ApplicationController
   
   def private
   	@title=private_title
-		redirect_to root_path unless howmany > 0
-		@coldstorage=flash[:var]
-		@addresses=@coldstorage.addresses
-		@howmany=@coldstorage.howmany
-		@password=@coldstorage.password
-		@download=params[:download]
-		send_data(inject_css(render_to_string), :filename => "colds.html") if @download=='plaintext'
-		send_data(encrypt_my_page(inject_css(render_to_string),password), :filename => "cold.html.aes") if @download=='encrypted'
+		@coldstorage=flash[:var]		
+		if @coldstorage.nil?
+			redirect_to root_path 
+		else
+			@addresses=@coldstorage.addresses
+			@howmany=@coldstorage.howmany
+			@password=@coldstorage.password
+			@download=params[:download]
+			send_data(inject_css(render_to_string), :filename => "colds.html") if @download=='plaintext'
+			send_data(encrypt_my_page(inject_css(render_to_string),password), :filename => "cold.html.aes") if @download=='encrypted'
+		end
   end
 
   def public
