@@ -1,11 +1,6 @@
 module CryptoHelper
 
-	require 'aes'
-
-	@@password=""
-	@@user=false
-
-	def encrypt_my_page(page,password='foobar')
+	def encrypt_my_page(page,password=generate_strong_password)
 		AESCrypt.encrypt(page,password)
 	end
 
@@ -19,21 +14,7 @@ module CryptoHelper
 		result
 	end
 
-	def set_password(string,user=false)
-		@@password=string
-		@@user=user
-	end
-
-	# def password
-	# 	@@password
-	# end	
-
 	private
-
-	def alphabet_array
-		x=("a".."z").to_a + ("A".."Z").to_a + ("0".."9").to_a
-	 	alphabet=x+"!@#$%^&*()_+~:{}[]".split("")
-	end
 
 	def lower_array
 		("a".."z").to_a 	 	
@@ -48,7 +29,7 @@ module CryptoHelper
 	end
 
 	def char_array
-		"!@#$%^&*()_+~:{}[]".split("")
+		"!@#$%^&*+~".split("")
 	end
 
 	def meta_array

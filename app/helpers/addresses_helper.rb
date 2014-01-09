@@ -2,38 +2,10 @@ module AddressesHelper
 	
 	require 'bitcoin'
 	require 'rqrcode'
-	
-	@@addresses_array=[]
-	@@howmany=1	
-
-	def set_amount(amount=1)
-		@@howmany=[amount.to_i,1].max
-	end
-
-	def set_addresses_array
-		self.addresses_array=generate_addresses_array(@@howmany)
-	end
-
-	def addresses_array
-		@@addresses_array
-	end
-
-	def howmany
-		@@howmany
-	end
-
-	def addresses_array=(array)
-		@@addresses_array=array
-	end
 
 	def generate_qr(string)
 		RQRCode::QRCode.new( string, :size => 8, :level => :h )		
 	end	
-
-	def register(coldstorage)
-		cookies[:remember_token]=coldstorage.remember_token
-		self.current_storage=coldstorage
-	end
 
 	private
 

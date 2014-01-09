@@ -1,9 +1,5 @@
 class AddressesController < ApplicationController
 	require 'rqrcode'
-	include AddressesHelper
-	include CryptoHelper
-
-	# before_filter :clear_cache
 
   def new
 		@title=full_title(setup_title)
@@ -47,10 +43,6 @@ class AddressesController < ApplicationController
 
   def address_params
     params.require(:address).permit(:howmany, :password)
-  end
-
-  def clear_cache
-  	Rails.cache.clear unless howmany > 0
   end
 
 end

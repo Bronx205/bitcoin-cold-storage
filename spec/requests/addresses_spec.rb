@@ -43,7 +43,7 @@ describe "Addresses" do
 		before { click_link private_title }
 		it_should_behave_like 'default_setup'
 	end	
-	describe "clicking the private link with addresses should remain on the page" do
+	describe "clicking the private link with addresses should remain on the page", slow: true do
 		before do
 			fill_in 'howmany', with: 1		  
 		  click_button generate_button		
@@ -61,7 +61,7 @@ describe "Addresses" do
 		it { should have_selector("td#prvkey_wif_1") }
 		it { should have_selector("td#qr_prvkey_wif_2") }
 	end
-	describe "submitting a user password should use that password" do
+	describe "submitting a user password should use that password", slow: true do
 		before do
 		  fill_in 'password', with: 'foobar'
 		  fill_in 'howmany', with: 1
@@ -70,7 +70,7 @@ describe "Addresses" do
 		it { should have_title(private_title) }		
 		it { should have_selector('h1#show_password', text: 'Encrypted with: [foobar]') }
 	end
-	describe "not submitting a user password should encrypt with strong password" do
+	describe "not submitting a user password should encrypt with strong password", slow: true do
 		before do
 		  fill_in 'howmany', with: 1
 		  click_button generate_button
