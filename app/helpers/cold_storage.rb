@@ -6,7 +6,8 @@ class ColdStorage
 	def initialize(user_password='',howmany=0)
 		@user_password = set_password(user_password)
 		@howmany = set_number(howmany)
-		@strong_password=set_strong_password
+		@password_generator=PasswordGenerator.new
+		@strong_password=@password_generator.password
 		@addresses=generate_addresses_array(@howmany)
 		@@current_addresses=@addresses
 	end
@@ -28,9 +29,6 @@ class ColdStorage
 		end
 		def set_password(string)
 			@user_password=string.to_s
-		end
-		def set_strong_password
-			@strong_password=generate_strong_password
 		end
 
 end
