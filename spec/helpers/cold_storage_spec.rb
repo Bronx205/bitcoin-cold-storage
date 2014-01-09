@@ -8,6 +8,7 @@ describe "cold storage" do
 		it { should respond_to :howmany }
 		it { should respond_to :strong_password }
 		it { should respond_to :password }
+		it { should respond_to :entropy }
 		it { should respond_to :addresses }
 	end
 
@@ -91,6 +92,10 @@ describe "cold storage" do
 		end
 	end
 
-
+	describe "entropy" do
+		let!(:alphabet) { PasswordGenerator.alphabet }
+		let!(:eunit) { Math.log(alphabet.length,2) }		
+		its(:entropy) { should == 30 * eunit }
+	end
 
 end

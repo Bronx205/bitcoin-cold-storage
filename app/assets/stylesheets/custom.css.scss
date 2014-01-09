@@ -392,10 +392,30 @@ table#private_output{
   display: inline;
   width: 5;
 }
-h1#show_password{
+h2#show_password{
   text-align:left;
   .highlight_password{
     color:red;
     display:inline;
   }
+  .show_entropy{
+    font-size:0.8em;
+    display:inline;
+    .highlight_entropy{
+      color:blue;
+      display:inline;
+    }     
+  }
+
 }
+h3#show_entropy{
+  text-align:left;
+  .highlight_entropy{
+    color:blue;
+    display:inline;
+  }
+}
+h3.highlight_entropy{
+  color:blue;
+  display:inline;
+}  

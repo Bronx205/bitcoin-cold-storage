@@ -20,6 +20,10 @@ class ColdStorage
 		end
 	end
 
+	def entropy
+		PasswordGenerator.calculate_entropy(password)
+	end
+
 	private
     def create_remember_token
 	    self.remember_token = SecureRandom.urlsafe_base64          

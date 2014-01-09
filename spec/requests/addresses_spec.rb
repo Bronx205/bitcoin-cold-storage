@@ -68,7 +68,8 @@ describe "Addresses" do
 		  click_button generate_button
 		end
 		it { should have_title(private_title) }		
-		it { should have_selector('h1#show_password', text: 'Encrypted with: [ foobar ]') }
+		it { should have_selector('h2#show_password', text: 'Encrypted with: [ foobar ]') }
+		it { should have_selector('div.show_entropy', text: '37 bits' ) }
 	end
 	describe "not submitting a user password should encrypt with strong password", slow: true do
 		before do
@@ -76,8 +77,8 @@ describe "Addresses" do
 		  click_button generate_button
 		end
 		it { should have_title(private_title) }
-		it { should_not have_selector('h1#show_password', text: 'Encrypted with: []') }
-		it { should have_selector('h1#show_password', text: 'Encrypted with: [') }
+		it { should_not have_selector('h2#show_password', text: 'Encrypted with: []') }
+		it { should have_selector('h2#show_password', text: 'Encrypted with: [') }
 	end
 	describe "navigating directly to the private page should redirect to setup" do
 		before { visit private_path }
