@@ -90,10 +90,18 @@ table#private_output .counter {
 .show_on_download{
   visibility: visible;
 }
-h1#show_password{
+h2#show_password{
   text-align:left;
 }
 .highlight_password{
   color:red;
   display:inline;
 }
+.show_entropy{
+  font-size:0.8em;
+  display:inline;   
+}
+.highlight_entropy{
+  color:blue;
+  display:inline;
+}  
