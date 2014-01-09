@@ -36,4 +36,10 @@ module CryptoHelper
 		[]<<lower_array<<upper_array<<digit_array<<char_array
 	end
 
+	def alphabet_size(meta_array)
+		meta_array.flatten.length
+	end
+
+	
+
 end

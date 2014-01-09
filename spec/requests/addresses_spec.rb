@@ -68,7 +68,7 @@ describe "Addresses" do
 		  click_button generate_button
 		end
 		it { should have_title(private_title) }		
-		it { should have_selector('h1#show_password', text: 'Encrypted with: [foobar]') }
+		it { should have_selector('h1#show_password', text: 'Encrypted with: [ foobar ]') }
 	end
 	describe "not submitting a user password should encrypt with strong password", slow: true do
 		before do
