@@ -47,14 +47,10 @@ class PasswordGenerator
 	end
 
 	def self.in_alphabet?(string)
-		begin					
-			string.each_char do |char|
-				return false unless self.alphabet=~ /#{char}/
-			end
-		rescue
-			return false
+		alphabet_array=self.alphabet.split('')
+		string.each_char do |char|
+			return false unless alphabet_array.include?(char)
 		end
-		return true
+		true
 	end
-
 end
