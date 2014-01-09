@@ -29,7 +29,7 @@ module ViewsHelper
 	end	
 
 	def password_placeholder
-		'Password: ' + @coldstorage.strong_password
+		'Your Password (optional)'
 	end
 
 	def get_css_from_file

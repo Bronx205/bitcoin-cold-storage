@@ -2,9 +2,9 @@
 	table id="setup"
 		tr
 			td 
-				= text_field_tag :howmany,@coldstorage.howmany, placeholder: howmany_placeholder, class: "input-small"
+				= text_field_tag :howmany,0, placeholder: howmany_placeholder, class: "input-small"
 			td 
 				= submit_tag generate_button,  id: "howmany_button", class: "btn btn-primary btn-align"
 		tr
 			td 
-				= text_field_tag :password,@coldstorage.user_password, placeholder: password_placeholder, class: "input-xxlarge"
+				= text_field_tag :password,'', placeholder: password_placeholder, class: "input-xxlarge"

@@ -3,7 +3,7 @@ class AddressesController < ApplicationController
 
   def new
 		@title=full_title(setup_title)
-		@coldstorage=ColdStorage.new
+		# @coldstorage=ColdStorage.new
 	end
 	
 	def create
@@ -32,7 +32,7 @@ class AddressesController < ApplicationController
 			@entropy=@coldstorage.entropy
 			@download=params[:download]
 			send_data(inject_css(render_to_string), :filename => "colds.html") if @download=='plaintext'
-			send_data(encrypt_my_page(inject_css(render_to_string),password), :filename => "cold.html.aes") if @download=='encrypted'
+			send_data(encrypt_my_page(inject_css(render_to_string),@password), :filename => "cold.html.aes") if @download=='encrypted'
 		end
   end
 
