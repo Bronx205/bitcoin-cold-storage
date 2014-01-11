@@ -31,8 +31,13 @@ class AddressesController < ApplicationController
 			@password=@coldstorage.password
 			@entropy=@coldstorage.entropy
 			@download=params[:download]
-			send_data(inject_css(render_to_string), :filename => "colds.html") if @download=='plaintext'
-			send_data(encrypt_my_page(inject_css(render_to_string),@password), :filename => "cold.html.aes") if @download=='encrypted'
+			html=render_to_string
+			plaintext=inject_css(html)
+			encrypted=encrypt_my_page(plaintext,@password)
+			File.open("/home/assaf/Downloads/plaintext.html", "w") { |file| file.write plaintext }
+			File.open("/home/assaf/Downloads/encrypted.html.aes", "w") { |file| file.write encrypted }
+			send_data(plaintext, :filename => "colds.html") if @download=='plaintext'
+			send_data(encrypted, :filename => "cold.html.aes") if @download=='encrypted'
 		end
   end
 
