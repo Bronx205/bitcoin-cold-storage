@@ -1,9 +1,12 @@
 Qrcode::Application.routes.draw do
- resources :addresses, only: [:new, :create, :private, :public]
+
+ 	resources :addresses, only: [:new, :create, :show]
  
- root to: "addresses#new"
+ 	root to: "static#home"
  
-  match "/private",  	to: 'addresses#private',         	via: :get
-  match "/public",   	to: 'addresses#public',          	via: :get
+  match "/setup",  	to: 'addresses#new',   	via: :get
+  match "/view",   	to: 'addresses#show',  	via: :get
   
+  match "/help",    	to: 'static#help',    via: :get
+  match "/about",   	to: 'static#about',	  via: :get
 end

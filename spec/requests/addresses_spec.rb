@@ -8,8 +8,8 @@ end
 
 describe "Addresses" do
 	subject { page }
-	before { visit root_path }
-	it_should_behave_like 'default_setup'
+	before { visit setup_path }
+	it_should_behave_like 'the setup page'
 	it { should have_xpath("//input[@value=0]")}
 	describe "submitting should stay on setup if the request was not a positive number is requested" do
 		['',0,-5,'foo',nil].each do |example|
@@ -17,7 +17,7 @@ describe "Addresses" do
 			  fill_in 'howmany', with: example
 			  click_button generate_button			  
 			end
-			it_should_behave_like 'default_setup'			
+			it_should_behave_like 'the setup page'			
 		end
 	end
 	describe "submitting should redirect to private if a positive number is requested", slow: true  do
@@ -25,9 +25,9 @@ describe "Addresses" do
 		  fill_in 'howmany', with: '2'
 		  click_button generate_button			  
 		end
-		it { should have_title private_title }
+		it { should have_title view_title }
 		# describe "persistance of howmany" do
-		# 	before { visit root_path }
+		# 	before { visit setup_path }
 		# 	it { find_field('howmany').value.should == '2' }
 		# 	it { find_field('howmany').value.should_not == 0 }
 		# end
@@ -40,14 +40,14 @@ describe "Addresses" do
 		it_should_behave_like 'the private page'		
 	end
 	describe "directly clicking the private link should redirect home" do
-		before { click_link private_title }
-		it_should_behave_like 'default_setup'
+		before { click_link view_title }
+		it { should have_title home_title }
 	end	
 	describe "clicking the private link with addresses should remain on the page", slow: true do
 		before do
 			fill_in 'howmany', with: 1		  
 		  click_button generate_button		
-		  click_link private_title	  
+		  click_link view_title	  
 		end				
 		it_should_behave_like 'the private page'
 	end	
@@ -67,7 +67,7 @@ describe "Addresses" do
 		  fill_in 'howmany', with: 1
 		  click_button generate_button
 		end
-		it { should have_title(private_title) }		
+		it { should have_title(view_title) }		
 		it { should have_selector('h2#show_password', text: 'Encrypted with: [ foobar ]') }
 		it { should have_selector('div.show_entropy', text: '37 bits' ) }
 	end
@@ -76,12 +76,12 @@ describe "Addresses" do
 		  fill_in 'howmany', with: 1
 		  click_button generate_button
 		end
-		it { should have_title(private_title) }
+		it { should have_title(view_title) }
 		it { should_not have_selector('h2#show_password', text: 'Encrypted with: []') }
 		it { should have_selector('h2#show_password', text: 'Encrypted with: [') }
 	end
 	describe "navigating directly to the private page should redirect to setup" do
-		before { visit private_path }
-		it { should have_title(setup_title) }
+		before { visit view_path }
+		it { should have_title(home_title) }
 	end
 end

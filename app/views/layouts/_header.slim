@@ -4,8 +4,8 @@ header.navbar.navbar-fixed-top.navbar-inverse.hide_on_download
       = link_to app_title, root_path, id: "logo"
       nav
         ul#head-links.nav.pull-right
-      		li = link_to private_title, private_path, id: "private", title: "Show private keys" 
-      		li = link_to public_title, public_path, id: "public", title: "Show Bitcoin addresses"
+      		li = link_to view_title, view_path, id: "private", title: "Show private keys" 
+      		li = link_to 'foo', "#", id: "public", title: "Show Bitcoin addresses"
 			li.dropdown id="fat-menu"
 			  a.dropdown-toggle data-toggle="dropdown" href="#"
 			    | Account

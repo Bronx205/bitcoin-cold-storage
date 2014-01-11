@@ -5,11 +5,15 @@ module ViewsHelper
 	end
 
 	def full_title(string)
-		app_title + " - " + string
+		app_title + " - " + string.to_s
 	end
 
 	def setup_title
 		'Setup'
+	end
+
+	def home_title
+		'Home'
 	end
 
 	def generate_button
@@ -20,13 +24,9 @@ module ViewsHelper
 		'How many?'
 	end
 
-	def private_title
+	def view_title
 		'Private'
 	end
-
-	def public_title
-		'Public'
-	end	
 
 	def password_placeholder
 		'Your Password (optional)'

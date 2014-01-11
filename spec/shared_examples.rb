@@ -2,11 +2,10 @@ shared_examples_for "all pages" do
 	it { should have_selector('header.navbar.navbar-fixed-top.navbar-inverse') }
 	it { should have_selector('footer.footer') }
 	it { should have_link(app_title, href: root_path) }	
-	it { should have_link(private_title, href: private_path) }
-  it { should have_link(public_title, href: public_path) }		  
+	it { should have_link(view_title, href: view_path) }
 end	
 
-shared_examples_for "default_setup" do
+shared_examples_for "the setup page" do
 	it { should have_title full_title(setup_title) }
 	it { should have_selector('input#howmany') }
 	it { should have_button generate_button}
@@ -14,7 +13,7 @@ shared_examples_for "default_setup" do
 end
 
 shared_examples_for "the private page" do
-	it { should have_title full_title(private_title) }
+	it { should have_title full_title(view_title) }
 	it { should have_link 'download html'}
 	it { should have_link 'download encrypted' }	
 	it { should have_selector('th', text: 'Bitcoin Address') }		

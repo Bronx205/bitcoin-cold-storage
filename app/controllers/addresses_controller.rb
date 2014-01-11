@@ -13,14 +13,14 @@ class AddressesController < ApplicationController
 			@coldstorage=ColdStorage.new(params[:password],params[:howmany])
 			flash[:var]=@coldstorage
 			Rails.cache.clear
-			redirect_to private_path 
+			redirect_to view_path 
 		else
 			render 'new'
 		end
 	end
   
-  def private
-  	@title=private_title
+  def show
+  	@title=view_title
 		@coldstorage=flash[:var]
 		flash[:var]=@coldstorage		
 		if @coldstorage.nil?
@@ -34,10 +34,6 @@ class AddressesController < ApplicationController
 			send_data(inject_css(render_to_string), :filename => "colds.html") if @download=='plaintext'
 			send_data(encrypt_my_page(inject_css(render_to_string),@password), :filename => "cold.html.aes") if @download=='encrypted'
 		end
-  end
-
-  def public
-  	@title=public_title
   end
 
   private
