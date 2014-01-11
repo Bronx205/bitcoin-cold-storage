@@ -1,10 +1,15 @@
 = form_tag :addresses do
 	table id="setup"
 		tr
+			td
+				| How many addresses would like to generate?
 			td 
 				= text_field_tag :howmany,0, placeholder: howmany_placeholder, class: "input-small"
-			td 
-				= submit_tag generate_button,  id: "howmany_button", class: "btn btn-primary btn-align"
 		tr
+			td
+				| Override our automatic password with your own		
 			td 
 				= text_field_tag :password,'', placeholder: password_placeholder, class: "input-xxlarge"
+		tr
+			td 
+				= submit_tag generate_button,  id: "howmany_button", class: "btn btn-primary"
