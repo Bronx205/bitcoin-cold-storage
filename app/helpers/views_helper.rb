@@ -25,7 +25,15 @@ module ViewsHelper
 	end
 
 	def view_title
-		'Private'
+		'View'
+	end
+
+	def chil_title
+		'Cool-down'
+	end
+
+	def heat_title
+		'Heat-up'
 	end
 
 	def password_placeholder

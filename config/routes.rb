@@ -1,4 +1,4 @@
-Qrcode::Application.routes.draw do
+Coldcoin::Application.routes.draw do
 
  	resources :addresses, only: [:new, :create, :show]
  

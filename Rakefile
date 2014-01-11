@@ -3,4 +3,4 @@
 
 require File.expand_path('../config/application', __FILE__)
 
-Qrcode::Application.load_tasks
+Coldcoin::Application.load_tasks

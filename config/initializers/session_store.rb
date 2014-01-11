@@ -1,3 +1,3 @@
 # Be sure to restart your server when you modify this file.
 
-Qrcode::Application.config.session_store :cookie_store, key: '_qrcode_session'
+Coldcoin::Application.config.session_store :cookie_store, key: '_qrcode_session'

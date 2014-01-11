@@ -2,7 +2,10 @@ shared_examples_for "all pages" do
 	it { should have_selector('header.navbar.navbar-fixed-top.navbar-inverse') }
 	it { should have_selector('footer.footer') }
 	it { should have_link(app_title, href: root_path) }	
-	it { should have_link(view_title, href: view_path) }
+	it { should have_link(chil_title, href: '#') }	
+	it { should have_selector('ul.dropdown-menu li a', text: setup_title) }
+	it { should have_selector('ul.dropdown-menu li a', text: view_title) }
+	it { should have_link(heat_title, href: '#') }
 end	
 
 shared_examples_for "the setup page" do
