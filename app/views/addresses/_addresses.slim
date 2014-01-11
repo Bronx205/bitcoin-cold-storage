@@ -1,4 +1,7 @@
 table.private_output id="private_output"
+	tr
+		td colspan=7
+			hr
 	= render 'address_headers'	
 	- @addresses.each do |address|
 		= render 'address', address: address, counter: @addresses.index(address)+1

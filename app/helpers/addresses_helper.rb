@@ -4,7 +4,7 @@ module AddressesHelper
 	require 'rqrcode'
 
 	def generate_qr(string)
-		RQRCode::QRCode.new( string, :size => 8, :level => :h )		
+		RQRCode::QRCode.new( string, :size => 6, :level => :h )		
 	end	
 
 	private
