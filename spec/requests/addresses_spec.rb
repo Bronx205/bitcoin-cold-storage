@@ -100,13 +100,14 @@ describe "Addresses" do
 			fill_in 'password', with: 'arikstein'
 		  click_button generate_button		
 		end
-		describe "looks like HTML" do
+		describe "looks like the right HTML" do
 			let!(:plainfile) { File.read(plain_path) }
 			let!(:expected_prefix) { '<doctype></doctype><html><head><title>'+full_title(view_title)+'</title>' }
+			let!(:expected_pass) { '<h2 id="show_password">Encrypted with: [ <div class="highlight_password">arikstein</div> ]' }
 			subject { plainfile }
 			it { should_not be_blank }
 			specify {plainfile.index(expected_prefix).should == 0}
-			specify {plainfile.index('Encrypted with').should > 1000}
+			specify {plainfile.index(expected_pass).should > 1000}
 			specify {plainfile.index('You requested 1 address').should > 500}
 			specify {plainfile.index('You requested 2 address').should be_nil}
 		end
