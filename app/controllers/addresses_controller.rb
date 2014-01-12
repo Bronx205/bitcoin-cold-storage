@@ -22,7 +22,7 @@ class AddressesController < ApplicationController
   def show
   	@title=view_title
 		@coldstorage=flash[:var]
-		flash[:var]=@coldstorage		
+		# flash[:var]=@coldstorage		
 		if @coldstorage.nil?
 			redirect_to root_path 
 		else

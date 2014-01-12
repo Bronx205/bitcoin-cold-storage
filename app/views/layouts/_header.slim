@@ -4,17 +4,4 @@ header.navbar.navbar-fixed-top.navbar-inverse.hide_on_download
       = link_to app_title, root_path, id: "logo"
       nav
         ul#head-links.nav.pull-right
-			li.dropdown id="chil-menu"
-			  a.dropdown-toggle data-toggle="dropdown" href="#"
-			    = chil_title
-			    b.caret
-			  ul.dropdown-menu
-			    li = link_to setup_title, setup_path
-			    li = link_to view_title, view_path
-			li.dropdown id="heat-menu"
-			  a.dropdown-toggle data-toggle="dropdown" href="#"
-			    = heat_title
-			    b.caret
-			  / ul.dropdown-menu
-			  /   li = link_to heat_setup_title, heat_setup_path
-			  /   li = link_to heat_view_title, heat_view_path			    
+					li = link_to chill_title, setup_path

@@ -12,11 +12,11 @@ describe "layout" do
 		it { should have_title home_title }
 	end
 	describe "view cold page should redirect home" do
-		before { click_link view_title }
-		it { should have_title home_title }
-	end
-	describe "setup cold page" do
-		before { click_link setup_title }
+		before { click_link chill_title }
 		it { should have_title setup_title }
-	end		
+	end
+	# describe "setup cold page" do
+	# 	before { click_link heat_title }
+	# 	it { should have_title heat_setup_title }
+	# end		
 end

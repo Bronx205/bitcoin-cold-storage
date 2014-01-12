@@ -9,7 +9,10 @@ end
 
 describe "Addresses:" do
 	subject { page }
-	before { visit setup_path }
+	before do
+	  visit root_path
+	  click_link chill_title
+	end
 	it_should_behave_like 'the setup page'
 	it { should have_xpath("//input[@value=0]")}
 	describe "submitting should stay on setup if the request was not a positive number is requested" do
@@ -35,18 +38,10 @@ describe "Addresses:" do
 		end		
 		it_should_behave_like 'the view page'		
 	end
-	describe "directly clicking the private link should redirect home" do
-		before { click_link view_title }
+	describe "directly visiting the view path should redirect home" do
+		before { visit view_path }
 		it { should have_title home_title }
-	end	
-	describe "clicking the private link with addresses should remain on the page", slow: true do
-		before do
-			fill_in 'howmany', with: 1		  
-		  click_button generate_button		
-		  click_link view_title	  
-		end				
-		it_should_behave_like 'the view page'
-	end	
+	end		
 	describe "private page should show the correct number of addresses", slow: true do		
 		before do
 		  fill_in 'howmany', with: 2
