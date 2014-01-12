@@ -7,6 +7,27 @@ module AddressesHelper
 		RQRCode::QRCode.new( string, :size => 6, :level => :h )		
 	end	
 
+	def save_file(path, data)
+		File.open(path,'w') {|file| file.write data }
+	end
+
+	def save_coldstorage_files(plain_file,encrypted_file)
+		save_file(coldstorage_directory+plaintext_file_name,plain_file)
+		save_file(coldstorage_directory+encrypted_file_name,encrypted_file)
+	end
+
+	def coldstorage_directory
+		'/home/assaf/Downloads/'
+	end
+
+	def plaintext_file_name
+		'plaintext.html'
+	end
+
+	def encrypted_file_name
+		'coldstorage.html.aes'
+	end
+
 	private
 
 		def generate_addresses_array(array_size)
@@ -21,7 +42,6 @@ module AddressesHelper
 			end
 			return result
 		end
-
 
 end
 
