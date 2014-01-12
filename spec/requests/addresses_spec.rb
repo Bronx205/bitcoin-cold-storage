@@ -7,7 +7,7 @@ RSpec.configure do |c|
   c.filter_run_excluding :slow => true
 end
 
-describe "Addresses" do
+describe "Addresses:" do
 	subject { page }
 	before { visit setup_path }
 	it_should_behave_like 'the setup page'
@@ -81,7 +81,7 @@ describe "Addresses" do
 		it { should have_title(home_title) }
 	end
 
-	describe "Cold Storgae Files are saved and are fresh" do
+	describe "Cold Storgae Files are saved and are fresh", slow: true do
 		let!(:plain_path) { coldstorage_directory+plaintext_file_name }
 		let!(:encrypted_path) { coldstorage_directory+plaintext_file_name }
 		before do
@@ -93,23 +93,36 @@ describe "Addresses" do
 		specify{File.exist?(encrypted_path).should be_true }
 		specify{(File.ctime(encrypted_path).to_f-Time.now.to_f).to_i.should be < 1  }
 	end
-	describe "Plaintext file" do
-		let!(:plain_path) { coldstorage_directory+plaintext_file_name }
+	describe ":ColdStorage Files:", slow: true do
+		let!(:plain_path) { plaintext_file_path }
+		let!(:encrypted_path) { encrypted_file_path }
+		let!(:password) { 'arikstein' }
 		before do
 			fill_in 'howmany', with: 1		  
-			fill_in 'password', with: 'arikstein'
-		  click_button generate_button		
+			fill_in 'password', with: password
+		  click_button generate_button
 		end
-		describe "looks like the right HTML" do
-			let!(:plainfile) { File.read(plain_path) }
+		describe "Plaintext file looks like the right HTML" do
+			let!(:plain_file) { File.read(plain_path) }
+			let!(:expected_prefix) { '<doctype></doctype><html><head><title>'+full_title(view_title)+'</title>' }
+			let!(:expected_pass) { '<h2 id="show_password">Encrypted with: [ <div class="highlight_password">'+password+'</div> ]' }
+			subject { plain_file }
+			it { should_not be_blank }
+			specify {plain_file.index(expected_prefix).should == 0}
+			specify {plain_file.index(expected_pass).should_not be_nil}
+			specify {plain_file.index('You requested 1 address').should > 500}
+			specify {plain_file.index('You requested 2 address').should be_nil}
+		end
+		describe "Encrypted file is encrypted and can be decrypted with the right password" do
+			let!(:encrypted_file) { File.read(encrypted_path) }
+			let!(:plain_file) { File.read(plain_path) }
 			let!(:expected_prefix) { '<doctype></doctype><html><head><title>'+full_title(view_title)+'</title>' }
 			let!(:expected_pass) { '<h2 id="show_password">Encrypted with: [ <div class="highlight_password">arikstein</div> ]' }
-			subject { plainfile }
+			subject { encrypted_file }
 			it { should_not be_blank }
-			specify {plainfile.index(expected_prefix).should == 0}
-			specify {plainfile.index(expected_pass).should > 1000}
-			specify {plainfile.index('You requested 1 address').should > 500}
-			specify {plainfile.index('You requested 2 address').should be_nil}
-		end
+			specify {encrypted_file.index(expected_prefix).should == nil}
+			specify {AESCrypt.decrypt(encrypted_file,password).should == plain_file}
+		end		
 	end	
+
 end

@@ -12,8 +12,8 @@ module AddressesHelper
 	end
 
 	def save_coldstorage_files(plain_file,encrypted_file)
-		save_file(coldstorage_directory+plaintext_file_name,plain_file)
-		save_file(coldstorage_directory+encrypted_file_name,encrypted_file)
+		save_file(plaintext_file_path,plain_file)
+		save_file(encrypted_file_path,encrypted_file)
 	end
 
 	def coldstorage_directory
@@ -27,6 +27,14 @@ module AddressesHelper
 	def encrypted_file_name
 		'coldstorage.html.aes'
 	end
+
+	def plaintext_file_path
+		coldstorage_directory+plaintext_file_name
+	end
+
+	def encrypted_file_path
+		coldstorage_directory+encrypted_file_name
+	end	
 
 	private
 
