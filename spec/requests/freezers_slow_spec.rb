@@ -4,7 +4,7 @@ include ViewsHelper
 include FreezersHelper
 
 RSpec.configure do |c|
-  c.filter_run_excluding :xslow => true
+  c.filter_run_excluding :slow => true
 end
 
 describe "Freezers Slow specs:", slow: true do
