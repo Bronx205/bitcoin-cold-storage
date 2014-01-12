@@ -6,6 +6,8 @@ shared_examples_for "all pages" do
 	# it { should have_selector('ul.dropdown-menu li a', text: setup_title) }
 	# it { should have_selector('ul.dropdown-menu li a', text: cold_view_title) }
 	it { should have_link(heatup_title, href: heatup_path) }
+	it { should have_link('About', href: about_path) }
+	it { should have_link('Help', href: help_path) }
 end	
 
 shared_examples_for "the freeze page" do
@@ -25,6 +27,8 @@ end
 
 shared_examples_for "the heatup page" do
 	it { should have_title full_title(heatup_title) }
+	it { should have_selector('input#password.input-xxlarge') }
+	it { should have_button recover_button}
 end
 
 shared_examples_for "the heat_view page" do
