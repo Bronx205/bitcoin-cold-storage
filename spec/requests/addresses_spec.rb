@@ -111,12 +111,31 @@ describe "Addresses:" do
 			let!(:encrypted_file) { File.read(encrypted_path) }
 			let!(:plain_file) { File.read(plain_path) }
 			let!(:expected_prefix) { '<doctype></doctype><html><head><title>'+full_title(view_title)+'</title>' }
-			let!(:expected_pass) { '<h2 id="show_password">Encrypted with: [ <div class="highlight_password">arikstein</div> ]' }
+			let!(:expected_pass) { '<h2 id="show_password">Encrypted with: [ <div class="highlight_password">'+password+'</div> ]' }
 			subject { encrypted_file }
 			it { should_not be_blank }
 			specify {encrypted_file.index(expected_prefix).should == nil}
 			specify {AESCrypt.decrypt(encrypted_file,password).should == plain_file}
 		end		
 	end	
-
+	describe ":ColdStorage Files with password cotaining spaces:", slow: true do
+		let!(:plain_path) { plaintext_file_path }
+		let!(:encrypted_path) { encrypted_file_path }
+		let!(:password) { 'I like Mike $$ moSt of the Time' }
+		before do
+			fill_in 'howmany', with: 1		  
+			fill_in 'password', with: password
+		  click_button generate_button
+		end
+		describe "Encrypted file is encrypted and can be decrypted with the right password" do
+			let!(:encrypted_file) { File.read(encrypted_path) }
+			let!(:plain_file) { File.read(plain_path) }
+			let!(:expected_prefix) { '<doctype></doctype><html><head><title>'+full_title(view_title)+'</title>' }
+			let!(:expected_pass) { '<h2 id="show_password">Encrypted with: [ <div class="highlight_password">'+password+'</div> ]' }
+			subject { encrypted_file }
+			it { should_not be_blank }
+			specify {encrypted_file.index(expected_prefix).should == nil}
+			specify {AESCrypt.decrypt(encrypted_file,password).should == plain_file}
+		end		
+	end	
 end
