@@ -1,6 +1,6 @@
 class ColdStorage
 	include CryptoHelper
-	include AddressesHelper
+	include FreezersHelper
 	attr_reader :user_password, :howmany, :strong_password, :addresses
 
 	def initialize(user_password='',howmany=0)

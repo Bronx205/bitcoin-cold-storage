@@ -1,17 +1,17 @@
 require 'spec_helper'
 require 'shared_examples'
 include ViewsHelper
-include AddressesHelper
+include FreezersHelper
 
 RSpec.configure do |c|
   c.filter_run_excluding :slow => true
 end
 
-describe "Addresses:" do
+describe "Freezers:" do
 	subject { page }
 	before do
 	  visit root_path
-	  click_link chill_title
+	  click_link freeze_title
 	end
 	it_should_behave_like 'the setup page'
 	it { should have_xpath("//input[@value=0]")}

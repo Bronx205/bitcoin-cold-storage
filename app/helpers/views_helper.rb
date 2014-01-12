@@ -28,7 +28,7 @@ module ViewsHelper
 		'View'
 	end
 
-	def chill_title
+	def freeze_title
 		'Cool-down'
 	end
 

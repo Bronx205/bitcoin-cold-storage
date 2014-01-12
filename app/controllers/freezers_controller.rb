@@ -1,4 +1,4 @@
-class AddressesController < ApplicationController
+class FreezersController < ApplicationController
 	require 'rqrcode'
 
   def new

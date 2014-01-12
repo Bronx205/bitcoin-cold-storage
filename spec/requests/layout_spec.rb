@@ -11,12 +11,12 @@ describe "layout" do
 		it_should_behave_like 'all pages'
 		it { should have_title home_title }
 	end
-	describe "view cold page should redirect home" do
-		before { click_link chill_title }
+	describe "freeze link should show freeze page" do
+		before { click_link freeze_title }
 		it { should have_title setup_title }
 	end
-	# describe "setup cold page" do
-	# 	before { click_link heat_title }
-	# 	it { should have_title heat_setup_title }
-	# end		
+	describe "heatup link should show heatup page" do
+		before { click_link heat_title }
+		it { should have_title heat_title }
+	end		
 end

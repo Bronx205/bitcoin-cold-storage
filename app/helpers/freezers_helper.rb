@@ -1,4 +1,4 @@
-module AddressesHelper
+module FreezersHelper
 	
 	require 'bitcoin'
 	require 'rqrcode'
