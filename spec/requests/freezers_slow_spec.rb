@@ -25,7 +25,7 @@ describe "Freezers Slow specs:", slow: true do
 			fill_in 'howmany', with: 1		  
 		  click_button generate_button			  
 		end		
-		it_should_behave_like 'the view page'		
+		it_should_behave_like 'the cold_view page'		
 	end
 	describe "private page should show the correct number of addresses" do		
 		before do
