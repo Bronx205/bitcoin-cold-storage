@@ -39,7 +39,7 @@ describe "Addresses:" do
 		it_should_behave_like 'the view page'		
 	end
 	describe "directly visiting the view path should redirect home" do
-		before { visit view_path }
+		before { visit cold_view_path }
 		it { should have_title home_title }
 	end		
 	describe "private page should show the correct number of addresses", slow: true do		
@@ -72,7 +72,7 @@ describe "Addresses:" do
 		it { should have_selector('h2#show_password', text: ' encrypted with: [') }
 	end
 	describe "navigating directly to the view page should redirect to setup" do
-		before { visit view_path }
+		before { visit cold_view_path }
 		it { should have_title(home_title) }
 	end
 
@@ -104,8 +104,6 @@ describe "Addresses:" do
 			it { page.should have_xpath("//div[@class='highlight_entropy'][@title='A brute force search for a word of length 9 in the alphabet [aeiknrst] requires ~ 2^26 trials, on average.']")}			
 			specify {plain_file.index(expected_prefix).should == 0}
 			specify {plain_file.index(expected_pass).should_not be_nil}
-			specify {plain_file.index('You requested 1 address').should > 500}
-			specify {plain_file.index('You requested 2 address').should be_nil}
 		end
 		describe "Encrypted file is encrypted and can be decrypted with the right password" do
 			let!(:encrypted_file) { File.read(encrypted_path) }

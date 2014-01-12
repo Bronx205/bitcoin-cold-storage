@@ -13,7 +13,7 @@ class AddressesController < ApplicationController
 			@coldstorage=ColdStorage.new(params[:password],params[:howmany])
 			flash[:var]=@coldstorage
 			Rails.cache.clear
-			redirect_to view_path 
+			redirect_to cold_view_path 
 		else
 			render 'new'
 		end
