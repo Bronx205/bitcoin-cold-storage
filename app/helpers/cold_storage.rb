@@ -20,8 +20,16 @@ class ColdStorage
 		end
 	end
 
+	def alphabet
+		if @user_password.blank?
+			PasswordGenerator.alphabet.to_s			
+		else
+			@user_password.split('').uniq.sort.join
+		end		
+	end
+
 	def entropy
-		PasswordGenerator.calculate_entropy(password)
+		PasswordGenerator.calculate_entropy(password, alphabet)
 	end
 
 	private

@@ -37,6 +37,10 @@ describe "password generator" do
 		specify {PasswordGenerator.in_alphabet?('`').should be_false}			
 		specify {PasswordGenerator.in_alphabet?('a 4!@#$').should be_false}
 		specify {PasswordGenerator.in_alphabet?('a(4!@#$').should be_false}
+
+		specify {PasswordGenerator.in_alphabet?('abc','def').should be_false}
+		specify {PasswordGenerator.in_alphabet?('abc','abcd').should be_true}
+		specify {PasswordGenerator.in_alphabet?('abc','abd').should be_false}
 	end
 	
 	describe "calculate entropy" do
@@ -44,6 +48,9 @@ describe "password generator" do
 		specify {PasswordGenerator.calculate_entropy('a').should == eunit }
 		specify {PasswordGenerator.calculate_entropy(' ').should == -1 }
 		specify {PasswordGenerator.calculate_entropy('abc').should == 3*eunit }
+		specify {PasswordGenerator.calculate_entropy('abc','def').should < 0 }
+		specify {PasswordGenerator.calculate_entropy('abc','abcd').should == 6 }
+		specify {PasswordGenerator.calculate_entropy('a','abcd').should == 2 }
 	end
 
 end

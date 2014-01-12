@@ -1,6 +1,5 @@
 class AddressesController < ApplicationController
 	require 'rqrcode'
-	include AddressesHelper
 
   def new
 		@title=full_title(setup_title)
@@ -31,6 +30,8 @@ class AddressesController < ApplicationController
 			@howmany=@coldstorage.howmany
 			@password=@coldstorage.password
 			@entropy=@coldstorage.entropy
+			@alphabet=@coldstorage.alphabet
+			@explanation=entropy_explanation(@password.length, @alphabet,@entropy)
 			html=render_to_string
 			plaintext=inject_css(html)
 			encrypted=encrypt_my_page(plaintext,@password)

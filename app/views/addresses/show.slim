@@ -12,4 +12,6 @@
 			.highlight_entropy
 				= @entropy.round.to_s
 			= " bits of entropy)"
+			.highlight_entropy title=@explanation
+				= " (?)"
 		= render 'addresses'

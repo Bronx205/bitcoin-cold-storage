@@ -82,7 +82,7 @@ describe "cold storage" do
 		it { cold.strong_password.length.should == 30 }
 	end
 
-	describe "password" do
+	describe "password:" do
 		its(:password) { should == cold.strong_password }
 		describe "password should be user password if not blank" do
 			let!(:cold2) { ColdStorage.new('foo') }
@@ -92,10 +92,32 @@ describe "cold storage" do
 		end
 	end
 
-	describe "entropy" do
-		let!(:alphabet) { PasswordGenerator.alphabet }
-		let!(:eunit) { Math.log(alphabet.length,2) }		
-		its(:entropy) { should == 30 * eunit }
+	describe "alphabet:" do
+		describe "without a user password:" do
+			its(:alphabet) { should == PasswordGenerator.alphabet }
+		end
+		describe "with a user password:" do
+			let!(:cold2) { ColdStorage.new('assafaaa!!!foobarx') }
+			let!(:cold3) { ColdStorage.new('!f!oo!foxobaras') }
+			specify {cold2.alphabet.should == '!abforsx' }
+			specify {cold3.alphabet.should == '!abforsx' }
+		end		
 	end
 
+	describe "entropy:" do
+		let!(:alphabet) { PasswordGenerator.alphabet }
+		let!(:eunit) { Math.log(alphabet.length,2) }		
+		describe "no user passowrd" do
+			its(:entropy) { should == 30 * eunit }	
+		end
+		describe "with user passowrd" do
+			let!(:cold2) { ColdStorage.new('assafaaa!!!foobarx') }
+			let!(:cold3) { ColdStorage.new('!f!oo!foxobaras') }
+			let!(:alphabet) { cold2.alphabet }
+			let!(:eunit) { Math.log(alphabet.length,2) }
+			specify {cold2.entropy.should == cold2.password.length * eunit }
+			specify {cold3.entropy.should == cold3.password.length * 3 }
+			specify {cold2.entropy.should_not == cold3.password.length * eunit }			
+		end		
+	end
 end

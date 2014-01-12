@@ -59,13 +59,13 @@ describe "Addresses:" do
 	end
 	describe "submitting a user password should use that password", slow: true do
 		before do
-		  fill_in 'password', with: 'foobar'
+		  fill_in 'password', with: 'fooba'
 		  fill_in 'howmany', with: 1
 		  click_button generate_button
 		end
 		it { should have_title(view_title) }		
-		it { should have_selector('h2#show_password', text: 'Encrypted with: [ foobar ]') }
-		it { should have_selector('div.show_entropy', text: '37 bits' ) }
+		it { should have_selector('h2#show_password', text: 'Encrypted with: [ fooba ]') }
+		it { should have_selector('div.show_entropy', text: '10 bits' ) }
 	end
 	describe "not submitting a user password should encrypt with strong password", slow: true do
 		before do
@@ -106,8 +106,7 @@ describe "Addresses:" do
 			let!(:plain_file) { File.read(plain_path) }
 			let!(:expected_prefix) { '<doctype></doctype><html><head><title>'+full_title(view_title)+'</title>' }
 			let!(:expected_pass) { '<h2 id="show_password">Encrypted with: [ <div class="highlight_password">'+password+'</div> ]' }
-			subject { plain_file }
-			it { should_not be_blank }
+			it { page.should have_xpath("//div[@class='highlight_entropy'][@title='A brute force search for a word of length 9 in the alphabet [aeiknrst] requires ~ 2^26 trials, on average.']")}			
 			specify {plain_file.index(expected_prefix).should == 0}
 			specify {plain_file.index(expected_pass).should_not be_nil}
 			specify {plain_file.index('You requested 1 address').should > 500}

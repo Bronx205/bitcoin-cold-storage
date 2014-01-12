@@ -10,9 +10,9 @@ class PasswordGenerator
 		meta_array.flatten.join('')
 	end
 
-	def self.calculate_entropy(string)
-		return -1 unless self.in_alphabet?(string)
-		string.length * Math.log(self.alphabet.length,2)
+	def self.calculate_entropy(string,alphabet=self.alphabet)
+		return -1 unless self.in_alphabet?(string,alphabet)
+		string.length * Math.log(alphabet.length,2)
 	end
 
 	def entropy
@@ -51,8 +51,8 @@ class PasswordGenerator
 		[]<<lower_array<<upper_array<<digit_array<<char_array
 	end
 
-	def self.in_alphabet?(string)
-		alphabet_array=self.alphabet.split('')
+	def self.in_alphabet?(string,alphabet=self.alphabet)
+		alphabet_array=alphabet.split('')
 		string.each_char do |char|
 			return false unless alphabet_array.include?(char)
 		end
