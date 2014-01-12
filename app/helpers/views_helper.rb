@@ -32,7 +32,7 @@ module ViewsHelper
 		'Cool-down'
 	end
 
-	def heat_title
+	def heatup_title
 		'Heat-up'
 	end
 

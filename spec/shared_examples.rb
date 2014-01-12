@@ -5,7 +5,7 @@ shared_examples_for "all pages" do
 	it { should have_link(freeze_title, href: freeze_path) }	
 	# it { should have_selector('ul.dropdown-menu li a', text: setup_title) }
 	# it { should have_selector('ul.dropdown-menu li a', text: view_title) }
-	it { should have_link(heat_title, href: heatup_path) }
+	it { should have_link(heatup_title, href: heatup_path) }
 end	
 
 shared_examples_for "the setup page" do

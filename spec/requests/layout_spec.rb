@@ -16,7 +16,7 @@ describe "layout" do
 		it { should have_title setup_title }
 	end
 	describe "heatup link should show heatup page" do
-		before { click_link heat_title }
-		it { should have_title heat_title }
+		before { click_link heatup_title }
+		it { should have_title heatup_title }
 	end		
 end
