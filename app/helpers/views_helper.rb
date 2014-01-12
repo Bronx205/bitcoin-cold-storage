@@ -41,7 +41,7 @@ module ViewsHelper
 	end
 
 	def entropy_explanation(length, alphabet, entropy)
-		size=(entropy -1).round.to_i.to_s
+		size=[(entropy -1).round.to_i,0].max.to_s
 		'A brute force search for a word of length '+length.to_s + ' in the alphabet [' + alphabet.to_s + '] requires ~ 2^' + size + ' trials, on average.'
 	end
 

@@ -1,9 +1,6 @@
 - cache('addresses')	do
-	h2.hide_on_download
-		= "You requested #{pluralize(@howmany,'address')} " 
-		.invisible.five
 	h2 id="show_password"
-		= "Encrypted with: ["
+		= pluralize(@howmany,'address') + " encrypted with: ["
 		.highlight_password
 			= @password	
 		= "]"
