@@ -29,7 +29,7 @@ module ViewsHelper
 	end
 
 	def freeze_title
-		'Cool-down'
+		'Freeze'
 	end
 
 	def heatup_title

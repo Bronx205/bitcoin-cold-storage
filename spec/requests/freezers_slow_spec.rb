@@ -4,45 +4,30 @@ include ViewsHelper
 include FreezersHelper
 
 RSpec.configure do |c|
-  c.filter_run_excluding :slow => true
+  c.filter_run_excluding :xslow => true
 end
 
-describe "Freezers:" do
+describe "Freezers Slow specs:", slow: true do
 	subject { page }
 	before do
 	  visit root_path
 	  click_link freeze_title
 	end
-	it_should_behave_like 'the setup page'
-	it { should have_xpath("//input[@value=0]")}
-	describe "submitting should stay on setup if the request was not a positive number is requested" do
-		['',0,-5,'foo',nil].each do |example|
-			before do
-			  fill_in 'howmany', with: example
-			  click_button generate_button			  
-			end
-			it_should_behave_like 'the setup page'			
-		end
-	end
-	describe "submitting should redirect to private if a positive number is requested", slow: true  do
+	describe "submitting should redirect to private if a positive number is requested" do
 		before do
 		  fill_in 'howmany', with: '2'
 		  click_button generate_button			  
 		end
 		it { should have_title view_title }
 	end
-	describe "private page layout", slow: true  do
+	describe "private page layout"  do
 		before do
 			fill_in 'howmany', with: 1		  
 		  click_button generate_button			  
 		end		
 		it_should_behave_like 'the view page'		
 	end
-	describe "directly visiting the view path should redirect home" do
-		before { visit cold_view_path }
-		it { should have_title home_title }
-	end		
-	describe "private page should show the correct number of addresses", slow: true do		
+	describe "private page should show the correct number of addresses" do		
 		before do
 		  fill_in 'howmany', with: 2
 		  click_button generate_button			  
@@ -52,7 +37,7 @@ describe "Freezers:" do
 		it { should have_selector("td#prvkey_wif_1") }
 		it { should have_selector("td#qr_prvkey_wif_2") }
 	end
-	describe "submitting a user password should use that password", slow: true do
+	describe "submitting a user password should use that password" do
 		before do
 		  fill_in 'password', with: 'fooba'
 		  fill_in 'howmany', with: 1
@@ -62,7 +47,7 @@ describe "Freezers:" do
 		it { should have_selector('h2#show_password', text: ' encrypted with: [fooba]') }
 		it { should have_selector('div.show_entropy', text: '10 bits' ) }
 	end
-	describe "not submitting a user password should encrypt with strong password", slow: true do
+	describe "not submitting a user password should encrypt with strong password" do
 		before do
 		  fill_in 'howmany', with: 1
 		  click_button generate_button
@@ -71,12 +56,7 @@ describe "Freezers:" do
 		it { should_not have_selector('h2#show_password', text: ' encrypted with: []') }
 		it { should have_selector('h2#show_password', text: ' encrypted with: [') }
 	end
-	describe "navigating directly to the view page should redirect to setup" do
-		before { visit cold_view_path }
-		it { should have_title(home_title) }
-	end
-
-	describe "Cold Storgae Files are saved and are fresh", slow: true do
+	describe "Cold Storgae Files are saved and are fresh" do
 		let!(:plain_path) { coldstorage_directory+plaintext_file_name }
 		let!(:encrypted_path) { coldstorage_directory+plaintext_file_name }
 		before do
@@ -88,7 +68,7 @@ describe "Freezers:" do
 		specify{File.exist?(encrypted_path).should be_true }
 		specify{(File.ctime(encrypted_path).to_f-Time.now.to_f).to_i.should be < 1  }
 	end
-	describe ":ColdStorage Files:", slow: true do
+	describe ":ColdStorage Files:" do
 		let!(:plain_path) { plaintext_file_path }
 		let!(:encrypted_path) { encrypted_file_path }
 		let!(:password) { 'arikstein' }
@@ -116,7 +96,7 @@ describe "Freezers:" do
 			specify {AESCrypt.decrypt(encrypted_file,password).should == plain_file}
 		end		
 	end	
-	describe ":ColdStorage Files with password cotaining spaces:", slow: true do
+	describe ":ColdStorage Files with password cotaining spaces:" do
 		let!(:plain_path) { plaintext_file_path }
 		let!(:encrypted_path) { encrypted_file_path }
 		let!(:password) { 'I like Mike $$ moSt of the Time' }
