@@ -13,7 +13,7 @@ describe "layout" do
 	end
 	describe "freeze link should show freeze page" do
 		before { click_link freeze_title }
-		it { should have_title setup_title }
+		it { should have_title freeze_title }
 	end
 	describe "heatup link should show heatup page" do
 		before { click_link heatup_title }

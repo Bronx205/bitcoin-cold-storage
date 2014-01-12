@@ -15,7 +15,7 @@ describe "Freezers:" do
 	end
 	it_should_behave_like 'the freeze page'
 	it { should have_xpath("//input[@value=0]")}
-	describe "submitting should stay on setup if the request was not a positive number is requested" do
+	describe "submitting should stay on freeze page if the request was not a positive number is requested" do
 		['',0,-5,'foo',nil].each do |example|
 			before do
 			  fill_in 'howmany', with: example
@@ -24,10 +24,6 @@ describe "Freezers:" do
 			it_should_behave_like 'the freeze page'			
 		end
 	end
-	describe "navigating directly to the cold_view page should redirect to setup" do
-		before { visit cold_view_path }
-		it { should have_title(home_title) }
-	end	
 	describe "directly visiting the view path should redirect home" do
 		before { visit cold_view_path }
 		it { should have_title home_title }

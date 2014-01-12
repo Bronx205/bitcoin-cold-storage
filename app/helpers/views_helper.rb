@@ -8,10 +8,6 @@ module ViewsHelper
 		app_title + " - " + string.to_s
 	end
 
-	def setup_title
-		'Setup'
-	end
-
 	def home_title
 		'Home'
 	end
@@ -24,7 +20,7 @@ module ViewsHelper
 		'How many?'
 	end
 
-	def view_title
+	def cold_view_title
 		'View'
 	end
 

@@ -18,7 +18,7 @@ describe "Freezers Slow specs:", slow: true do
 		  fill_in 'howmany', with: '2'
 		  click_button generate_button			  
 		end
-		it { should have_title view_title }
+		it { should have_title cold_view_title }
 	end
 	describe "private page layout"  do
 		before do
@@ -43,7 +43,7 @@ describe "Freezers Slow specs:", slow: true do
 		  fill_in 'howmany', with: 1
 		  click_button generate_button
 		end
-		it { should have_title(view_title) }		
+		it { should have_title(cold_view_title) }		
 		it { should have_selector('h2#show_password', text: ' encrypted with: [fooba]') }
 		it { should have_selector('div.show_entropy', text: '10 bits' ) }
 	end
@@ -52,7 +52,7 @@ describe "Freezers Slow specs:", slow: true do
 		  fill_in 'howmany', with: 1
 		  click_button generate_button
 		end
-		it { should have_title(view_title) }
+		it { should have_title(cold_view_title) }
 		it { should_not have_selector('h2#show_password', text: ' encrypted with: []') }
 		it { should have_selector('h2#show_password', text: ' encrypted with: [') }
 	end
@@ -79,7 +79,7 @@ describe "Freezers Slow specs:", slow: true do
 		end
 		describe "Plaintext file looks like the right HTML" do
 			let!(:plain_file) { File.read(plain_path) }
-			let!(:expected_prefix) { '<doctype></doctype><html><head><title>'+full_title(view_title)+'</title>' }
+			let!(:expected_prefix) { '<doctype></doctype><html><head><title>'+full_title(cold_view_title)+'</title>' }
 			let!(:expected_pass) { '<h2 id="show_password">1 address encrypted with: [<div class="highlight_password">'+password+'</div>]' }
 			it { page.should have_xpath("//div[@class='highlight_entropy'][@title='A brute force search for a word of length 9 in the alphabet [aeiknrst] requires ~ 2^26 trials, on average.']")}			
 			specify {plain_file.index(expected_prefix).should == 0}
@@ -88,7 +88,7 @@ describe "Freezers Slow specs:", slow: true do
 		describe "Encrypted file is encrypted and can be decrypted with the right password" do
 			let!(:encrypted_file) { File.read(encrypted_path) }
 			let!(:plain_file) { File.read(plain_path) }
-			let!(:expected_prefix) { '<doctype></doctype><html><head><title>'+full_title(view_title)+'</title>' }
+			let!(:expected_prefix) { '<doctype></doctype><html><head><title>'+full_title(cold_view_title)+'</title>' }
 			let!(:expected_pass) { '<h2 id="show_password"> encrypted with: [<div class="highlight_password">'+password+'</div>]' }
 			subject { encrypted_file }
 			it { should_not be_blank }
@@ -108,7 +108,7 @@ describe "Freezers Slow specs:", slow: true do
 		describe "Encrypted file is encrypted and can be decrypted with the right password" do
 			let!(:encrypted_file) { File.read(encrypted_path) }
 			let!(:plain_file) { File.read(plain_path) }
-			let!(:expected_prefix) { '<doctype></doctype><html><head><title>'+full_title(view_title)+'</title>' }
+			let!(:expected_prefix) { '<doctype></doctype><html><head><title>'+full_title(cold_view_title)+'</title>' }
 			let!(:expected_pass) { '<h2 id="show_password"> encrypted with: [ <div class="highlight_password">'+password+'</div> ]' }
 			subject { encrypted_file }
 			it { should_not be_blank }

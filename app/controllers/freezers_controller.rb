@@ -2,12 +2,12 @@ class FreezersController < ApplicationController
 	require 'rqrcode'
 
   def new
-		@title=full_title(setup_title)
+		@title=full_title(freeze_title)
 		# @coldstorage=ColdStorage.new
 	end
 	
 	def create
-		@title=full_title(setup_title)
+		@title=full_title(freeze_title)
 		@coldstorage=ColdStorage.new
 		if params[:howmany].to_i > 0						
 			@coldstorage=ColdStorage.new(params[:password],params[:howmany])
@@ -20,7 +20,7 @@ class FreezersController < ApplicationController
 	end
   
   def show
-  	@title=view_title
+  	@title=cold_view_title
 		@coldstorage=flash[:var]
 		# flash[:var]=@coldstorage		
 		if @coldstorage.nil?
