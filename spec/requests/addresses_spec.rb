@@ -59,7 +59,7 @@ describe "Addresses:" do
 		  click_button generate_button
 		end
 		it { should have_title(view_title) }		
-		it { should have_selector('h2#show_password', text: 'Encrypted with: [ fooba ]') }
+		it { should have_selector('h2#show_password', text: 'Encrypted with: [fooba]') }
 		it { should have_selector('div.show_entropy', text: '10 bits' ) }
 	end
 	describe "not submitting a user password should encrypt with strong password", slow: true do
@@ -100,7 +100,7 @@ describe "Addresses:" do
 		describe "Plaintext file looks like the right HTML" do
 			let!(:plain_file) { File.read(plain_path) }
 			let!(:expected_prefix) { '<doctype></doctype><html><head><title>'+full_title(view_title)+'</title>' }
-			let!(:expected_pass) { '<h2 id="show_password">Encrypted with: [ <div class="highlight_password">'+password+'</div> ]' }
+			let!(:expected_pass) { '<h2 id="show_password">Encrypted with: [<div class="highlight_password">'+password+'</div>]' }
 			it { page.should have_xpath("//div[@class='highlight_entropy'][@title='A brute force search for a word of length 9 in the alphabet [aeiknrst] requires ~ 2^26 trials, on average.']")}			
 			specify {plain_file.index(expected_prefix).should == 0}
 			specify {plain_file.index(expected_pass).should_not be_nil}
@@ -111,7 +111,7 @@ describe "Addresses:" do
 			let!(:encrypted_file) { File.read(encrypted_path) }
 			let!(:plain_file) { File.read(plain_path) }
 			let!(:expected_prefix) { '<doctype></doctype><html><head><title>'+full_title(view_title)+'</title>' }
-			let!(:expected_pass) { '<h2 id="show_password">Encrypted with: [ <div class="highlight_password">'+password+'</div> ]' }
+			let!(:expected_pass) { '<h2 id="show_password">Encrypted with: [<div class="highlight_password">'+password+'</div>]' }
 			subject { encrypted_file }
 			it { should_not be_blank }
 			specify {encrypted_file.index(expected_prefix).should == nil}
