@@ -64,9 +64,9 @@ describe "Freezers Slow specs:", slow: true do
 		  click_button generate_button		
 		end
 		specify{File.exist?(plain_path).should be_true }			
-		specify{(File.ctime(plain_path).to_f-Time.now.to_f).to_i.should be < 1  }
+		specify{(File.ctime(plain_path).to_f-Time.now.to_f).to_i.should be < 1}
 		specify{File.exist?(encrypted_path).should be_true }
-		specify{(File.ctime(encrypted_path).to_f-Time.now.to_f).to_i.should be < 1  }
+		specify{(File.ctime(encrypted_path).to_f-Time.now.to_f).to_i.should be < 1}
 	end
 	describe ":ColdStorage Files:" do
 		let!(:plain_path) { plaintext_file_path }

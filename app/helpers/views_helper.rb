@@ -16,9 +16,17 @@ module ViewsHelper
 		'Generate Addresses'
 	end
 
+	def recover_button
+		'Recover Addresses'
+	end
+
 	def howmany_placeholder
 		'How many?'
 	end
+
+	def recover_passwd_placeholder
+		'Your cold storage password'
+	end	
 
 	def cold_view_title
 		'View'

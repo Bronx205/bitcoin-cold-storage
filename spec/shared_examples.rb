@@ -27,7 +27,7 @@ end
 
 shared_examples_for "the heatup page" do
 	it { should have_title full_title(heatup_title) }
-	it { should have_selector('input#password.input-xxlarge') }
+	it { should have_selector('input#recover_password.input-xxlarge') }
 	it { should have_button recover_button}
 end
 
