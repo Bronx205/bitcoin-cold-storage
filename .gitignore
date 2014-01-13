@@ -14,3 +14,7 @@
 # Ignore all logfiles and tempfiles.
 /log/*.log
 /tmp
+
+# Ignore non text files saved in the files directory
+/files/*.aes
+/files/*.html
