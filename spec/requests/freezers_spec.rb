@@ -14,7 +14,6 @@ describe "Freezers:" do
 	  click_link freeze_title
 	end
 	it_should_behave_like 'the freeze page'
-	it { should have_xpath("//input[@value=0]")}
 	describe "submitting should stay on freeze page if the request was not a positive number is requested" do
 		['',0,-5,'foo',nil].each do |example|
 			before do

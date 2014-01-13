@@ -29,8 +29,12 @@ module ViewsHelper
 	end	
 
 	def cold_view_title
-		'View'
+		'Inspect your new cold storage addresses'
 	end
+
+	def hot_view_title
+		'Inspect the addresses recovered from cold storage'
+	end	
 
 	def freeze_title
 		'Freeze'

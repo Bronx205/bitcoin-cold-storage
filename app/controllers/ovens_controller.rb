@@ -8,5 +8,7 @@ class OvensController < ApplicationController
   end
 
   def show
+  	@title=hot_view_title
+  	
   end
 end

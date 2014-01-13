@@ -13,6 +13,5 @@ describe "Ovens:" do
 	  visit root_path
 	  click_link heatup_title
 	end
-	it_should_behave_like 'the heatup page'
-	
+	it_should_behave_like 'the heatup page'		
 end
