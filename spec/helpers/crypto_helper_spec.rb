@@ -10,12 +10,12 @@ describe CryptoHelper do
 		it {generate_strong_password(10).length.should == 10}
 	end
 	describe "encrypt my page" do
-		it { encrypt_my_page('<html><head><title></title></head><body></body></html>','foo').should == 
+		it { encrypt_my_file('<html><head><title></title></head><body></body></html>','foo').should == 
 		"xJtRlGTH7bJOjjFlUronyV/DJp0tNO+GSOSH6Xzl1svGbs7nZMQrdFsIyp4E\nILcCyvc/G3rkH0Mtdy8bOtGhbQ==\n"}
-		it { encrypt_my_page('<html><head><title></title></head><body></body></html>','foo').should_not == 
+		it { encrypt_my_file('<html><head><title></title></head><body></body></html>','foo').should_not == 
 		"xJtRlGTH7bJOjjFlUronyV/DJp0tNO+GSOSH6Xzl1svGbs7nZMQrdFsIyp4E\nILcCyvc/G3rkH0Mtdy8bOtGhbQ==\n1"}		
-		it { AESCrypt.decrypt(encrypt_my_page('foo','bar'),'bar').should == 'foo'}
-		it { AESCrypt.decrypt(encrypt_my_page('foo','bar'),'bar').should_not == 'fo'}
+		it { AESCrypt.decrypt(encrypt_my_file('foo','bar'),'bar').should == 'foo'}
+		it { AESCrypt.decrypt(encrypt_my_file('foo','bar'),'bar').should_not == 'fo'}
 	end
 
 

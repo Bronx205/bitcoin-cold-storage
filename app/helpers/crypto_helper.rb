@@ -1,6 +1,6 @@
 module CryptoHelper
 
-	def encrypt_my_page(page,password)
+	def encrypt_my_file(page,password)
 		AESCrypt.encrypt(page,password)
 	end
 

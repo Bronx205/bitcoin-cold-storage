@@ -34,7 +34,7 @@ class FreezersController < ApplicationController
 			@explanation=entropy_explanation(@password.length, @alphabet,@entropy)
 			html=render_to_string
 			plaintext=inject_css(html)
-			encrypted=encrypt_my_page(plaintext,@password)
+			encrypted=encrypt_my_file(plaintext,@password)
 			save_coldstorage_files(plaintext,encrypted)
 		end
   end
