@@ -17,7 +17,8 @@ module FreezersHelper
 	end
 
 	def coldstorage_directory
-		'/home/assaf/Downloads/'
+		# '/home/assaf/Downloads/'
+		Rails.root.to_s + '/tmp/cold/'
 	end
 
 	def plaintext_file_name

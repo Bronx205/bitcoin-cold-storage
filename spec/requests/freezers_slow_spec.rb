@@ -114,6 +114,7 @@ describe "Freezers Slow specs:", slow: true do
 			it { should_not be_blank }
 			specify {encrypted_file.index(expected_prefix).should == nil}
 			specify {AESCrypt.decrypt(encrypted_file,password).should == plain_file}
+			lambda {AESCrypt.decrypt(encrypted_file,password[0..-2]).should raise_error}
 		end		
 	end	
 end
