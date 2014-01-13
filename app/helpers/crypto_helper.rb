@@ -1,8 +1,12 @@
 module CryptoHelper
 
-	def encrypt_my_file(page,password)
-		AESCrypt.encrypt(page,password)
+	def encrypt_my_file(file,password)
+		AESCrypt.encrypt(file,password)
 	end
+
+	def decrypt_my_file(file,password)
+		AESCrypt.decrypt(file,password)
+	end	
 
 	def generate_strong_password(howlong=30)
 		result=""

@@ -34,6 +34,7 @@ end
 
 shared_examples_for "the heat_view page" do
 	it { should have_title full_title(heat_view_title) }
+	it { should have_selector('h1', text: 'Heated up')}
 	# it { should have_selector('h2#show_password', text: ' encrypted with: [') }
 	# it { should have_selector('th', text: 'Bitcoin Address') }		
 	# it { should have_selector('th', text: 'Private Key') }		

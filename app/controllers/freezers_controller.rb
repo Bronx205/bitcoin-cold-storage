@@ -11,7 +11,7 @@ class FreezersController < ApplicationController
 		@coldstorage=ColdStorage.new
 		if params[:howmany].to_i > 0						
 			@coldstorage=ColdStorage.new(params[:password],params[:howmany])
-			flash[:var]=@coldstorage
+			flash[:cold]=@coldstorage
 			Rails.cache.clear
 			redirect_to cold_view_path 
 		else
@@ -21,7 +21,7 @@ class FreezersController < ApplicationController
   
   def show
   	@title=cold_view_title
-		@coldstorage=flash[:var]
+		@coldstorage=flash[:cold]
 		# flash[:var]=@coldstorage		
 		if @coldstorage.nil?
 			redirect_to root_path 

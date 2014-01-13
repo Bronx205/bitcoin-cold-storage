@@ -5,4 +5,5 @@ class ApplicationController < ActionController::Base
   include ViewsHelper
   include CryptoHelper
   include FreezersHelper
+  include OvensHelper
 end
