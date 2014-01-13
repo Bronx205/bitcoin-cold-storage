@@ -16,6 +16,3 @@
 /tmp
 
 # Ignore non text files saved in the files directory
-/files/cold/*.aes
-/files/cold/*.html
-/files/hot/*.aes
