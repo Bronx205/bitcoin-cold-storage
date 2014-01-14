@@ -58,8 +58,19 @@ module ViewsHelper
 		File.read(file)
 	end
 
-	def inject_css(html_string)
+	def inject_css(html_string,css_string=get_css_from_file)
 		remove_tag=html_string[0..-(' </html>'.length)]
-		insert_css=remove_tag<<'<style type="text/css">'<<get_css_from_file<<'</style></html>'		
+		insert_css=remove_tag<<'<style type="text/css">'<<css_string<<'</style></html>'		
 	end
+
+	def trim_css(html_string)
+		string=html_string.to_s
+		position=string.to_s.index('<style type="text/css">')
+		if position 
+			return string[0..(position-1)]+'</html>'
+		else
+			return string
+		end			
+	end
+
 end
