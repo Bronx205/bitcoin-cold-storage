@@ -12,6 +12,14 @@ module ViewsHelper
 		'Home'
 	end
 
+	def heatup_header
+		'Recovered Addresses'
+	end
+
+	def failed_decryption_message
+		'Decryption have failed. Try again..'
+	end
+
 	def generate_button
 		'Generate Addresses'
 	end
@@ -85,8 +93,11 @@ module ViewsHelper
 			return string[start..finish]
 		else
 			return string
-		end
-		
+		end		
 	end
+
+  def clear_flash
+  	flash[:error].clear if flash[:error] 
+  end	
 
 end

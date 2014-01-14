@@ -7,6 +7,7 @@ html
     = render 'layouts/shim'
   body class=(params[:controller])
     = render 'layouts/header'
+    = render 'layouts/flash'
     .container
       = yield
     = render 'layouts/footer'

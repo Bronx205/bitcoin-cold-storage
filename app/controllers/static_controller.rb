@@ -1,4 +1,6 @@
 class StaticController < ApplicationController
+	before_filter :clear_flash
+
   def home
   	@title='Home'
   end
@@ -10,4 +12,5 @@ class StaticController < ApplicationController
   def about
   	@title='About'
   end
+
 end

@@ -1,8 +1,11 @@
 class FreezersController < ApplicationController
 	require 'rqrcode'
+	
+	before_filter :clear_flash
 
   def new
 		@title=full_title(freeze_title)
+		flash.clear
 		# @coldstorage=ColdStorage.new
 	end
 	
@@ -41,8 +44,8 @@ class FreezersController < ApplicationController
 
   private
 
-  def address_params
-    params.require(:address).permit(:howmany, :password)
-  end
+	  def address_params
+	    params.require(:address).permit(:howmany, :password)
+	  end
 
 end

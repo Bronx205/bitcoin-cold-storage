@@ -36,5 +36,40 @@ describe "Ovens:" do
 		it { should have_selector("td#prvkey_wif_1") }
 		it { should have_selector("td#qr_prvkey_wif_2") }	
 	end
-
+	describe "should fail gracefully when attempting to heat up with wrong password", slow: true do
+		before do
+		  visit root_path
+		  click_link heatup_title
+		  fill_in 'recover_password', with: rand.to_s.split('.').join
+		  click_button recover_button
+		end
+		it { should_not have_content('Bitcoin Address') }
+		it { should_not have_content('Private Key') }
+		it { should_not have_selector('div.normal', text: '(Wallet Import Format)') }
+		it { should_not have_selector("td#address_1") }
+		it { should_not have_selector("td#prvkey_wif_1") }
+		it { should have_selector('div.alert.alert-error', text: failed_decryption_message) }
+		describe "flash should go away" do
+			describe "when navigating home" do
+				before { click_link app_title }
+				it { should_not have_selector('div.alert')}
+			end
+			describe "when navigating to Help" do
+				before { click_link 'Help' }
+				it { should_not have_selector('div.alert')}
+			end
+			describe "when navigating to About" do
+				before { click_link 'About' }
+				it { should_not have_selector('div.alert')}
+			end						
+			describe "when navigating to freeze page" do
+				before { click_link freeze_title }
+				it { should_not have_selector('div.alert')}
+			end		
+			describe "when reloading heatup page" do
+				before { click_link heatup_title }
+				it { should_not have_selector('div.alert')}
+			end					
+		end
+	end
 end
