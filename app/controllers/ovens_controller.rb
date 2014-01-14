@@ -14,6 +14,6 @@ class OvensController < ApplicationController
   def show
   	@title=hot_view_title
     @password=flash[:hot]
-    @page=trim_css(decrypt_loaded(@password))
+    @page=extract_addresses_html(decrypt_loaded(@password))
   end
 end

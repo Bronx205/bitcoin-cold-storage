@@ -18,4 +18,13 @@ describe ViewsHelper do
 		specify	{trim_css(nil).should == ''}
 	end
 
+	describe "extract relevant html" do
+		let!(:full_html) { '<foo></foo><div class="heatup_begin">contentblah<div class="heatup_end"><bar></bar>' }
+		let!(:trimmed) { 'contentblah' }
+		specify {extract_addresses_html(full_html).should == trimmed}
+		specify {extract_addresses_html('foobar').should == 'foobar'}
+		specify {extract_addresses_html('').should == ''}
+		specify	{extract_addresses_html(nil).should == ''}
+	end
+
 end

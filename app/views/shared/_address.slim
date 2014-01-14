@@ -9,10 +9,10 @@ tr
 		= address[:addr]
 	td.qr_pubkey id="qr_address_#{counter}"
 		.qr_address 
-			= render 'shared/qr', qr: generate_qr(address[:addr])
+			= render 'shared/qr', qr: generate_qr(address[:addr]), id: 'address:' + address[:addr]
 	td.separator
 	td.text_prvkey id="prvkey_wif_#{counter}"
 		= address[:private_wif]
 	td.qr_prvkey id="qr_prvkey_wif_#{counter}"
 		.qr_prvkey
-			= render 'shared/qr', qr: generate_qr(address[:private_wif])
+			= render 'shared/qr', qr: generate_qr(address[:private_wif]), id: 'privkey' + address[:private_wif]

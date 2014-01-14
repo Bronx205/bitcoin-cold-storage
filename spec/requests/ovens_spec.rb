@@ -35,8 +35,6 @@ describe "Ovens:" do
 		it { should have_selector("td#qr_address_2") }
 		it { should have_selector("td#prvkey_wif_1") }
 		it { should have_selector("td#qr_prvkey_wif_2") }	
-		it { should have_selector('h2#show_password', text: ' encrypted with: [foo]') }	
-		it { should_not have_selector('h2#show_password', text: ' encrypted with: [bar]') }	
 	end
 
 end
