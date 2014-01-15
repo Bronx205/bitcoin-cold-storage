@@ -10,6 +10,8 @@ describe "Static" do
     it_should_behave_like 'all pages'   
     it { should have_title full_title(home_title) }
     it { should have_link 'freeze_button' }
+    it { should have_xpath("//a[@class='btn btn-primary'][@title='#{freeze_button_title}']")}
+    it { should have_xpath("//a[@class='btn btn-danger'][@title='#{heatup_button_title}']")}
     it { should have_link 'heatup_button' }
     it { should have_selector('div#catchy', text: catch_phrase) }
     it { should have_selector('div#elevator', text: elevator_pitch) }
