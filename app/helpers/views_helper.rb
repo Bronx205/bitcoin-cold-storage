@@ -112,7 +112,7 @@ module ViewsHelper
 		end		
 	end
 
-  def clear_flash
+  def clear_flash_messages
   	flash[:error].clear if flash[:error] 
   end	
 

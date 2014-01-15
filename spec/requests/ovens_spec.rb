@@ -22,7 +22,7 @@ describe "Ovens:" do
 		  fill_in 'howmany', with: 2
 		  fill_in 'password', with: 'foo'
 		  click_button generate_button
-		  sleep 1.second
+		  sleep 2.second
 		  click_link heatup_title
 		  fill_in 'recover_password', with: 'foo'
 		  click_button recover_button

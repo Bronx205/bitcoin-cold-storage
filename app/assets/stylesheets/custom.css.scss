@@ -112,6 +112,20 @@ table#setup{
       text-decoration:none;
       }
     }
+    a#navbar_freeze{
+      color:black;
+      &:hover {
+      color:white;
+      text-decoration:none;
+      }      
+    }
+    a#navbar_heatup{
+      color:#990000;
+      &:hover {
+      color:white;
+      text-decoration:none;
+      }      
+    }    
     #logo {
       float: left;
       margin-right: 10px;

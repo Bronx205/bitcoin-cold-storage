@@ -1,10 +1,11 @@
 class FreezersController < ApplicationController
 	require 'rqrcode'
 	
-	before_filter :clear_flash
+	before_filter :clear_flash_messages
 
   def new
 		@title=full_title(freeze_title)
+		flash[:new] = false
 	end
 	
 	def create
@@ -15,6 +16,7 @@ class FreezersController < ApplicationController
 			@coldstorage=ColdStorage.new(params[:password],howmany)			
 			Rails.cache.clear
 			Rails.cache.write(:cold, @coldstorage, expires_in: howmany.minute )
+			flash[:new]=true
 			redirect_to cold_view_path 
 		else
 			render 'new'
@@ -22,9 +24,9 @@ class FreezersController < ApplicationController
 	end
   
   def show
-  	@title=cold_view_title
+  	@title=cold_view_title  	
 		@coldstorage=Rails.cache.read(:cold)
-		if @coldstorage.nil?
+		if @coldstorage.nil? || !flash[:new]
 			redirect_to root_path 
 		else
 			@addresses=@coldstorage.addresses
