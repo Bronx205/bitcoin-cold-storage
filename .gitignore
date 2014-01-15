@@ -17,3 +17,6 @@
 
 # Ignore non text files saved in the files directory
 /files
+
+# Ignore .rvmrc
+.rvmrc
