@@ -11,15 +11,14 @@ describe "Ovens:" do
 	subject { page }
 	describe "layout" do
 		before do
-		  visit root_path
-		  click_link heatup_title
+		  visit heatup_path
 		end
 		it_should_behave_like 'the heatup page'			
 	end
 	describe "should recover a cold storage file with a valid password", slow: true do
 		before do
 		  visit root_path
-		  click_link freeze_title
+		  find('#navbar_freeze',:visible => true).click 
 		  fill_in 'howmany', with: 2
 		  fill_in 'password', with: 'foo'
 		  click_button generate_button
@@ -39,7 +38,7 @@ describe "Ovens:" do
 	describe "should fail gracefully when attempting to heat up with wrong password", slow: true do
 		before do
 		  visit root_path
-		  click_link heatup_title
+		  find('#navbar_heatup',:visible => true).click 
 		  fill_in 'recover_password', with: rand.to_s.split('.').join
 		  click_button recover_button
 		end

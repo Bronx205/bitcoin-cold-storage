@@ -9,6 +9,8 @@ describe "Static" do
     before { visit root_path }
     it_should_behave_like 'all pages'   
     it { should have_title full_title(home_title) }
+    it { should have_link 'freeze_button' }
+    it { should have_link 'heatup_button' }
   end 
 
   describe "Help page" do

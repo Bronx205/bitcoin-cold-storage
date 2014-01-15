@@ -10,8 +10,7 @@ end
 describe "Freezers:" do
 	subject { page }
 	before do
-	  visit root_path
-	  click_link freeze_title
+	  visit freeze_path
 	end
 	it_should_behave_like 'the freeze page'
 	describe "submitting should stay on freeze page if the request was not a positive number is requested" do

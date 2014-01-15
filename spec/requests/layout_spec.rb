@@ -12,11 +12,11 @@ describe "layout" do
 		it { should have_title home_title }
 	end
 	describe "freeze link should show freeze page" do
-		before { click_link freeze_title }
+		before { find('#navbar_freeze',:visible => true).click }
 		it { should have_title freeze_title }
 	end
 	describe "heatup link should show heatup page" do
-		before { click_link heatup_title }
+		before { find('#navbar_heatup',:visible => true).click }
 		it { should have_title heatup_title }
 	end		
 end

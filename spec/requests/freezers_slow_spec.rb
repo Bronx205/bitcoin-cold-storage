@@ -10,8 +10,7 @@ end
 describe "Freezers Slow specs:", slow: true do
 	subject { page }
 	before do
-	  visit root_path
-	  click_link freeze_title
+	  visit freeze_path
 	end
 	describe "submitting should redirect to private if a positive number is requested" do
 		before do

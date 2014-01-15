@@ -407,3 +407,21 @@ h1.heatup_header{
   float:left;
   color:green;
 }
+.homebuttons{
+  position:absolute;
+  padding:10;
+  top:50%;
+  // left:15%;
+  li{
+    position:relative;
+    left:45%;
+    float:left;
+    padding-left:20;
+    padding-right:20;
+    // text-align:left;
+  }
+  .btn{
+    font-size:3em;  
+    padding:30px;
+  }  
+}
