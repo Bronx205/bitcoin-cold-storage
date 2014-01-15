@@ -56,6 +56,14 @@ module ViewsHelper
 		'Your Password (optional)'
 	end
 
+	def catch_phrase
+		'Simple Bitcoin Cold Storage'
+	end
+
+	def elevator_pitch
+		'Create and recover encrypted addresses on your offline Raspberry Pi'
+	end
+
 	def entropy_explanation(length, alphabet, entropy)
 		size=[(entropy -1).round.to_i,0].max.to_s
 		'A brute force search for a word of length '+length.to_s + ' in the alphabet [' + alphabet.to_s + '] requires ~ 2^' + size + ' trials, on average.'

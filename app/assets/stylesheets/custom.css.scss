@@ -403,22 +403,38 @@ h2#show_password{
     }     
   }
 }
+.home{
+  display: box;
+  flex-align: center;
+  flex-pack: center;
+}
+#catchy{
+  width:100%;  
+  padding-top:2em;
+  padding-bottom:1em;
+  padding-left:1em;
+  font-size:5em;
+  color:blue;
+  font-family: sans-sariff;
+}
+#elevator{
+  padding-bottom:1em;
+  padding-left:3em;
+  font-size:2em;
+  color:$grayDark;
+  font-style:italic;
+  font-family: sans-sariff;
+}
 h1.heatup_header{
   float:left;
   color:green;
 }
 .homebuttons{
-  position:absolute;
-  padding:10;
-  top:50%;
-  // left:15%;
   li{
     position:relative;
-    left:45%;
     float:left;
     padding-left:20;
     padding-right:20;
-    // text-align:left;
   }
   .btn{
     font-size:3em;  
