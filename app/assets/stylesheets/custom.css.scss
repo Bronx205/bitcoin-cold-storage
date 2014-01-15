@@ -403,6 +403,10 @@ h2#show_password{
     }     
   }
 }
+h1.heatup_header{
+  float:left;
+  color:green;
+}
 .home{
   display: box;
   flex-align: center;
@@ -425,19 +429,15 @@ h2#show_password{
   font-style:italic;
   font-family: sans-sariff;
 }
-h1.heatup_header{
-  float:left;
-  color:green;
-}
 .homebuttons{
   li{
     position:relative;
     float:left;
-    padding-left:20;
-    padding-right:20;
+    padding-left:80;
+    padding-right:80;
   }
   .btn{
-    font-size:3em;  
-    padding:30px;
+    font-size:4em;  
+    padding:0.8em;
   }  
 }
