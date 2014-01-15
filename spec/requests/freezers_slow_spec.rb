@@ -115,5 +115,12 @@ describe "Freezers Slow specs:", slow: true do
 			specify {AESCrypt.decrypt(encrypted_file,password).should == plain_file}
 			lambda {AESCrypt.decrypt(encrypted_file,password[0..-2]).should raise_error}
 		end		
-	end	
+	end
+	describe "should not die on a big dispatch"  do
+		before do
+			fill_in 'howmany', with: 10		  
+		  click_button generate_button			  
+		end		
+		it_should_behave_like 'the cold_view page'		
+	end		
 end

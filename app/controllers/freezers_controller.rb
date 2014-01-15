@@ -5,17 +5,16 @@ class FreezersController < ApplicationController
 
   def new
 		@title=full_title(freeze_title)
-		flash.clear
-		# @coldstorage=ColdStorage.new
 	end
 	
 	def create
 		@title=full_title(freeze_title)
 		@coldstorage=ColdStorage.new
-		if params[:howmany].to_i > 0						
-			@coldstorage=ColdStorage.new(params[:password],params[:howmany])
-			flash[:cold]=@coldstorage
+		howmany=params[:howmany].to_i
+		if howmany > 0						
+			@coldstorage=ColdStorage.new(params[:password],howmany)			
 			Rails.cache.clear
+			Rails.cache.write(:cold, @coldstorage, expires_in: howmany.minute )
 			redirect_to cold_view_path 
 		else
 			render 'new'
@@ -24,8 +23,7 @@ class FreezersController < ApplicationController
   
   def show
   	@title=cold_view_title
-		@coldstorage=flash[:cold]
-		# flash[:var]=@coldstorage		
+		@coldstorage=Rails.cache.read(:cold)
 		if @coldstorage.nil?
 			redirect_to root_path 
 		else
