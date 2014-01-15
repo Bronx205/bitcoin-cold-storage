@@ -1,7 +1,7 @@
 module ViewsHelper
 
 	def app_title
-		'Raspberry Pig'
+		'CoinCooler'
 	end
 
 	def full_title(string)
