@@ -16,18 +16,21 @@ shared_examples_for "the freeze page" do
 	it { should have_selector('input#password.input-xxlarge') }
 end
 
-shared_examples_for "the cold_view page" do
-	it { should have_title full_title(cold_view_title) }
+shared_examples_for "a view page" do
 	it { should have_selector('h2#show_password', text: ' encrypted with: [') }
 	it { should have_selector('th', text: 'Bitcoin Address') }		
 	it { should have_selector('th', text: 'Private Key') }		
 	it { should have_selector('table.private_output#private_output') }		
+	it { should have_selector("td#address_1") }
+	it { should have_selector("td#qr_address_1") }
+	it { should have_selector("td#prvkey_wif_1") }
+	it { should have_selector("td#qr_prvkey_wif_1") }	
 end
 
 shared_examples_for "the heatup page" do
 	it { should have_title full_title(heatup_title) }
 	it { should have_selector('input#recover_password.input-xxlarge') }
-	it { should have_button recover_button}
+	it { should have_selector('input#recover_button') }
 end
 
 shared_examples_for "it failed decryption" do

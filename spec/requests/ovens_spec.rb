@@ -71,8 +71,16 @@ describe "Ovens:" do
 		  delete_file(encrypted_file_path)
 		  visit root_path
 		  find('#navbar_heatup',:visible => true).click 
-		  click_button recover_button
 		end
-		it_should_behave_like "it failed decryption"
-	end
+		it { should_not have_button(recover_button) }
+	end	
+	# describe "should fall gracefully if the file is not there" do
+	# 	before do
+	# 	  delete_file(encrypted_file_path)
+	# 	  visit root_path
+	# 	  find('#navbar_heatup',:visible => true).click 
+	# 	  click_button recover_button
+	# 	end
+	# 	it_should_behave_like "it failed decryption"
+	# end
 end

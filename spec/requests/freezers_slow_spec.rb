@@ -24,16 +24,17 @@ describe "Freezers Slow specs:", slow: true do
 			fill_in 'howmany', with: 1		  
 		  click_button generate_button			  
 		end		
-		it_should_behave_like 'the cold_view page'		
+		it_should_behave_like 'a view page'		
+		it { should have_title full_title(cold_view_title) }
 	end
 	describe "private page should show the correct number of addresses" do		
 		before do
 		  fill_in 'howmany', with: 2
 		  click_button generate_button			  
 		end
-		it { should have_selector("td#address_1") }
+		it_should_behave_like 'a view page'		
+		it { should have_title(cold_view_title) }		
 		it { should have_selector("td#qr_address_2") }
-		it { should have_selector("td#prvkey_wif_1") }
 		it { should have_selector("td#qr_prvkey_wif_2") }
 	end
 	describe "submitting a user password should use that password" do
@@ -42,6 +43,7 @@ describe "Freezers Slow specs:", slow: true do
 		  fill_in 'howmany', with: 1
 		  click_button generate_button
 		end
+		it_should_behave_like 'a view page'		
 		it { should have_title(cold_view_title) }		
 		it { should have_selector('h2#show_password', text: ' encrypted with: [fooba]') }
 		it { should have_selector('div.show_entropy', text: '10 bits' ) }
@@ -121,6 +123,7 @@ describe "Freezers Slow specs:", slow: true do
 			fill_in 'howmany', with: 10		  
 		  click_button generate_button			  
 		end		
-		it_should_behave_like 'the cold_view page'		
+		it_should_behave_like 'a view page'	
+		it { should have_title full_title(cold_view_title) }
 	end		
 end
