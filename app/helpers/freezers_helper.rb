@@ -36,6 +36,10 @@ module FreezersHelper
 		'coldstorage.html.aes'
 	end
 
+	def no_file_message
+		'Decryption failed because the file '+ encrypted_file_name + ' was not found'
+	end
+
 	def plaintext_file_path
 		coldstorage_directory+plaintext_file_name
 	end

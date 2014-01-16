@@ -50,14 +50,14 @@ describe "Ovens:", slow: true do
 			end					
 		end
 	end
-	describe "should fall gracefully if the file is not there" do
+	describe "heatup link should redirect home and flash error if file not there" , slow: false do
 		before do
 		  delete_file(encrypted_file_path)
-		  delete_file(plaintext_file_path)
 		  visit root_path
 		  find('#navbar_heatup',:visible => true).click 
 		end
-		it { should_not have_button(recover_button) }
+		it { should have_title home_title}
+		it { should have_selector('div.alert.alert-error', text: no_file_message) }
 	end	
 	# describe "should fall gracefully if the file is not there" do
 	# 	before do

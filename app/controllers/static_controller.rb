@@ -1,5 +1,5 @@
 class StaticController < ApplicationController
-	before_filter :clear_flash_messages
+	# before_filter :clear_flash_messages
 
   def home
   	@title='Home'

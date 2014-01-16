@@ -1,8 +1,11 @@
 class OvensController < ApplicationController
 
   def new
-  	@title=heatup_title      
-    @file=file_there?
+  	@title=heatup_title 
+    unless file_there?
+      flash[:error]=no_file_message
+      redirect_to root_path
+    end
   end
 
   def create
