@@ -42,12 +42,7 @@ describe "Ovens:" do
 		  fill_in 'recover_password', with: rand.to_s.split('.').join
 		  click_button recover_button
 		end
-		it { should_not have_content('Bitcoin Address') }
-		it { should_not have_content('Private Key') }
-		it { should_not have_selector('div.normal', text: '(Wallet Import Format)') }
-		it { should_not have_selector("td#address_1") }
-		it { should_not have_selector("td#prvkey_wif_1") }
-		it { should have_selector('div.alert.alert-error', text: failed_decryption_message) }
+		it_should_behave_like "it failed decryption"
 		describe "flash should go away" do
 			describe "when navigating home" do
 				before { click_link app_title }
@@ -70,5 +65,14 @@ describe "Ovens:" do
 				it { should_not have_selector('div.alert')}
 			end					
 		end
+	end
+	describe "should fall gracefully if the file is not there" do
+		before do
+		  delete_file(encrypted_file_path)
+		  visit root_path
+		  find('#navbar_heatup',:visible => true).click 
+		  click_button recover_button
+		end
+		it_should_behave_like "it failed decryption"
 	end
 end

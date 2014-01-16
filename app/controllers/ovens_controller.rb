@@ -7,6 +7,7 @@ class OvensController < ApplicationController
   def create
     @title=heatup_title
   	@password=params[:recover_password]
+    # @file=file_there?
     flash[:hot]=@password
     begin
       @addresses=extract_addresses_html(decrypt_loaded(@password))

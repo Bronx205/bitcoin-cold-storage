@@ -29,3 +29,12 @@ shared_examples_for "the heatup page" do
 	it { should have_selector('input#recover_password.input-xxlarge') }
 	it { should have_button recover_button}
 end
+
+shared_examples_for "it failed decryption" do
+	it { should_not have_content('Bitcoin Address') }
+	it { should_not have_content('Private Key') }
+	it { should_not have_selector('div.normal', text: '(Wallet Import Format)') }
+	it { should_not have_selector("td#address_1") }
+	it { should_not have_selector("td#prvkey_wif_1") }
+	it { should have_selector('div.alert.alert-error', text: failed_decryption_message) }
+end
