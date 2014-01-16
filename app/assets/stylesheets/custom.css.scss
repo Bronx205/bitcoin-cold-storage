@@ -99,6 +99,7 @@ table#setup{
 .navbar {
   .navbar-inner {
     // background-color: $appBgd;
+    // background-image: url(image_path('sky.jpg'));
     background-image: url('sky.png');
     background-position: 0 0;
     background-repeat: repeat;
@@ -112,20 +113,19 @@ table#setup{
       text-decoration:none;
       }
     }
-    a#navbar_freeze{
-      color:black;
+    a#navbar_freeze,a#navbar_heatup{
       &:hover {
-      color:white;
+      color:yellow;
       text-decoration:none;
       }      
     }
-    a#navbar_heatup{
-      color:#990000;
-      &:hover {
-      color:white;
-      text-decoration:none;
-      }      
-    }    
+    // a#navbar_heatup{
+    //   color:#990000;
+    //   &:hover {
+    //   color:white;
+    //   text-decoration:none;
+    //   }      
+    // }    
     #logo {
       float: left;
       margin-right: 10px;
