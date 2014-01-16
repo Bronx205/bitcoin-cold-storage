@@ -13,10 +13,10 @@ describe "layout" do
 	end
 	describe "freeze link should show freeze page" do
 		before { find('#navbar_freeze',:visible => true).click }
-		it { should have_title freeze_title }
+		it_should_behave_like "the freeze page"
 	end
 	describe "heatup link should show heatup page" do
 		before { find('#navbar_heatup',:visible => true).click }
-		it { should have_title heatup_title }
+		it_should_behave_like "the heatup page"
 	end		
 end

@@ -16,8 +16,7 @@ shared_examples_for "the freeze page" do
 	it { should have_selector('input#password.input-xxlarge') }
 end
 
-shared_examples_for "a view page" do
-	it { should have_selector('h2#show_password', text: ' encrypted with: [') }
+shared_examples_for "a view page" do	
 	it { should have_selector('th', text: 'Bitcoin Address') }		
 	it { should have_selector('th', text: 'Private Key') }		
 	it { should have_selector('table.private_output#private_output') }		

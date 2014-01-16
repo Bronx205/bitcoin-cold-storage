@@ -25,6 +25,7 @@ describe "Freezers Slow specs:", slow: true do
 		  click_button generate_button			  
 		end		
 		it_should_behave_like 'a view page'		
+		it { should have_selector('h2#show_password', text: ' encrypted with: [') }
 		it { should have_title full_title(cold_view_title) }
 	end
 	describe "private page should show the correct number of addresses" do		

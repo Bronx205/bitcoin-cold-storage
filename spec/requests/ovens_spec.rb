@@ -9,36 +9,23 @@ end
 
 describe "Ovens:" do
 	subject { page }
-	describe "layout" do
-		before do
-		  visit heatup_path
-		end
-		it_should_behave_like 'the heatup page'			
-	end
+	before do
+	  visit root_path
+	  find('#navbar_freeze',:visible => true).click 
+	  fill_in 'howmany', with: 1
+	  fill_in 'password', with: 'foo'
+	  click_button generate_button
+	  click_link heatup_title
+	end	
 	describe "should recover a cold storage file with a valid password", slow: true do
 		before do
-		  visit root_path
-		  find('#navbar_freeze',:visible => true).click 
-		  fill_in 'howmany', with: 2
-		  fill_in 'password', with: 'foo'
-		  click_button generate_button
-		  sleep 2.second
-		  click_link heatup_title
 		  fill_in 'recover_password', with: 'foo'
 		  click_button recover_button
 		end
-		it { should have_content('Bitcoin Address') }
-		it { should have_content('Private Key') }
-		it { should have_selector('div.normal', text: '(Wallet Import Format)') }
-		it { should have_selector("td#address_1") }
-		it { should have_selector("td#qr_address_2") }
-		it { should have_selector("td#prvkey_wif_1") }
-		it { should have_selector("td#qr_prvkey_wif_2") }	
+		it_should_behave_like "a view page"
 	end
 	describe "should fail gracefully when attempting to heat up with wrong password", slow: true do
 		before do
-		  visit root_path
-		  find('#navbar_heatup',:visible => true).click 
 		  fill_in 'recover_password', with: rand.to_s.split('.').join
 		  click_button recover_button
 		end
