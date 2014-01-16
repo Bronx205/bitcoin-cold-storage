@@ -22,6 +22,15 @@ describe "Freezers:" do
 			it_should_behave_like 'the freeze page'			
 		end
 	end
+	describe "limit to addresses limit, flash error and stay on freeze_path" do
+		before do
+		  fill_in 'howmany', with: addresses_limit+1
+		  click_button generate_button
+		end
+		it { should have_title freeze_title }
+		it { should have_selector('div.alert.alert-error', text: addresses_range_notice) }
+		it_should_behave_like "flash should go away"
+	end
 	describe "directly visiting the view path should redirect home" do
 		before { visit cold_view_path }
 		it { should have_title home_title }

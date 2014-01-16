@@ -40,3 +40,26 @@ shared_examples_for "it failed decryption" do
 	it { should_not have_selector("td#prvkey_wif_1") }
 	it { should have_selector('div.alert.alert-error', text: failed_decryption_message) }
 end
+
+shared_examples_for "flash should go away" do
+	describe "when navigating home" do
+		before { click_link app_title }
+		it { should_not have_selector('div.alert')}
+	end
+	describe "when navigating to Help" do
+		before { click_link 'Help' }
+		it { should_not have_selector('div.alert')}
+	end
+	describe "when navigating to About" do
+		before { click_link 'About' }
+		it { should_not have_selector('div.alert')}
+	end						
+	describe "when navigating to freeze page" do
+		before { click_link freeze_title }
+		it { should_not have_selector('div.alert')}
+	end		
+	describe "when reloading heatup page" do
+		before { click_link heatup_title }
+		it { should_not have_selector('div.alert')}
+	end					
+end

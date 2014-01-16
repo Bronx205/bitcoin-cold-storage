@@ -12,13 +12,14 @@ class FreezersController < ApplicationController
 		@title=full_title(freeze_title)
 		@coldstorage=ColdStorage.new
 		howmany=params[:howmany].to_i
-		if howmany > 0						
+		if howmany > 0 && howmany < addresses_limit+1					
 			@coldstorage=ColdStorage.new(params[:password],howmany)			
 			Rails.cache.clear
 			Rails.cache.write(:cold, @coldstorage, expires_in: howmany.minute )
 			flash[:new]=true
 			redirect_to cold_view_path 
 		else
+			flash.now[:error] = addresses_range_notice
 			render 'new'
 		end
 	end

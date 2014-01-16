@@ -8,7 +8,7 @@ describe "Freezers Slow specs:", slow: true do
 	before do
 	  visit freeze_path
 	end
-	describe "submitting should redirect to private if a positive number is requested" do
+	describe "submitting should redirect to view if a positive number is requested" do
 		before do
 		  fill_in 'howmany', with: '2'
 		  click_button generate_button			  

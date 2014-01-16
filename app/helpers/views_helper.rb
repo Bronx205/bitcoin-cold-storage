@@ -71,6 +71,9 @@ module ViewsHelper
 	def elevator_pitch
 		'Create and recover encrypted addresses on your offline Raspberry Pi'
 	end
+	def addresses_range_notice
+		'You can request at most ' + addresses_limit.to_s + ' addresses.'
+	end
 
 	def entropy_explanation(length, alphabet, entropy)
 		size=[(entropy -1).round.to_i,0].max.to_s

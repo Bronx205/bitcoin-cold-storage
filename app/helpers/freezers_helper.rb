@@ -7,6 +7,10 @@ module FreezersHelper
 		RQRCode::QRCode.new( string, :size => 6, :level => :h )		
 	end	
 
+	def addresses_limit
+		25
+	end
+
 	def save_file(path, data)
 		File.open(path,'w') {|file| file.write data }
 	end
