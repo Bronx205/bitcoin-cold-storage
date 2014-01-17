@@ -1,18 +1,8 @@
-tr
-	td colspan=7
-		hr
+= render 'shared/separator'
 tr 
 	td.counter
 		= "#{counter}"
 	td.separator_thin
-	td.text_pubkey id="address_#{counter}"
-		= row[:addr]
-	td.qr_pubkey id="qr_address_#{counter}"
-		.qr_address 
-			= render 'shared/qr', qr: generate_qr(row[:addr]), id: 'address:' + row[:addr]
+		= render 'shared/address' ,row: row, counter: counter
 	td.separator
-	td.text_prvkey id="prvkey_wif_#{counter}"
-		= row[:private_wif]
-	td.qr_prvkey id="qr_prvkey_wif_#{counter}"
-		.qr_prvkey
-			= render 'shared/qr', qr: generate_qr(row[:private_wif]), id: 'privkey' + row[:private_wif]
+		= render 'shared/private_key', row: row, counter: counter

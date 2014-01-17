@@ -1,6 +1,6 @@
 table.private_output id="private_output"
 	= render 'shared/separator'
-	= render 'shared/private_headers'	
+	= render 'shared/public_headers'	
 	- @keys.each do |row|
-		= render 'shared/private_row', row: row, counter: @keys.index(row)+1
+		= render 'shared/public_row', row: row, counter: @keys.index(row)+1
 	= render 'shared/separator'
