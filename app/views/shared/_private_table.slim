@@ -2,9 +2,9 @@ table.private_output id="private_output"
 	tr
 		td colspan=7
 			hr
-	= render 'shared/address_headers'	
+	= render 'shared/private_headers'	
 	- @addresses.each do |address|
-		= render 'shared/address', address: address, counter: @addresses.index(address)+1
+		= render 'shared/private_row', address: address, counter: @addresses.index(address)+1
 	tr
 		td colspan="7"
 			hr
