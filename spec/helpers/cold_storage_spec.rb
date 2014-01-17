@@ -9,7 +9,7 @@ describe "cold storage" do
 		it { should respond_to :strong_password }
 		it { should respond_to :password }
 		it { should respond_to :entropy }
-		it { should respond_to :addresses }
+		it { should respond_to :keys }
 	end
 
 	describe "initializer" do
@@ -17,18 +17,18 @@ describe "cold storage" do
 		subject { cold2 }
 		its(:howmany) { should == 2 }
 		its(:user_password) { should=='foo' }
-		its(:addresses) { should_not be_blank }		
-		it { cold2.addresses.length.should == cold2.howmany }
-		describe "addresses array" do
-			specify {Bitcoin::valid_address?(cold2.addresses[0][:addr]).should be_true}	
-			specify {Bitcoin::pubkey_to_address(cold2.addresses[1][:pub]).should == cold2.addresses[1][:addr]}	
+		its(:keys) { should_not be_blank }		
+		it { cold2.keys.length.should == cold2.howmany }
+		describe "keys array" do
+			specify {Bitcoin::valid_address?(cold2.keys[0][:addr]).should be_true}	
+			specify {Bitcoin::pubkey_to_address(cold2.keys[1][:pub]).should == cold2.keys[1][:addr]}	
 		end
 	end
 
 	describe "empty initializer" do
 		its(:howmany) { should == 0 }
 		its(:user_password) { should be_blank }
-		its(:addresses) { should be_blank }
+		its(:keys) { should be_blank }
 	end
 
 	describe "howmany should be 0 at minimum" do

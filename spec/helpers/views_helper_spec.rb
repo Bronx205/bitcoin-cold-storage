@@ -21,10 +21,10 @@ describe ViewsHelper do
 	describe "extract relevant html" do
 		let!(:full_html) { '<foo></foo><div class="heatup_begin">contentblah<div class="heatup_end"><bar></bar>' }
 		let!(:trimmed) { 'contentblah' }
-		specify {extract_addresses_html(full_html).should == trimmed}
-		specify {extract_addresses_html('foobar').should == 'foobar'}
-		specify {extract_addresses_html('').should == ''}
-		specify	{extract_addresses_html(nil).should == ''}
+		specify {extract_keys_html(full_html).should == trimmed}
+		specify {extract_keys_html('foobar').should == 'foobar'}
+		specify {extract_keys_html('').should == ''}
+		specify	{extract_keys_html(nil).should == ''}
 	end
 
 end

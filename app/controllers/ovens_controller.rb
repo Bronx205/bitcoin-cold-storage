@@ -14,7 +14,7 @@ class OvensController < ApplicationController
   	@password=params[:recover_password]
     flash[:hot]=@password
     begin
-      @addresses=extract_addresses_html(decrypt_loaded(@password))
+      @keys=extract_keys_html(decrypt_loaded(@password))
       redirect_to hot_view_path
     rescue
       flash.now[:error]=failed_decryption_message
@@ -25,7 +25,7 @@ class OvensController < ApplicationController
   def show
   	@title=hot_view_title
     @password=flash[:hot]
-    @addresses=extract_addresses_html(decrypt_loaded(@password))
+    @keys=extract_keys_html(decrypt_loaded(@password))
   end
 
 end

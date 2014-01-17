@@ -54,7 +54,7 @@ module FreezersHelper
 
 	private
 
-		def generate_addresses_array(array_size)
+		def generate_keys_array(array_size)
 			result=[]
 			(0..array_size-1).each do |counter|
 				temp={}

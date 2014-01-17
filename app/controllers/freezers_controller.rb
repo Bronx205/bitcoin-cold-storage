@@ -30,7 +30,7 @@ class FreezersController < ApplicationController
 		if @coldstorage.nil? || !flash[:new]
 			redirect_to root_path 
 		else
-			@addresses=@coldstorage.addresses
+			@keys=@coldstorage.keys
 			@howmany=@coldstorage.howmany
 			@password=@coldstorage.password
 			@entropy=@coldstorage.entropy
@@ -45,8 +45,8 @@ class FreezersController < ApplicationController
 
   private
 
-	  def address_params
-	    params.require(:address).permit(:howmany, :password)
+	  def freezers_params
+	    params.require(:keys).permit(:howmany, :password)
 	  end
 
 end

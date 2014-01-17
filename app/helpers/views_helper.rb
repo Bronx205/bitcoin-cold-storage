@@ -100,7 +100,7 @@ module ViewsHelper
 		end			
 	end
 
-	def extract_addresses_html(html_string)
+	def extract_keys_html(html_string)
 		string=html_string.to_s
 		start_mark='<div class="heatup_begin">'
 		finish_mark='<div class="heatup_end">'
