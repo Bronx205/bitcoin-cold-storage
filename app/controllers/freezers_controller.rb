@@ -40,6 +40,7 @@ class FreezersController < ApplicationController
 			plaintext=inject_css(html)
 			encrypted=encrypt_my_file(plaintext,@password)
 			save_coldstorage_files(plaintext,encrypted)
+			# send_data('foo', filename: 'foo.txt')
 		end
   end
 
@@ -50,3 +51,6 @@ class FreezersController < ApplicationController
 	  end
 
 end
+
+# send_data(inject_css(render_to_string), :filename => "colds.html") if @download=='plaintext'
+# send_data(encrypt_my_page(inject_css(render_to_string),@password), :filename => "cold.html.aes") if @download=='encrypted'
