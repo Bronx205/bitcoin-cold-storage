@@ -1,13 +1,12 @@
 module FreezersHelper
 	
-	require 'bitcoin'
 	require 'rqrcode'
 
 	def generate_qr(string)
 		RQRCode::QRCode.new( string, :size => 6, :level => :h )		
 	end	
 
-	def addresses_limit
+	def keys_limit
 		25
 	end
 
@@ -51,21 +50,6 @@ module FreezersHelper
 	def encrypted_file_path
 		coldstorage_directory+encrypted_file_name
 	end	
-
-	private
-
-		def generate_keys_array(array_size)
-			result=[]
-			(0..array_size-1).each do |counter|
-				temp={}
-				key = Bitcoin::Key.generate
-				temp[:addr] = key.addr
-				temp[:pub] = key.pub
-				temp[:private_wif] = key.to_base58
-				result << temp
-			end
-			return result
-		end
 
 end
 

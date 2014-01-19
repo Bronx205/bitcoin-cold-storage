@@ -12,7 +12,7 @@ class FreezersController < ApplicationController
 		@title=full_title(freeze_title)
 		@coldstorage=ColdStorage.new
 		howmany=params[:howmany].to_i
-		if howmany > 0 && howmany < addresses_limit+1					
+		if howmany > 0 && howmany < keys_limit+1					
 			@coldstorage=ColdStorage.new(params[:password],howmany)			
 			Rails.cache.clear
 			Rails.cache.write(:cold, @coldstorage, expires_in: howmany.minute )
@@ -34,7 +34,7 @@ class FreezersController < ApplicationController
 			@howmany=@coldstorage.howmany
 			@password=@coldstorage.password
 			@entropy=@coldstorage.entropy
-			@alphabet=@coldstorage.alphabet
+			@alphabet=PasswordGenerator.new.alphabet
 			@explanation=entropy_explanation(@password.length, @alphabet,@entropy)
 			html=render_to_string
 			plaintext=inject_css(html)

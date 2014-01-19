@@ -1,6 +1,9 @@
 class ColdStorage
+	
+	require 'bitcoin'
 	include CryptoHelper
 	include FreezersHelper
+
 	attr_reader :user_password, :howmany, :strong_password, :keys
 
 	def initialize(user_password='',howmany=0)
@@ -9,7 +12,6 @@ class ColdStorage
 		@password_generator=PasswordGenerator.new
 		@strong_password=@password_generator.password
 		@keys=generate_keys_array(@howmany)
-		# @@current_addresses=@addresses
 	end
 
 	def password
@@ -20,27 +22,28 @@ class ColdStorage
 		end
 	end
 
-	def alphabet
-		if @user_password.blank?
-			PasswordGenerator.alphabet.to_s			
-		else
-			@user_password.split('').uniq.sort.join
-		end		
-	end
-
 	def entropy
-		PasswordGenerator.calculate_entropy(password, alphabet)
+		@password_generator.calculate_entropy(password)
 	end
 
 	private
-    def create_remember_token
-	    self.remember_token = SecureRandom.urlsafe_base64          
-    end	
+
 		def set_number(number)
 			@howmany=[number.to_i,0].max
 		end
 		def set_password(string)
 			@user_password=string.to_s
 		end
-
+		def generate_keys_array(array_size)
+			result=[]
+			(0..array_size-1).each do |counter|
+				temp={}
+				key = Bitcoin::Key.generate
+				temp[:addr] = key.addr
+				temp[:pub] = key.pub
+				temp[:private_wif] = key.to_base58
+				result << temp
+			end
+			return result
+		end
 end

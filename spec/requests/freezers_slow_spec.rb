@@ -8,14 +8,7 @@ describe "Freezers Slow specs:", slow: true do
 	before do
 	  visit freeze_path
 	end
-	describe "submitting should redirect to view if a positive number is requested" do
-		before do
-		  fill_in 'howmany', with: '2'
-		  click_button generate_button			  
-		end
-		it { should have_title cold_view_title }
-	end
-	describe "private page layout"  do
+	describe "submitting should redirect to view if a positive number is requested"  do
 		before do
 			fill_in 'howmany', with: 1		  
 		  click_button generate_button			  
@@ -43,7 +36,7 @@ describe "Freezers Slow specs:", slow: true do
 		it_should_behave_like 'a view page'		
 		it { should have_title(cold_view_title) }		
 		it { should have_selector('h2#show_password', text: ' encrypted with: [fooba]') }
-		it { should have_selector('div.show_entropy', text: '10 bits' ) }
+		it { should have_selector('div.show_entropy', text: '31 bits' ) }
 	end
 	describe "not submitting a user password should encrypt with strong password" do
 		before do
@@ -70,6 +63,7 @@ describe "Freezers Slow specs:", slow: true do
 		let!(:plain_path) { plaintext_file_path }
 		let!(:encrypted_path) { encrypted_file_path }
 		let!(:password) { 'arikstein' }
+		let!(:alphabet) { PasswordGenerator.new.alphabet }
 		before do
 			fill_in 'howmany', with: 1		  
 			fill_in 'password', with: password
@@ -79,7 +73,7 @@ describe "Freezers Slow specs:", slow: true do
 			let!(:plain_file) { File.read(plain_path) }
 			let!(:expected_prefix) { '<doctype></doctype><html><head><title>'+full_title(cold_view_title)+'</title>' }
 			let!(:expected_pass) { '<h2 id="show_password">1 address encrypted with: [<div class="highlight_password">'+password+'</div>]' }
-			it { page.should have_xpath("//div[@class='highlight_entropy'][@title='A brute force search for a word of length 9 in the alphabet [aeiknrst] requires ~ 2^26 trials, on average.']")}			
+			it { page.should have_xpath("//div[@class='highlight_entropy'][@title='A brute force search for a word of length 9 in the alphabet ["+alphabet+"] requires ~ 2^55 trials, on average.']")}			
 			specify {plain_file.index(expected_prefix).should == 0}
 			specify {plain_file.index(expected_pass).should_not be_nil}
 		end
