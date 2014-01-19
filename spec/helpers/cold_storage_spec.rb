@@ -6,7 +6,6 @@ describe "cold storage" do
 	describe "attributes" do
 		it { should respond_to :user_password }
 		it { should respond_to :howmany }
-		# it { should respond_to :strong_password }
 		it { should respond_to :password }
 		it { should respond_to :entropy }
 		it { should respond_to :keys }
@@ -77,12 +76,9 @@ describe "cold storage" do
 		end		
 	end
 
-	describe "password" do
+	describe "password:" do
 		its(:password) { should_not be_blank }
 		it { cold.password.length.should == 30 }
-	end
-
-	describe "password:" do
 		describe "password should be user password if not blank" do
 			let!(:cold2) { ColdStorage.new('foo') }
 			subject { cold2 }
