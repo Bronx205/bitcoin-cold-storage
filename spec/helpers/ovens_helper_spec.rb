@@ -25,7 +25,24 @@ describe OvensHelper do
 			delete_file(path)
 		end
 	end
+	
+	describe "trim CSS:" do
+		let!(:bare_html) { '<html><head><title></title></head><body></body></html>' }
+		let!(:full_html) { '<html><head><title></title></head><body></body><style type="text/css">foo</style></html>' }
+		specify {trim_css(full_html).should == bare_html}
+		specify {trim_css('foobar').should == 'foobar'}
+		specify {trim_css('').should == ''}
+		specify	{trim_css(nil).should == ''}
+	end
 
+	describe "extract relevant html" do
+		let!(:full_html) { '<foo></foo><div class="heatup_begin">contentblah<div class="heatup_end"><bar></bar>' }
+		let!(:trimmed) { 'contentblah' }
+		specify {extract_keys_html(full_html).should == trimmed}
+		specify {extract_keys_html('foobar').should == 'foobar'}
+		specify {extract_keys_html('').should == ''}
+		specify	{extract_keys_html(nil).should == ''}
+	end
 
 
 end

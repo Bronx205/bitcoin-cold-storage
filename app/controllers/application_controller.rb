@@ -6,6 +6,8 @@ class ApplicationController < ActionController::Base
   include CryptoHelper
   include QrHelper
   include OvensHelper
+  include FreezersHelper
   include ColdStorageHelper
   include FilesHelper
+
 end
