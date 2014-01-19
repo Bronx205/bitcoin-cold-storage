@@ -7,4 +7,5 @@ class ApplicationController < ActionController::Base
   include FreezersHelper
   include OvensHelper
   include ColdStorageHelper
+  include FilesHelper
 end

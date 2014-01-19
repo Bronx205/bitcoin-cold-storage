@@ -1,6 +1,8 @@
 require 'spec_helper'
+
 include CryptoHelper
 include FreezersHelper
+include FilesHelper
 
 describe OvensHelper do
 

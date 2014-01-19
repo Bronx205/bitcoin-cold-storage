@@ -35,21 +35,9 @@ module ColdStorageHelper
 		end		
 	end
 
-	def save_file(path, data)
-		File.open(path,'w') {|file| file.write data }
-	end
-
-	def delete_file(path)
-		File.delete(path) if File.exist?(path)
-	end	
-
 	def save_coldstorage_files(plain_file,encrypted_file)
 		save_file(plaintext_file_path,plain_file)
 		save_file(encrypted_file_path,encrypted_file)
-	end
-
-	def relative_root_path
-		File.expand_path(Rails.root)
 	end
 
 	def coldstorage_directory
