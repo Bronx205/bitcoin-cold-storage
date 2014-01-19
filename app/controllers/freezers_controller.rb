@@ -33,7 +33,7 @@ class FreezersController < ApplicationController
 			@keys=@coldstorage.keys
 			@howmany=@coldstorage.howmany
 			@password=@coldstorage.password
-			@entropy=@coldstorage.entropy
+			@entropy=PasswordGenerator.new.calculate_entropy(@password)
 			@alphabet=PasswordGenerator.new.alphabet
 			@explanation=entropy_explanation(@password.length, @alphabet,@entropy)
 			html=render_to_string

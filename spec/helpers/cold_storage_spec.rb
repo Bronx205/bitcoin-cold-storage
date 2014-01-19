@@ -6,7 +6,7 @@ describe "cold storage" do
 	describe "attributes" do
 		it { should respond_to :howmany }
 		it { should respond_to :password }
-		it { should respond_to :entropy }
+		# it { should respond_to :entropy }
 		it { should respond_to :keys }
 	end
 

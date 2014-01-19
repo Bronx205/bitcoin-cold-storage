@@ -21,10 +21,6 @@ class ColdStorage
 		end
 	end
 
-	def entropy
-		@password_generator.calculate_entropy(password)
-	end
-
 	def keys_limit
 		25
 	end
