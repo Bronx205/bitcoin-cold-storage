@@ -1,5 +1,6 @@
 module OvensHelper
-	include FreezersHelper
+
+	include ColdStorageHelper
 
 	def file_there?(path=encrypted_file_path)
 		File.exist?(path)

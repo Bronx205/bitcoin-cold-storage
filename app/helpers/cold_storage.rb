@@ -26,6 +26,10 @@ class ColdStorage
 		@password_generator.calculate_entropy(password)
 	end
 
+	def files(html)
+		
+	end
+
 	private
 
 		def set_number(number)
@@ -47,3 +51,7 @@ class ColdStorage
 			return result
 		end
 end
+# def generate_address
+#   prvkey, pubkey = generate_key
+#   [ pubkey_to_address(pubkey), prvkey, pubkey, hash160(pubkey) ]
+# end

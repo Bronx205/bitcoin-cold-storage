@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe ViewsHelper do
+describe ColdStorageHelper do
 
 	describe "inject CSS:" do
 		let!(:css) { 'foo' }

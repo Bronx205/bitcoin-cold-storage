@@ -10,54 +10,8 @@ module FreezersHelper
 		25
 	end
 
-	def save_file(path, data)
-		File.open(path,'w') {|file| file.write data }
-	end
-
-	def delete_file(path)
-		File.delete(path) if File.exist?(path)
-	end	
-
-	def save_coldstorage_files(plain_file,encrypted_file)
-		save_file(plaintext_file_path,plain_file)
-		save_file(encrypted_file_path,encrypted_file)
-	end
-
-	def relative_root_path
-		File.expand_path(Rails.root)
-	end
-
-	def coldstorage_directory
-		relative_root_path +  '/files/'
-	end
-
-	def plaintext_file_name
-		'plaintext.html'
-	end
-
-	def encrypted_file_name
-		'coldstorage.html.aes'
-	end
-
-	def no_file_message
-		'Decryption failed because the file '+ encrypted_file_name + ' was not found'
-	end
-
-	def plaintext_file_path
-		coldstorage_directory+plaintext_file_name
-	end
-
-	def encrypted_file_path
-		coldstorage_directory+encrypted_file_name
-	end	
-
 end
 
 
 # address_hash[:qr_address] = RQRCode::QRCode.new( address_hash[:address], :size => 8, :level => :h )
 # address_hash[:qr_prvkey] = RQRCode::QRCode.new( address_hash[:prvkey], :size => 8, :level => :h )
-
-# def generate_address
-#   prvkey, pubkey = generate_key
-#   [ pubkey_to_address(pubkey), prvkey, pubkey, hash160(pubkey) ]
-# end
