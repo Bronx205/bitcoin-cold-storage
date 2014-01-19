@@ -1,7 +1,7 @@
 require 'spec_helper'
 require 'shared_examples'
+
 include ViewsHelper
-include FreezersHelper
 
 describe "Ovens:", slow: true do
 	subject { page }

@@ -1,7 +1,6 @@
 require 'spec_helper'
 require 'shared_examples'
 include ViewsHelper
-include FreezersHelper
 
 RSpec.configure do |c|
   c.filter_run_excluding :slow => true
@@ -23,6 +22,7 @@ describe "Freezers:" do
 		end
 	end
 	describe "limit to addresses limit, flash error and stay on freeze_path" do
+	let!(:keys_limit) { ColdStorage.new.keys_limit }		
 		before do
 		  fill_in 'howmany', with: keys_limit+1
 		  click_button generate_button

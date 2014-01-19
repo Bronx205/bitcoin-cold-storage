@@ -2,7 +2,6 @@ class ColdStorage
 	
 	require 'bitcoin'
 	include CryptoHelper
-	include FreezersHelper
 
 	attr_reader :howmany, :keys
 
@@ -26,8 +25,8 @@ class ColdStorage
 		@password_generator.calculate_entropy(password)
 	end
 
-	def files(html)
-		
+	def keys_limit
+		25
 	end
 
 	private

@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   include ViewsHelper
   include CryptoHelper
-  include FreezersHelper
+  include QrHelper
   include OvensHelper
   include ColdStorageHelper
   include FilesHelper
