@@ -4,7 +4,6 @@ describe "cold storage" do
 	let!(:cold) { ColdStorage.new }
 	subject { cold }
 	describe "attributes" do
-		it { should respond_to :user_password }
 		it { should respond_to :howmany }
 		it { should respond_to :password }
 		it { should respond_to :entropy }
@@ -15,7 +14,7 @@ describe "cold storage" do
 		let!(:cold2) { ColdStorage.new('foo',2) }		
 		subject { cold2 }
 		its(:howmany) { should == 2 }
-		its(:user_password) { should=='foo' }
+		its(:password) { should=='foo' }
 		its(:keys) { should_not be_blank }		
 		it { cold2.keys.length.should == cold2.howmany }
 		describe "keys array" do
@@ -26,8 +25,9 @@ describe "cold storage" do
 
 	describe "empty initializer" do
 		its(:howmany) { should == 0 }
-		its(:user_password) { should be_blank }
+		its(:password) { should_not be_blank }
 		its(:keys) { should be_blank }
+		it { cold.password.length.should == 30 }
 	end
 
 	describe "howmany should be 0 at minimum" do
@@ -62,23 +62,16 @@ describe "cold storage" do
 		describe "good value" do
 			let!(:cold2) { ColdStorage.new('bar') }
 			subject { cold2 }
-			its(:user_password) { should == 'bar' }
+			its(:password) { should == 'bar' }
 		end
-		describe "nil value" do
-			let!(:cold2) { ColdStorage.new(nil) }
-			subject { cold2 }
-			its(:user_password) { should == '' }
-		end		
 		describe "numeric value" do
 			let!(:cold2) { ColdStorage.new(1) }
 			subject { cold2 }
-			its(:user_password) { should == '1' }
+			its(:password) { should == '1' }
 		end		
 	end
 
-	describe "password:" do
-		its(:password) { should_not be_blank }
-		it { cold.password.length.should == 30 }
+	describe "password:" do		
 		describe "password should be user password if not blank" do
 			let!(:cold2) { ColdStorage.new('foo') }
 			subject { cold2 }
