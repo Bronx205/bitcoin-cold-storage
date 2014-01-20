@@ -2,4 +2,4 @@ td.text_prvkey id="prvkey_wif_#{counter}"
 	= row[:private_wif]
 td.qr_prvkey id="qr_prvkey_wif_#{counter}"
 	.qr_prvkey
-		= render 'shared/qr', qr: generate_qr(row[:private_wif]), id: 'privkey' + row[:private_wif]
+		= render 'shared/qr', qr: generate_qr(row[:private_wif]), id: 'privkey' + row[:private_wif] unless Rails.env.test?

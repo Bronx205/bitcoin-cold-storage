@@ -2,7 +2,7 @@ require 'spec_helper'
 require 'shared_examples'
 include ViewsHelper
 
-describe "Freezers Slow specs:", slow: true do
+describe "Freezers Slow specs:", slow: false do
 	subject { page }
 	before do
 	  visit freeze_path
@@ -10,7 +10,7 @@ describe "Freezers Slow specs:", slow: true do
 	describe "submitting should redirect to view if a positive number is requested"  do
 		before do
 			fill_in 'howmany', with: 1		  
-		  click_button generate_button			  
+		  click_button generate_button	
 		end		
 		it_should_behave_like 'a view page'		
 		it { should have_selector('h2#show_password', text: ' encrypted with: [') }

@@ -40,7 +40,7 @@ class FreezersController < ApplicationController
 			html=render_to_string
 			plaintext=inject_css(html)
 			encrypted=encrypt_my_file(plaintext,@password)
-			@qm.save_coldstorage_files(plaintext,encrypted)
+			@qm.save_full_html(plaintext,encrypted)
 			# send_data('foo', filename: 'foo.txt')
 		end
   end

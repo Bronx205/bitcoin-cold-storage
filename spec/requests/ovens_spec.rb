@@ -3,7 +3,7 @@ require 'shared_examples'
 
 include ViewsHelper
 
-describe "Ovens:", slow: true do
+describe "Ovens:", slow: false do
 	subject { page }
 	before do
 	  visit root_path
