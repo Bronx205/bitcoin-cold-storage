@@ -20,7 +20,5 @@ class Quartermaster
 			return true
 		end
 
-		def valid_private_key?(key)
-			Bitcoin::valid_address?(Bitcoin::Key.from_base58(key.to_base58).addr)
-		end
+
 end
