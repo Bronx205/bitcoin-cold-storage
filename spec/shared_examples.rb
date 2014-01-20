@@ -60,6 +60,6 @@ shared_examples_for "flash should go away" do
 	end		
 	describe "when reloading heatup page" do
 		before { click_link heatup_title }
-		it { should_not have_selector('div.alert')}
+		it { should_not have_selector('div.alert')} if file_there?(encrypted_file_path)
 	end					
 end
