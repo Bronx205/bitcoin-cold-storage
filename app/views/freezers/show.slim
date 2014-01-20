@@ -1,16 +1,5 @@
 - cache('freezers')	do
-	h2 id="show_password"
-		= pluralize(@howmany,'address') + " encrypted with: ["
-		.highlight_password
-			= @password	
-		= "]"
-		.show_entropy
-			= " ("
-			.highlight_entropy
-				= @entropy.round.to_s
-			= " bits of entropy)"
-			.highlight_entropy title=@explanation
-				= " (?)"
+	= render 'shared/show_password'
 	.heatup_begin				
-	= render 'shared/private_table'
+	= render 'shared/private_table', keys: @keys
 	.heatup_end
