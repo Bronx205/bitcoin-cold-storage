@@ -2,6 +2,7 @@ require 'spec_helper'
 require 'shared_examples'
 
 include ViewsHelper
+include FilesHelper
 
 
 describe "layout" do
@@ -18,6 +19,6 @@ describe "layout" do
 	end
 	describe "heatup link should show heatup page" do
 		before { find('#navbar_heatup',:visible => true).click }
-		it_should_behave_like "the heatup page"
+		it_should_behave_like "the heatup page" if file_there?(encrypted_file_path)
 	end		
 end
