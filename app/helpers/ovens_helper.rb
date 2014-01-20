@@ -1,7 +1,5 @@
 module OvensHelper
 
-	include ColdStorageHelper
-
 	def load_encrypted(path=encrypted_file_path)		
 		File.read(path) if file_there?(path)
 	end
