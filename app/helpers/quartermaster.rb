@@ -1,4 +1,4 @@
-module StorageHelper
+class Quartermaster
 
 	def save_coldstorage_files(plain_file,encrypted_file)
 		save_file(plaintext_file_path,plain_file)

@@ -27,6 +27,7 @@ class FreezersController < ApplicationController
   def show
   	@title=cold_view_title  	
 		@coldstorage=Rails.cache.read(:cold)
+		@qm=Quartermaster.new
 		if @coldstorage.nil? || !flash[:new]
 			redirect_to root_path 
 		else
@@ -39,7 +40,7 @@ class FreezersController < ApplicationController
 			html=render_to_string
 			plaintext=inject_css(html)
 			encrypted=encrypt_my_file(plaintext,@password)
-			save_coldstorage_files(plaintext,encrypted)
+			@qm.save_coldstorage_files(plaintext,encrypted)
 			# send_data('foo', filename: 'foo.txt')
 		end
   end

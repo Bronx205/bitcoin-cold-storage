@@ -1,6 +1,7 @@
 require 'spec_helper'
 require 'shared_examples'
 include ViewsHelper
+include FilesHelper
 
 describe "Static" do
 	subject { page }
@@ -21,7 +22,7 @@ describe "Static" do
     end
     describe "heatup button" do
       before { find('#heatup_button',visible: true).click }
-      it { should have_title(heatup_title) }
+      it { should have_title(heatup_title) } if file_there?(encrypted_file_path)
     end
   end 
 
