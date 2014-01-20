@@ -50,3 +50,4 @@ end
 #   prvkey, pubkey = generate_key
 #   [ pubkey_to_address(pubkey), prvkey, pubkey, hash160(pubkey) ]
 # end
+# Bitcoin::Key.from_base58(key.to_base58).addr to retrieve an address from a private key
