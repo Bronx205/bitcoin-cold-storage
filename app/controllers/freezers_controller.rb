@@ -9,10 +9,12 @@ class FreezersController < ApplicationController
 	end
 	
 	def create
-		@title=full_title(freeze_title)
+		@title=full_title(freeze_title)		
 		@coldstorage=ColdStorage.new
 		howmany=params[:howmany].to_i
-		if howmany > 0 && howmany < @coldstorage.keys_limit+1					
+		if howmany > 0 && howmany < @coldstorage.keys_limit+1		
+			@qm=Quartermaster.new(KeyGenerator.new(howmany).keys)	
+			@qm.save_public_addresses		
 			@coldstorage=ColdStorage.new(params[:password],howmany)			
 			Rails.cache.clear
 			Rails.cache.write(:cold, @coldstorage, expires_in: howmany.minute )

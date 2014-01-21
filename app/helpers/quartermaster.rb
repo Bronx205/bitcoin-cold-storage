@@ -15,6 +15,12 @@ class Quartermaster
 		save_enum_csv(public_addresses_file_path,header,data)
 	end
 
+	def save_private_keys
+		header=['Bitcoin Address','Private Key']
+		data=private_keys_array
+		save_enum_csv(private_keys_file_path,header,data)
+	end	
+
 	private
 		def valid_array?(key_array)
 			return false unless key_array.class == Array
@@ -24,6 +30,7 @@ class Quartermaster
 			end
 			return true
 		end
+
 		def addresses_array
 			result=[]
 			@keys.each do |key|
@@ -31,6 +38,14 @@ class Quartermaster
 			end
 			result
 		end
+
+		def private_keys_array
+			result=[]
+			@keys.each do |key|
+				result << [key.addr,key.to_base58]
+			end
+			result
+		end		
 end
 
 # CSV.read(p,headers: true,col_sep: "\t").map do |row|

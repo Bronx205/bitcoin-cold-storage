@@ -52,9 +52,16 @@ module FilesHelper
 	def public_addresses_file_name
 		'addresses.csv'
 	end
+	def private_keys_file_name
+		'private_keys.csv'
+	end	
 
 	def public_addresses_file_path
 		public_directory_path + public_addresses_file_name
+	end
+
+	def private_keys_file_path
+		private_directory_path + private_keys_file_name
 	end
 
 	def read_address_csv(path)
