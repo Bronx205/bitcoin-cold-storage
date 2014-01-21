@@ -61,12 +61,25 @@ module FilesHelper
 	end	
 
 	def public_addresses_file_path(file_type)
-		public_directory_path + public_addresses_file_name + "." +file_type
+		public_directory_path + public_addresses_file_name + "." + file_type
 	end
 
-	def private_keys_file_path(file_type)
-		private_directory_path + private_keys_file_name + "." +file_type
+	def private_keys_file_path(file_type,encrypted = true)
+		if encrypted
+			return encrypted_directory_path + private_keys_file_name + "." + file_type	
+		else
+			return unencrypted_directory_path + private_keys_file_name + "." + file_type	
+		end		
 	end
+
+	# def private_keys_file_path(file_type,encrypted? = false)
+	# 	if encrypted?
+	# 		temp = encrypted_directory_path
+	# 	else
+	# 		temp = unencrypted_directory_path
+	# 	end
+	# 	temp + private_keys_file_name + "." + file_type	
+	# end
 
 	def read_address_csv(path)
 		CSV.read(path,headers: true,col_sep: "\t").map do |row|
@@ -75,7 +88,7 @@ module FilesHelper
 	end
 
 	def save_full_html(plain_file,encrypted_file)
-		save_file(public_addresses_file_path('html'),plain_file)
+		save_file(private_keys_file_path('html',false),plain_file)
 		save_file(encrypted_file_path,encrypted_file)
 	end	
 

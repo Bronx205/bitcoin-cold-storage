@@ -4,6 +4,8 @@ include ViewsHelper
 include FilesHelper
 
 describe "Freezers Slow specs:", slow: false do
+	let!(:plain_path) { private_keys_file_path('html',false) }
+	let!(:encrypted_path) { encrypted_file_path }	
 	subject { page }
 	before do
 	  visit freeze_path
@@ -48,8 +50,8 @@ describe "Freezers Slow specs:", slow: false do
 		it { should have_selector('h2#show_password', text: ' encrypted with: [') }
 	end
 	describe "Cold Storgae Files are saved and are fresh" do
-		let!(:plain_path) { public_addresses_file_path('html') }
-		let!(:encrypted_path) { encrypted_file_path }
+		# let!(:plain_path) { private_keys_file_path('html',false) }
+		# let!(:encrypted_path) { encrypted_file_path }
 		before do
 			fill_in 'howmany', with: 1		  
 		  click_button generate_button		
@@ -60,8 +62,8 @@ describe "Freezers Slow specs:", slow: false do
 		specify{(File.ctime(encrypted_path).to_f-Time.now.to_f).to_i.should be < 1}
 	end
 	describe ":ColdStorage Files:" do
-		let!(:plain_path) { public_addresses_file_path('html') }
-		let!(:encrypted_path) { encrypted_file_path }
+		# let!(:plain_path) { private_keys_file_path('html',false) }
+		# let!(:encrypted_path) { encrypted_file_path }
 		let!(:password) { 'arikstein' }
 		let!(:alphabet) { PasswordGenerator.new.alphabet }
 		before do
@@ -89,8 +91,8 @@ describe "Freezers Slow specs:", slow: false do
 		end		
 	end	
 	describe ":ColdStorage Files with password cotaining spaces:" do
-		let!(:plain_path) { public_addresses_file_path('html') }
-		let!(:encrypted_path) { encrypted_file_path }
+		# let!(:plain_path) { private_keys_file_path('html',false) }
+		# let!(:encrypted_path) { encrypted_file_path }
 		let!(:password) { 'I like Mike $$ moSt of the Time' }
 		before do
 			fill_in 'howmany', with: 1		  

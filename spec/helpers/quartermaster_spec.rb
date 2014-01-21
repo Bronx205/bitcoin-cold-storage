@@ -14,7 +14,7 @@ describe "quartermaster" do
 		let!(:size) { keygen.howmany }
 		let!(:qm) { Quartermaster.new(keygen.keys) }
 		let!(:pa_path) { public_addresses_file_path('csv') }
-		let!(:pk_path) { private_keys_file_path('csv') }
+		let!(:pk_path) { private_keys_file_path('csv',false) }
 		subject { qm }
 		it { should respond_to :keys }
 		its(:keys) { should==keygen.keys }
