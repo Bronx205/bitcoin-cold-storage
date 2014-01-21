@@ -1,6 +1,7 @@
 require 'spec_helper'
 require 'shared_examples'
 include ViewsHelper
+include FilesHelper
 
 describe "Freezers Slow specs:", slow: false do
 	subject { page }

@@ -1,4 +1,5 @@
 module FilesHelper
+	require 'csv'
 
 	def save_file(path, data)
 		File.open(path,'w') {|file| file.write data }
@@ -39,5 +40,48 @@ module FilesHelper
 	def encrypted_file_path
 		coldstorage_directory+encrypted_file_name
 	end	
+
+	def public_directory_path
+		coldstorage_directory + 'public/'
+	end
 			
+	def private_directory_path
+		coldstorage_directory + 'PRIVATE/'
+	end
+
+	def public_addresses_file_name
+		'addresses'
+	end
+
+	def public_addresses_file_path
+		public_directory_path + public_addresses_file_name
+	end
+	def read_address_csv(path)
+		CSV.read(path,headers: true,col_sep: "\t").map do |row|
+			[row[0],row[1]]
+		end		
+	end
+
+	def save_full_html(plain_file,encrypted_file)
+		save_file(plaintext_file_path,plain_file)
+		save_file(encrypted_file_path,encrypted_file)
+	end	
+
+	def save_csv(path,header_array,data_nested_array)
+		CSV.open(path,"wb",col_sep: ",") do |csv|
+			csv << header_array
+			data_nested_array.each do |row|
+				csv << row
+			end
+		end
+	end
+	def save_enum_csv(path,header_array,data_nested_array)
+		CSV.open(path,"wb",col_sep: ",") do |csv|
+			csv << header_array.unshift('#')
+			data_nested_array.each do |row|
+				csv << row.unshift(data_nested_array.index(row)+1)
+			end
+		end
+	end
+
 end

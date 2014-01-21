@@ -2,23 +2,38 @@ class Quartermaster
 	include FilesHelper
 	require 'bitcoin'
 
-	def initialize(private_key_array=[])
-		# raise 'Empty Key Array' if private_key_array.blank?	
-		# raise 'Invalid keys' unless valid_array?(private_key_array)
+	attr_reader :keys
+
+	def initialize(key_array=[])
+		raise 'Invalid keys' unless valid_array?(key_array)
+		@keys=key_array
 	end
 
-	def save_full_html(plain_file,encrypted_file)
-		save_file(plaintext_file_path,plain_file)
-		save_file(encrypted_file_path,encrypted_file)
-	end	
+	def save_public_addresses
+		header=['#','Bitcoin Address']
+		result=[]
+		CSV.open(public_addresses_file_path+".csv", "w", col_sep: "	") do |csv|		
+			csv << header
+			@keys.each do |key|
+				result << @keys.index(key)
+			end
+			csv << result
+		end
+		result=[]
+	end
 
 	private
-		def valid_array?(private_key_array)
-			private_key_array.each do |key|
-				return false if valid_private_key?(key)
+		def valid_array?(key_array)
+			return false unless key_array.class == Array
+			return false if key_array.blank?
+			key_array.each do |key|
+				return false unless key.class == Bitcoin::Key
 			end
 			return true
 		end
 
-
 end
+
+# CSV.read(p,headers: true,col_sep: "\t").map do |row|
+# [row[0],row[1],row[2]]
+# end
