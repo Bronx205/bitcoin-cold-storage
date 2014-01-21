@@ -38,13 +38,4 @@ describe "Ovens:", slow: false do
 		it { should have_title home_title}
 		it { should have_selector('div.alert.alert-error', text: no_file_message) }
 	end	
-	# describe "should fall gracefully if the file is not there" do
-	# 	before do
-	# 	  delete_file(encrypted_file_path)
-	# 	  visit root_path
-	# 	  find('#navbar_heatup',:visible => true).click 
-	# 	  click_button recover_button
-	# 	end
-	# 	it_should_behave_like "it failed decryption"
-	# end
 end

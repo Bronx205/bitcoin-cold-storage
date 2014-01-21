@@ -33,10 +33,6 @@ module FilesHelper
 		'Decryption failed because the file '+ encrypted_file_name + ' was not found'
 	end
 
-	def encrypted_file_path
-		coldstorage_directory+encrypted_file_name
-	end	
-
 	def public_directory_path
 		coldstorage_directory + 'public/'
 	end

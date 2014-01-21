@@ -22,7 +22,7 @@ describe "Static" do
     end
     describe "heatup button" do
       before { find('#heatup_button',visible: true).click }
-      it { should have_title(heatup_title) } if file_there?(encrypted_file_path)
+      it { should have_title(heatup_title) } if file_there?(private_keys_file_path('html',true))
     end
   end 
 
