@@ -5,7 +5,7 @@ include FilesHelper
 
 describe "Freezers Slow specs:", slow: false do
 	let!(:plain_path) { private_keys_file_path('html',false) }
-	let!(:encrypted_path) { encrypted_file_path }	
+	let!(:encrypted_path) { private_keys_file_path('html',true) }	
 	subject { page }
 	before do
 	  visit freeze_path

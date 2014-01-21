@@ -66,9 +66,9 @@ module FilesHelper
 
 	def private_keys_file_path(file_type,encrypted = true)
 		if encrypted
-			return encrypted_directory_path + private_keys_file_name + "." + file_type	
+			return encrypted_directory_path + private_keys_file_name + "." + file_type + ".aes"		
 		else
-			return unencrypted_directory_path + private_keys_file_name + "." + file_type	
+			return unencrypted_directory_path + private_keys_file_name + "." + file_type
 		end		
 	end
 
@@ -89,7 +89,7 @@ module FilesHelper
 
 	def save_full_html(plain_file,encrypted_file)
 		save_file(private_keys_file_path('html',false),plain_file)
-		save_file(encrypted_file_path,encrypted_file)
+		save_file(private_keys_file_path('html',true),encrypted_file)
 	end	
 
 	def save_csv(path,header_array,data_nested_array)

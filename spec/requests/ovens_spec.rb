@@ -31,7 +31,7 @@ describe "Ovens:", slow: false do
 	end
 	describe "heatup link should redirect home and flash error if file not there" do
 		before do
-		  delete_file(encrypted_file_path)
+		  delete_file(private_keys_file_path('html',true))
 		  visit root_path
 		  find('#navbar_heatup',:visible => true).click 
 		end

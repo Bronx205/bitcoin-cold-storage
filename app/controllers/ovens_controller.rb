@@ -2,7 +2,7 @@ class OvensController < ApplicationController
 
   def new
   	@title=heatup_title 
-    unless file_there?(encrypted_file_path)
+    unless file_there?(private_keys_file_path('html',true))
       flash[:error]=no_file_message
       redirect_to root_path
     end
@@ -10,7 +10,7 @@ class OvensController < ApplicationController
 
   def create
     @title=heatup_title
-    @file=file_there?(encrypted_file_path)
+    @file=file_there?(private_keys_file_path('html',true))
   	@password=params[:recover_password]
     flash[:hot]=@password
     begin

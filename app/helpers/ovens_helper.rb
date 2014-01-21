@@ -1,10 +1,10 @@
 module OvensHelper
 
-	def load_encrypted(path=encrypted_file_path)		
+	def load_encrypted(path=private_keys_file_path('html',true))		
 		File.read(path) if file_there?(path)
 	end
 
-	def decrypt_loaded(path=encrypted_file_path,password)
+	def decrypt_loaded(path=private_keys_file_path('html',true),password)
 		decrypt_my_file(load_encrypted(path),password)
 	end
 

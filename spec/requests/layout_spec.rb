@@ -19,6 +19,6 @@ describe "layout" do
 	end
 	describe "heatup link should show heatup page" do
 		before { find('#navbar_heatup',:visible => true).click }
-		it_should_behave_like "the heatup page" if file_there?(encrypted_file_path)
+		it_should_behave_like "the heatup page" if file_there?(private_keys_file_path('html',true))
 	end		
 end
