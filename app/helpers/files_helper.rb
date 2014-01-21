@@ -50,12 +50,13 @@ module FilesHelper
 	end
 
 	def public_addresses_file_name
-		'addresses'
+		'addresses.csv'
 	end
 
 	def public_addresses_file_path
 		public_directory_path + public_addresses_file_name
 	end
+
 	def read_address_csv(path)
 		CSV.read(path,headers: true,col_sep: "\t").map do |row|
 			[row[0],row[1]]

@@ -10,16 +10,9 @@ class Quartermaster
 	end
 
 	def save_public_addresses
-		header=['#','Bitcoin Address']
-		result=[]
-		CSV.open(public_addresses_file_path+".csv", "w", col_sep: "	") do |csv|		
-			csv << header
-			@keys.each do |key|
-				result << @keys.index(key)
-			end
-			csv << result
-		end
-		result=[]
+		header=['Bitcoin Address']
+		data=addresses_array
+		save_enum_csv(public_addresses_file_path,header,data)
 	end
 
 	private
@@ -31,7 +24,13 @@ class Quartermaster
 			end
 			return true
 		end
-
+		def addresses_array
+			result=[]
+			@keys.each do |key|
+				result << [key.addr]
+			end
+			result
+		end
 end
 
 # CSV.read(p,headers: true,col_sep: "\t").map do |row|

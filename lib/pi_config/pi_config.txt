@@ -1,3 +1,5 @@
 Things to do on pi
 1. /bin/bash --login
-2. sudo chmod a+wx files/ # actually no need
+2. sudo chmod a+wx files/ 
+2. sudo chmod a+wx files/PRIVATE
+2. sudo chmod a+wx files/public

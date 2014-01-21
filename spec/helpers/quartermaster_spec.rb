@@ -13,15 +13,16 @@ describe "quartermaster" do
 		let!(:keygen) { KeyGenerator.new(2) }
 		let!(:size) { keygen.howmany }
 		let!(:qm) { Quartermaster.new(keygen.keys) }
+		let!(:path) { public_addresses_file_path }
 		subject { qm }
 		it { should respond_to :keys }
 		its(:keys) { should==keygen.keys }
 		it { should respond_to :save_public_addresses }
 		describe "save_public_addresses" do
+			it { expect{qm.save_public_addresses}.not_to raise_error }
 			before { qm.save_public_addresses }
 			describe "should save a csv file named addresses_list to a public folder under the files dir" do				
-				specify{File.exist?(public_addresses_file_path).should be_true }			
-				# specify{read_address_csv(public_addresses_file_path)}
+
 			end
 		end
 	end
