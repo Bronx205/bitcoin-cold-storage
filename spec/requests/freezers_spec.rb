@@ -1,6 +1,7 @@
 require 'spec_helper'
 require 'shared_examples'
 include ViewsHelper
+include FilesHelper
 
 RSpec.configure do |c|
   c.filter_run_excluding :slow => true
