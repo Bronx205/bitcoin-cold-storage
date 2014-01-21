@@ -21,6 +21,11 @@ class Quartermaster
 		save_enum_csv(private_keys_file_path,header,data)
 	end	
 
+	def dump_files
+		save_private_keys
+		save_public_addresses
+	end
+
 	private
 		def valid_array?(key_array)
 			return false unless key_array.class == Array

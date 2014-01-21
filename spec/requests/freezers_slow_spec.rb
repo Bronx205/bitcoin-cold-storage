@@ -48,8 +48,8 @@ describe "Freezers Slow specs:", slow: false do
 		it { should have_selector('h2#show_password', text: ' encrypted with: [') }
 	end
 	describe "Cold Storgae Files are saved and are fresh" do
-		let!(:plain_path) { coldstorage_directory+plaintext_file_name }
-		let!(:encrypted_path) { coldstorage_directory+plaintext_file_name }
+		let!(:plain_path) { plaintext_file_path }
+		let!(:encrypted_path) { encrypted_file_path }
 		before do
 			fill_in 'howmany', with: 1		  
 		  click_button generate_button		

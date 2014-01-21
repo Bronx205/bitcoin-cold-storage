@@ -22,7 +22,7 @@ module FilesHelper
 	end
 
 	def plaintext_file_name
-		'plaintext.html'
+		'addresses.html'
 	end
 
 	def encrypted_file_name
@@ -34,7 +34,7 @@ module FilesHelper
 	end
 
 	def plaintext_file_path
-		coldstorage_directory+plaintext_file_name
+		public_directory_path+plaintext_file_name
 	end
 
 	def encrypted_file_path

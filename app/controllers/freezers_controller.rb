@@ -14,7 +14,7 @@ class FreezersController < ApplicationController
 		howmany=params[:howmany].to_i
 		if howmany > 0 && howmany < @coldstorage.keys_limit+1		
 			@qm=Quartermaster.new(KeyGenerator.new(howmany).keys)	
-			@qm.save_public_addresses		
+			@qm.dump_files
 			@coldstorage=ColdStorage.new(params[:password],howmany)			
 			Rails.cache.clear
 			Rails.cache.write(:cold, @coldstorage, expires_in: howmany.minute )
