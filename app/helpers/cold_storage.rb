@@ -5,7 +5,7 @@ class ColdStorage
 
 	attr_reader :howmany, :keys
 
-	def initialize(user_password='',howmany=0)
+	def initialize(howmany,user_password='')
 		@howmany = set_number(howmany)
 		raise 'ColdStorage must initialize with a positive integer' unless @howmany > 0
 		@keys=generate_keys_array(@howmany)

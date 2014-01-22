@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe "cold storage" do
-	let!(:cold) { ColdStorage.new('foo',1) }
+	let!(:cold) { ColdStorage.new(1,'foo') }
 	subject { cold }
 	describe "attributes" do
 		it { should respond_to :howmany }
@@ -9,7 +9,7 @@ describe "cold storage" do
 		it { should respond_to :keys }
 	end
 	describe "standard initializer" do
-		let!(:cold2) { ColdStorage.new('foo',2) }		
+		let!(:cold2) { ColdStorage.new(2,'foo') }		
 		subject { cold2 }
 		its(:howmany) { should == 2 }
 		its(:password) { should=='foo' }
@@ -22,19 +22,21 @@ describe "cold storage" do
 	end
 	describe "funky initializer" do
 		it {expect {ColdStorage.new }.to raise_error}		
-		it {expect {ColdStorage.new(2) }.to raise_error}		
+		it {expect {ColdStorage.new(2) }.not_to raise_error}		
 		it {expect {ColdStorage.new('foo') }.to raise_error}	
-		it {expect {ColdStorage.new(1,'foo') }.to raise_error}	
-		it {expect {ColdStorage.new('foo',-1) }.to raise_error}	
+		it {expect {ColdStorage.new('foo',1) }.to raise_error}	
+		it {expect {ColdStorage.new(-1,'foo') }.to raise_error}	
 		it {expect {ColdStorage.new(nil,-1) }.to raise_error}	
+		it {expect {ColdStorage.new(-1,nil) }.to raise_error}	
 		it {expect {ColdStorage.new('foo','') }.to raise_error}	
+		it {expect {ColdStorage.new('','foo') }.to raise_error}	
 		it {expect {ColdStorage.new(nil,'') }.to raise_error}			
-		it {expect {ColdStorage.new(nil,nil) }.to raise_error}			
+		it {expect {ColdStorage.new('',nil) }.to raise_error}			
 	end
 
 	describe "setting a user password" do
 		describe "good value" do
-			let!(:cold2) { ColdStorage.new('bar',1) }
+			let!(:cold2) { ColdStorage.new(1,'bar') }
 			subject { cold2 }
 			its(:password) { should == 'bar' }
 		end
@@ -47,7 +49,7 @@ describe "cold storage" do
 
 	describe "password:" do		
 		describe "password should be user password if not blank" do
-			let!(:cold2) { ColdStorage.new('foo',1) }
+			let!(:cold2) { ColdStorage.new(1,'foo') }
 			subject { cold2 }
 			its(:password) { should == 'foo' }
 			it { cold2.password.length.should_not == 30 }	
