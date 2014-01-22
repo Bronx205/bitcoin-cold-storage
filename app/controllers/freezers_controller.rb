@@ -45,6 +45,16 @@ class FreezersController < ApplicationController
 		end
   end
 
+  def addresses
+    @data=CSV.read(public_addresses_file_path('csv'))
+    @keys=build_addresses_hash_array(@data)
+  end
+
+  def private_keys
+    @data=CSV.read(private_keys_file_path('csv',false))
+    @keys=build_private_keys_hash_array(@data)
+  end
+
   private
 
 	  def freezers_params

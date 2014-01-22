@@ -39,23 +39,4 @@ describe "Ovens:", slow: false do
 		it { should have_title home_title}
 		it { should have_selector('div.alert.alert-error', text: no_file_message) }
 	end
-	describe "addresses" do
-		describe "should show in HTML the content of addresses.csv" do
-			let!(:pa_path) { public_addresses_file_path('csv') }
-			let!(:data) { CSV.read(pa_path) }
-			before { visit addresses_path }
-			it_should_behave_like 'the addresses page'
-			it { should have_selector('td.text_pubkey#address_1', text: data[1][1]) }
-		end
-	end
-	describe "private keys" do
-		describe "should show in HTML the content of private_keys.csv" do
-			let!(:pk_path) { private_keys_file_path('csv',false) }
-			let!(:data) { CSV.read(pk_path) }
-			before { visit private_keys_path }
-			it_should_behave_like 'the private keys page'
-			it { should have_selector('td.text_pubkey#address_1', text: data[1][1]) }
-			it { should have_selector('td.text_prvkey#prvkey_wif_1', text: data[1][2]) }
-		end
-	end	
 end

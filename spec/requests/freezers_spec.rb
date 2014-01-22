@@ -36,5 +36,25 @@ describe "Freezers:" do
 	describe "directly visiting the view path should redirect home" do
 		before { visit cold_view_path }
 		it { should have_title home_title }
-	end		
+	end	
+	
+	describe "addresses" do
+		describe "should show in HTML the content of addresses.csv" do
+			let!(:pa_path) { public_addresses_file_path('csv') }
+			let!(:data) { CSV.read(pa_path) }
+			before { visit addresses_path }
+			it_should_behave_like 'the addresses page'
+			it { should have_selector('td.text_pubkey#address_1', text: data[1][1]) }
+		end
+	end
+	describe "private keys" do
+		describe "should show in HTML the content of private_keys.csv" do
+			let!(:pk_path) { private_keys_file_path('csv',false) }
+			let!(:data) { CSV.read(pk_path) }
+			before { visit private_keys_path }
+			it_should_behave_like 'the private keys page'
+			it { should have_selector('td.text_pubkey#address_1', text: data[1][1]) }
+			it { should have_selector('td.text_prvkey#prvkey_wif_1', text: data[1][2]) }
+		end
+	end			
 end
