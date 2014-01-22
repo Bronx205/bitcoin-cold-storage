@@ -15,7 +15,7 @@ shared_examples_for "the freeze page" do
 	it { should have_selector('input#password.input-xxlarge') }
 end
 
-shared_examples_for "a view page" do	
+shared_examples_for "the private keys page" do	
 	it { should have_selector('th', text: 'Bitcoin Address') }		
 	it { should have_selector('th', text: 'Private Key') }		
 	it { should have_selector('table.private_output#private_output') }		

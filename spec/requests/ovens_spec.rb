@@ -19,7 +19,7 @@ describe "Ovens:", slow: false do
 		  fill_in 'recover_password', with: 'foo'
 		  click_button recover_button
 		end
-		it_should_behave_like "a view page"
+		it_should_behave_like "the private keys page"
 	end
 	describe "should fail gracefully when attempting to heat up with wrong password" do
 		before do
@@ -48,4 +48,14 @@ describe "Ovens:", slow: false do
 			it { should have_selector('td.text_pubkey#address_1', text: data[1][1]) }
 		end
 	end
+	describe "private keys" do
+		describe "should show in HTML the content of private_keys.csv" do
+			let!(:pk_path) { private_keys_file_path('csv',false) }
+			let!(:data) { CSV.read(pk_path) }
+			before { visit private_keys_path }
+			it_should_behave_like 'the private keys page'
+			it { should have_selector('td.text_pubkey#address_1', text: data[1][1]) }
+			it { should have_selector('td.text_prvkey#prvkey_wif_1', text: data[1][2]) }
+		end
+	end	
 end
