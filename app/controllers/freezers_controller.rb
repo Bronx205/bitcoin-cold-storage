@@ -10,9 +10,8 @@ class FreezersController < ApplicationController
 	
 	def create
 		@title=full_title(freeze_title)		
-		@coldstorage=ColdStorage.new
 		howmany=params[:howmany].to_i
-		if howmany > 0 && howmany < @coldstorage.keys_limit+1		
+		if howmany > 0 && howmany < ColdStorage.keys_limit+1		
 			@qm=Quartermaster.new(KeyGenerator.new(howmany).keys)	
 			@qm.dump_files
 			@coldstorage=ColdStorage.new(params[:password],howmany)			

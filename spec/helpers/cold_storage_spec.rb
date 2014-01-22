@@ -1,15 +1,14 @@
 require 'spec_helper'
 
 describe "cold storage" do
-	let!(:cold) { ColdStorage.new }
+	let!(:cold) { ColdStorage.new('foo',1) }
 	subject { cold }
 	describe "attributes" do
 		it { should respond_to :howmany }
 		it { should respond_to :password }
 		it { should respond_to :keys }
 	end
-
-	describe "initializer" do
+	describe "standard initializer" do
 		let!(:cold2) { ColdStorage.new('foo',2) }		
 		subject { cold2 }
 		its(:howmany) { should == 2 }
@@ -21,50 +20,26 @@ describe "cold storage" do
 			specify {Bitcoin::pubkey_to_address(cold2.keys[1][:pub]).should == cold2.keys[1][:addr]}	
 		end
 	end
-
-	describe "empty initializer" do
-		its(:howmany) { should == 0 }
-		its(:password) { should_not be_blank }
-		its(:keys) { should be_blank }
-		it { cold.password.length.should == 30 }
+	describe "funky initializer" do
+		it {expect {ColdStorage.new }.to raise_error}		
+		it {expect {ColdStorage.new(2) }.to raise_error}		
+		it {expect {ColdStorage.new('foo') }.to raise_error}	
+		it {expect {ColdStorage.new(1,'foo') }.to raise_error}	
+		it {expect {ColdStorage.new('foo',-1) }.to raise_error}	
+		it {expect {ColdStorage.new(nil,-1) }.to raise_error}	
+		it {expect {ColdStorage.new('foo','') }.to raise_error}	
+		it {expect {ColdStorage.new(nil,'') }.to raise_error}			
+		it {expect {ColdStorage.new(nil,nil) }.to raise_error}			
 	end
-
-	describe "howmany should be 0 at minimum" do
-		describe "good value" do
-			let!(:cold2) { ColdStorage.new(nil,1) }
-			subject { cold2 }
-			its(:howmany) { should == 1 }
-		end
-		describe "negatvie value" do
-			let!(:cold2) { ColdStorage.new(nil,-1) }
-			subject { cold2 }
-			its(:howmany) { should == 0 }
-		end
-		describe "string value" do
-			let!(:cold2) { ColdStorage.new(nil,'foo') }
-			subject { cold2 }
-			its(:howmany) { should == 0 }
-		end
-		describe "blank value" do
-			let!(:cold2) { ColdStorage.new(nil,'') }
-			subject { cold2 }
-			its(:howmany) { should == 0 }
-		end
-		describe "nil value" do
-			let!(:cold2) { ColdStorage.new(nil,nil) }
-			subject { cold2 }
-			its(:howmany) { should == 0 }
-		end								
-	end	
 
 	describe "setting a user password" do
 		describe "good value" do
-			let!(:cold2) { ColdStorage.new('bar') }
+			let!(:cold2) { ColdStorage.new('bar',1) }
 			subject { cold2 }
 			its(:password) { should == 'bar' }
 		end
 		describe "numeric value" do
-			let!(:cold2) { ColdStorage.new(1) }
+			let!(:cold2) { ColdStorage.new(1,1) }
 			subject { cold2 }
 			its(:password) { should == '1' }
 		end		
@@ -72,7 +47,7 @@ describe "cold storage" do
 
 	describe "password:" do		
 		describe "password should be user password if not blank" do
-			let!(:cold2) { ColdStorage.new('foo') }
+			let!(:cold2) { ColdStorage.new('foo',1) }
 			subject { cold2 }
 			its(:password) { should == 'foo' }
 			it { cold2.password.length.should_not == 30 }	

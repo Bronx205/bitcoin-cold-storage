@@ -72,7 +72,7 @@ module ViewsHelper
 		'Create and recover encrypted addresses on your offline Raspberry Pi'
 	end
 	def addresses_range_notice
-		'You can request at most ' + ColdStorage.new.keys_limit.to_s + ' addresses.'
+		'You can request at most ' + ColdStorage.keys_limit.to_s + ' addresses.'
 	end
 
 	def entropy_explanation(length, alphabet, entropy)

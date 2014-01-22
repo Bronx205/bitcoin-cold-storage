@@ -24,7 +24,7 @@ describe "Freezers:" do
 		end
 	end
 	describe "limit to addresses limit, flash error and stay on freeze_path" do
-	let!(:keys_limit) { ColdStorage.new.keys_limit }		
+	let!(:keys_limit) { ColdStorage.keys_limit }		
 		before do
 		  fill_in 'howmany', with: keys_limit+1
 		  click_button generate_button
