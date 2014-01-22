@@ -4,7 +4,7 @@ class Quartermaster
 
 	attr_reader :keys
 
-	def initialize(key_array=[])
+	def initialize(key_array)
 		raise 'Invalid keys' unless valid_array?(key_array)
 		@keys=key_array
 	end
@@ -35,6 +35,13 @@ class Quartermaster
 			end
 			return true
 		end
+
+		# def addresses_hash
+		# 	result={}
+		# 	@keys.each do |key|
+		# 		result[:addr]=key.addr
+		# 	end
+		# end
 
 		def addresses_array
 			result=[]

@@ -30,6 +30,7 @@ class OvensController < ApplicationController
 
   def addresses
     @data=CSV.read(public_addresses_file_path('csv'))
+    @keys=build_addresses_hash_array(@data)
   end
 
 end

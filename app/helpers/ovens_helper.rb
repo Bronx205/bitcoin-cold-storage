@@ -33,4 +33,14 @@ module OvensHelper
 		end		
 	end
 
+	def build_addresses_hash_array(addresses_csv) 
+		result=[]
+		addresses_csv.shift
+		addresses_csv.each do |row|
+			result << {addr: row[1]}
+		end
+		result
+	end
+
+
 end

@@ -7,7 +7,7 @@ describe "quartermaster" do
 	describe "init" do
 		it {expect {Quartermaster.new([1])}.to raise_error(RuntimeError, 'Invalid keys')}
 		it {expect {Quartermaster.new([])}.to raise_error(RuntimeError, 'Invalid keys')}
-		it {expect {Quartermaster.new}.to raise_error(RuntimeError, 'Invalid keys')}
+		it {expect {Quartermaster.new}.to raise_error(ArgumentError, 'wrong number of arguments (0 for 1)')}
 	end
 	describe "quartermaster" do
 		let!(:keygen) { KeyGenerator.new(2) }

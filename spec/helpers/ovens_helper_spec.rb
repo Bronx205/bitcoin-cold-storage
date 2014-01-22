@@ -44,5 +44,13 @@ describe OvensHelper do
 		specify	{extract_keys_html(nil).should == ''}
 	end
 
+	describe "build_addresses_hash_array_from_csv" do
+		let!(:addr_csv) { [["#", "Bitcoin Address"], ["1", "18KVUSLdn984nnf5DwBUEPFdUc6Ca2UErh"], ["2", "1Jhf5sVmuVDVh23UZFaVW267cMWYCCJxEG"]] }
+		let!(:addr_hash) { build_addresses_hash_array(addr_csv) }
+		subject { addr_hash }
+		its(:length) { should == 2 }
+		it { addr_hash[0][:addr].should == '18KVUSLdn984nnf5DwBUEPFdUc6Ca2UErh' }
+		it { addr_hash[1][:addr].should == '1Jhf5sVmuVDVh23UZFaVW267cMWYCCJxEG' }
+	end
 
 end
