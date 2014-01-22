@@ -3,7 +3,7 @@ require 'shared_examples'
 include ViewsHelper
 include FilesHelper
 
-describe "Freezers Slow specs:", slow: false do
+describe "Freezers Slow specs:", disabled: true do
 	let!(:plain_path) { private_keys_file_path('html',false) }
 	let!(:encrypted_path) { private_keys_file_path('html',true) }	
 	subject { page }

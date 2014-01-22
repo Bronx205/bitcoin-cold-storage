@@ -52,6 +52,14 @@ module ViewsHelper
 		'Heat-up'
 	end
 
+	def addresses_title
+		'Bitcoin Addresses'
+	end
+	
+	def private_keys_title
+		'Private Keys'
+	end
+
 	def freeze_button_title
 		'Generate an encrypted file containing Bitcoin Addresses for Cold Storage'
 	end

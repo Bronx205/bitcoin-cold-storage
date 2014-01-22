@@ -4,7 +4,7 @@ require 'shared_examples'
 include ViewsHelper
 include FilesHelper
 
-describe "Ovens:", slow: false do
+describe "Ovens:", disabled: true do
 	subject { page }
 	before do
 	  visit root_path

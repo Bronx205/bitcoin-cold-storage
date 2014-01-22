@@ -14,11 +14,12 @@ class FreezersController < ApplicationController
 		if howmany > 0 && howmany < ColdStorage.keys_limit+1		
 			@qm=Quartermaster.new(KeyGenerator.new(howmany).keys)	
 			@qm.dump_files
+			flash[:password]=params[:password]
 			@coldstorage=ColdStorage.new(howmany,params[:password])			
 			Rails.cache.clear
 			Rails.cache.write(:cold, @coldstorage, expires_in: howmany.minute )
 			flash[:new]=true
-			redirect_to cold_view_path 
+			redirect_to private_keys_path 
 		else
 			flash.now[:error] = addresses_range_notice
 			render 'new'
@@ -46,11 +47,13 @@ class FreezersController < ApplicationController
   end
 
   def addresses
+  	@title=addresses_title
     @data=CSV.read(public_addresses_file_path('csv'))
     @keys=build_addresses_hash_array(@data)
   end
 
   def private_keys
+  	@title=private_keys_title
     @data=CSV.read(private_keys_file_path('csv',false))
     @keys=build_private_keys_hash_array(@data)
   end
