@@ -1,5 +1,6 @@
 require 'spec_helper'
 require 'shared_examples'
+
 include ViewsHelper
 include FilesHelper
 

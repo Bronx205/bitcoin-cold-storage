@@ -28,4 +28,8 @@ class OvensController < ApplicationController
     @keys=extract_keys_html(decrypt_loaded(@password))
   end
 
+  def addresses
+    @data=CSV.read(public_addresses_file_path('csv'))
+  end
+
 end

@@ -2,6 +2,7 @@ require 'spec_helper'
 require 'shared_examples'
 
 include ViewsHelper
+include FilesHelper
 
 describe "Ovens:", slow: false do
 	subject { page }
@@ -37,5 +38,14 @@ describe "Ovens:", slow: false do
 		end
 		it { should have_title home_title}
 		it { should have_selector('div.alert.alert-error', text: no_file_message) }
-	end	
+	end
+	describe "addresses" do
+		describe "should show in HTML the content of addresses.csv" do
+			let!(:pa_path) { public_addresses_file_path('csv') }
+			let!(:data) { CSV.read(pa_path) }
+			before { visit addresses_path }
+			it_should_behave_like 'the addresses page'
+			it { should have_selector('td.text_pubkey#address_1', text: data[1][1]) }
+		end
+	end
 end
