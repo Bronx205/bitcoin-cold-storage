@@ -36,13 +36,6 @@ class Quartermaster
 			return true
 		end
 
-		# def addresses_hash
-		# 	result={}
-		# 	@keys.each do |key|
-		# 		result[:addr]=key.addr
-		# 	end
-		# end
-
 		def addresses_array
 			result=[]
 			@keys.each do |key|

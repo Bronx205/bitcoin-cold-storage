@@ -8,5 +8,6 @@ class ApplicationController < ActionController::Base
   include OvensHelper
   include FreezersHelper
   include FilesHelper
+  include DataHelper
 
 end
