@@ -23,10 +23,9 @@ describe "Freezers:" do
 			it_should_behave_like 'the freeze page'			
 		end
 	end
-	describe "limit to addresses limit, flash error and stay on freeze_path" do
-	let!(:keys_limit) { ColdStorage.keys_limit }		
+	describe "must requrest a positive number between 1 and limit, otherwise, flash error and stay on freeze_path" do
 		before do
-		  fill_in 'howmany', with: keys_limit+1
+		  fill_in 'howmany', with: KEYS_LIMIT+1
 		  click_button generate_button
 		end
 		it { should have_title freeze_title }

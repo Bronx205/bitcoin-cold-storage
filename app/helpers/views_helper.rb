@@ -100,12 +100,12 @@ module ViewsHelper
 		'Create and recover encrypted addresses on your offline Raspberry Pi'
 	end
 	def addresses_range_notice
-		'You can request at most ' + ColdStorage.keys_limit.to_s + ' addresses.'
+		'The number of addresses must be positive and no bigger than ' + KEYS_LIMIT.to_s + '.'
 	end
 
 	def entropy_explanation(length, alphabet, entropy)
 		size=[(entropy -1).round.to_i,0].max.to_s
 		'A brute force search for a word of length '+length.to_s + ' in the alphabet [' + alphabet.to_s + '] requires ~ 2^' + size + ' trials, on average.'
 	end
-	
+
 end

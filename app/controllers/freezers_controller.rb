@@ -12,41 +12,17 @@ class FreezersController < ApplicationController
 	def create
 		@title=full_title(freeze_title)		
 		howmany=params[:howmany].to_i
-		if howmany > 0 && howmany < ColdStorage.keys_limit+1		
+		if (1..KEYS_LIMIT).include?(howmany)
 			@qm=Quartermaster.new(KeyGenerator.new(howmany).keys)	
 			@qm.dump_files
 			@password=set_password(params[:password])			
 			flash[:password]=password_message(@password,@password==params[:password])
-			@coldstorage=ColdStorage.new(howmany,params[:password])			
-			Rails.cache.clear
-			Rails.cache.write(:cold, @coldstorage, expires_in: howmany.minute )
-			flash[:new]=true
 			redirect_to private_keys_path 
 		else
 			flash.now[:error] = addresses_range_notice
 			render 'new'
 		end
 	end
-  
-  # def show
-  # 	@title=cold_view_title  	
-		# @coldstorage=Rails.cache.read(:cold)
-		# if @coldstorage.nil? || !flash[:new]
-		# 	redirect_to root_path 
-		# else
-		# 	@keys=@coldstorage.keys
-		# 	@howmany=@coldstorage.howmany
-		# 	@password=@coldstorage.password
-		# 	@entropy=PasswordGenerator.new.calculate_entropy(@password)
-		# 	@alphabet=PasswordGenerator.new.alphabet
-		# 	@explanation=entropy_explanation(@password.length, @alphabet,@entropy)
-		# 	html=render_to_string
-		# 	plaintext=inject_css(html)
-		# 	encrypted=encrypt_my_file(plaintext,@password)
-		# 	save_full_html(plaintext,encrypted)
-		# 	# send_data('foo', filename: 'foo.txt')
-		# end
-  # end
 
   def addresses
   	@title=addresses_title
@@ -70,7 +46,7 @@ class FreezersController < ApplicationController
 			return PasswordGenerator.new.password if string.blank?
 			string.to_s
 		end
-		
+
 	  def clear_flash_messages
 	  	flash[:error].clear if flash[:error] 
 	  end	
@@ -79,3 +55,23 @@ end
 
 # send_data(inject_css(render_to_string), :filename => "colds.html") if @download=='plaintext'
 # send_data(encrypt_my_page(inject_css(render_to_string),@password), :filename => "cold.html.aes") if @download=='encrypted'
+
+  # def show
+  # 	@title=cold_view_title  	
+		# @coldstorage=Rails.cache.read(:cold)
+		# if @coldstorage.nil? || !flash[:new]
+		# 	redirect_to root_path 
+		# else
+		# 	@keys=@coldstorage.keys
+		# 	@howmany=@coldstorage.howmany
+		# 	@password=@coldstorage.password
+		# 	@entropy=PasswordGenerator.new.calculate_entropy(@password)
+		# 	@alphabet=PasswordGenerator.new.alphabet
+		# 	@explanation=entropy_explanation(@password.length, @alphabet,@entropy)
+		# 	html=render_to_string
+		# 	plaintext=inject_css(html)
+		# 	encrypted=encrypt_my_file(plaintext,@password)
+		# 	save_full_html(plaintext,encrypted)
+		# 	# send_data('foo', filename: 'foo.txt')
+		# end
+  # end
