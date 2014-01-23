@@ -81,7 +81,7 @@ module ViewsHelper
 	end
 
 	def password_flash_suffix
-		"]. Please make a note of this password in a safe place"
+		"]. Please make a note of this password and keep a safely stored record."
 	end
 
 	def password_message(password,by_user)

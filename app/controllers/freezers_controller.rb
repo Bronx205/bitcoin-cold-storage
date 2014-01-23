@@ -38,10 +38,21 @@ class FreezersController < ApplicationController
     @keys=build_private_keys_hash_array(@data)
   end
 
-  def download_plain
-  	@data=CSV.read(private_keys_file_path('csv',false))
-  	send_data @data,
-  	filename: private_keys_file_name+'.csv'
+  # def download_plain
+  # 	@data=CSV.read(public_addresses_file_path('csv'))
+  # 	send_data @data,
+  # 	filename: public_addresses_file_path+'.csv'
+  # end
+
+  def download
+  	case params[:download]
+  	when 'addresses'
+	  	send_file public_addresses_file_path('csv'), filename: public_addresses_file_name+".csv"
+	  when 'plain_private_keys'
+	  	send_file private_keys_file_path('csv',false), filename: private_keys_file_name+".csv"	  	
+	  else
+	  	render 'addresses'
+	  end
   end
 
   private

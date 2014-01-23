@@ -11,7 +11,7 @@ Coldcoin::Application.routes.draw do
   match "/hot_view",  			to: 'ovens#show',						  	via: :get
   match "/addresses",				to: 'freezers#addresses',				via: :get
   match "/private_keys",		to: 'freezers#private_keys',		via: :get
-  match	"/download_plain",	to: 'freezers#download_plain',	via: :get
+  match	"/download",				to: 'freezers#download',				via: :get
 
   match "/help",    			to: 'static#help',    				via: :get
   match "/about",   			to: 'static#about',	  				via: :get
