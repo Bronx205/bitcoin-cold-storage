@@ -1,1 +1,2 @@
-= render 'shared/public_table', keys: @keys
+- cache('addresses')	do
+	= render 'shared/public_table', keys: @keys
