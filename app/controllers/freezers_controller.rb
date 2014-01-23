@@ -14,7 +14,8 @@ class FreezersController < ApplicationController
 		if howmany > 0 && howmany < ColdStorage.keys_limit+1		
 			@qm=Quartermaster.new(KeyGenerator.new(howmany).keys)	
 			@qm.dump_files
-			flash[:password]=password_flash_prefix+params[:password]+password_flash_suffix
+			@password=set_password(params[:password])			
+			flash[:password]=password_message(@password,@password==params[:password])
 			@coldstorage=ColdStorage.new(howmany,params[:password])			
 			Rails.cache.clear
 			Rails.cache.write(:cold, @coldstorage, expires_in: howmany.minute )
@@ -63,6 +64,11 @@ class FreezersController < ApplicationController
 	  def freezers_params
 	    params.require(:keys).permit(:howmany, :password)
 	  end
+
+		def set_password(string)
+			return PasswordGenerator.new.password if string.blank?
+			string.to_s
+		end
 
 end
 

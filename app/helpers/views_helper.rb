@@ -76,8 +76,20 @@ module ViewsHelper
 		"Your cold storage files where encrypted with the password ["
 	end
 
+	def strong_password_flash_prefix
+		"Your cold storage files where encrypted with the randomly generated password ["
+	end
+
 	def password_flash_suffix
 		"]. Please make a note of this password in a safe place"
+	end
+
+	def password_message(password,by_user)
+		if by_user
+			return password_flash_prefix+password+password_flash_suffix
+		else
+			return strong_password_flash_prefix+password+password_flash_suffix
+		end
 	end
 
 	def catch_phrase

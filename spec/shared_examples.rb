@@ -16,6 +16,7 @@ shared_examples_for "the freeze page" do
 end
 
 shared_examples_for "the private keys page" do	
+	it { should have_title full_title(private_keys_title) }
 	it { should have_selector('th', text: 'Bitcoin Address') }		
 	it { should have_selector('th', text: 'Private Key') }		
 	it { should have_selector('table.private_output#private_output') }		
