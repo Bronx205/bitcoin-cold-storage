@@ -108,4 +108,16 @@ module ViewsHelper
 		'A brute force search for a word of length '+length.to_s + ' in the alphabet [' + alphabet.to_s + '] requires ~ 2^' + size + ' trials, on average.'
 	end
 
+	def save_non_encrypted_button
+		'Save a NON-ENCRYPTED copy'
+	end
+
+	def save_encrypted_button
+		'Save an encrypted copy'
+	end
+
+	def save_addresses_button
+		'Save copy'
+	end
+
 end
