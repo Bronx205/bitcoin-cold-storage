@@ -2,6 +2,7 @@ class FreezersController < ApplicationController
 	require 'rqrcode'
 	
 	before_filter :clear_flash_messages
+	before_filter	:clear_cache,							only: [:create]
 	# before_filter :verify_correct_user,  only: [:edit, :update]
 
   def new
@@ -50,6 +51,10 @@ class FreezersController < ApplicationController
 	  def clear_flash_messages
 	  	flash[:error].clear if flash[:error] 
 	  end	
+
+	  def clear_cache
+	  	Rails.cache.clear
+	  end
 
 end
 
