@@ -43,6 +43,14 @@ describe "Freezers" do
 				before { visit addresses_path }
 				it_should_behave_like 'the addresses page'
 				it { should have_selector('td.text_pubkey#address_1', text: data[1][1]) }
+				describe "and redirect home if there is no such file" do
+					before do
+					  delete_file(pa_path)
+					  Rails.cache.clear
+					  visit addresses_path
+					end
+					it { should have_title(home_title) }
+				end
 			end
 		end
 		describe "private keys view" do

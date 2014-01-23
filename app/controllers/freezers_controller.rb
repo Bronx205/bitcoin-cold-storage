@@ -3,7 +3,7 @@ class FreezersController < ApplicationController
 	
 	before_filter :clear_flash_messages
 	before_filter	:clear_cache,							only: [:create]
-	# before_filter :verify_correct_user,  only: [:edit, :update]
+	before_filter	:redirect_home,						only: [:addresses, :private_keys]
 
   def new
 		@title=full_title(freeze_title)
@@ -26,6 +26,7 @@ class FreezersController < ApplicationController
 	end
 
   def addresses
+  	redirect_to root_path unless File.exist?(public_addresses_file_path('csv'))
   	@title=addresses_title
     @data=CSV.read(public_addresses_file_path('csv'))
     @keys=build_addresses_hash_array(@data)
@@ -56,6 +57,13 @@ class FreezersController < ApplicationController
 	  	Rails.cache.clear
 	  end
 
+	  def redirect_home
+	  	redirect_to root_path unless files_exist?
+	  end
+
+	  def files_exist?
+	  	File.exist?(public_addresses_file_path('csv')) && File.exist?(private_keys_file_path('csv',false))
+	  end
 end
 
 # send_data(inject_css(render_to_string), :filename => "colds.html") if @download=='plaintext'
