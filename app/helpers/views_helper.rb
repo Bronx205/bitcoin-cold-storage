@@ -72,6 +72,14 @@ module ViewsHelper
 		'Your Password (optional)'
 	end
 
+	def password_flash_prefix
+		"Your cold storage files where encrypted with the password ["
+	end
+
+	def password_flash_suffix
+		"]. Please make a note of this password in a safe place"
+	end
+
 	def catch_phrase
 		'Simple Bitcoin Cold Storage'
 	end
