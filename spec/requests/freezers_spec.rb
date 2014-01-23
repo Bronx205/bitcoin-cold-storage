@@ -33,10 +33,10 @@ describe "Freezers:" do
 		it { should have_selector('div.alert.alert-error', text: addresses_range_notice) }
 		it_should_behave_like "flash should go away"
 	end
-	describe "directly visiting the view path should redirect home" do
-		before { visit cold_view_path }
-		it { should have_title home_title }
-	end	
+	# describe "directly visiting the view path should redirect home" do
+	# 	before { visit private_keys_path }
+	# 	it { should have_title home_title }
+	# end	
 
 	describe "addresses" do
 		describe "should show in HTML the content of addresses.csv" do

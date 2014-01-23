@@ -2,6 +2,7 @@ class FreezersController < ApplicationController
 	require 'rqrcode'
 	
 	before_filter :clear_flash_messages
+	# before_filter :verify_correct_user,  only: [:edit, :update]
 
   def new
 		@title=full_title(freeze_title)
@@ -27,25 +28,25 @@ class FreezersController < ApplicationController
 		end
 	end
   
-  def show
-  	@title=cold_view_title  	
-		@coldstorage=Rails.cache.read(:cold)
-		if @coldstorage.nil? || !flash[:new]
-			redirect_to root_path 
-		else
-			@keys=@coldstorage.keys
-			@howmany=@coldstorage.howmany
-			@password=@coldstorage.password
-			@entropy=PasswordGenerator.new.calculate_entropy(@password)
-			@alphabet=PasswordGenerator.new.alphabet
-			@explanation=entropy_explanation(@password.length, @alphabet,@entropy)
-			html=render_to_string
-			plaintext=inject_css(html)
-			encrypted=encrypt_my_file(plaintext,@password)
-			save_full_html(plaintext,encrypted)
-			# send_data('foo', filename: 'foo.txt')
-		end
-  end
+  # def show
+  # 	@title=cold_view_title  	
+		# @coldstorage=Rails.cache.read(:cold)
+		# if @coldstorage.nil? || !flash[:new]
+		# 	redirect_to root_path 
+		# else
+		# 	@keys=@coldstorage.keys
+		# 	@howmany=@coldstorage.howmany
+		# 	@password=@coldstorage.password
+		# 	@entropy=PasswordGenerator.new.calculate_entropy(@password)
+		# 	@alphabet=PasswordGenerator.new.alphabet
+		# 	@explanation=entropy_explanation(@password.length, @alphabet,@entropy)
+		# 	html=render_to_string
+		# 	plaintext=inject_css(html)
+		# 	encrypted=encrypt_my_file(plaintext,@password)
+		# 	save_full_html(plaintext,encrypted)
+		# 	# send_data('foo', filename: 'foo.txt')
+		# end
+  # end
 
   def addresses
   	@title=addresses_title
@@ -69,6 +70,10 @@ class FreezersController < ApplicationController
 			return PasswordGenerator.new.password if string.blank?
 			string.to_s
 		end
+		
+	  def clear_flash_messages
+	  	flash[:error].clear if flash[:error] 
+	  end	
 
 end
 

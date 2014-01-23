@@ -107,9 +107,5 @@ module ViewsHelper
 		size=[(entropy -1).round.to_i,0].max.to_s
 		'A brute force search for a word of length '+length.to_s + ' in the alphabet [' + alphabet.to_s + '] requires ~ 2^' + size + ' trials, on average.'
 	end
-
-  def clear_flash_messages
-  	flash[:error].clear if flash[:error] 
-  end	
-
+	
 end
