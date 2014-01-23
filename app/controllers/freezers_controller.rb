@@ -38,6 +38,12 @@ class FreezersController < ApplicationController
     @keys=build_private_keys_hash_array(@data)
   end
 
+  def download_plain
+  	@data=CSV.read(private_keys_file_path('csv',false))
+  	send_data @data,
+  	filename: private_keys_file_name+'.csv'
+  end
+
   private
 
 	  def freezers_params

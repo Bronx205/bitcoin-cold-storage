@@ -24,10 +24,10 @@ shared_examples_for "the private keys page" do
 	it { should have_selector("td#qr_address_1") }
 	it { should have_selector("td#prvkey_wif_1") }
 	it { should have_selector("td#qr_prvkey_wif_1") }	
-  it { should have_link save_non_encrypted_button }
-  it { should have_link save_encrypted_button }
-  it { should have_xpath("//a[@class='btn btn-primary']")}
-  it { should have_xpath("//a[@class='btn btn-danger']")}    
+  # it { should have_link save_non_encrypted_button }
+  # it { should have_link save_encrypted_button }
+  # it { should have_xpath("//a[@class='btn btn-primary']")}
+  it { should have_xpath("//a[@class='btn btn-danger'][text()='#{save_non_encrypted_button}']")}    
 end
 
 shared_examples_for "the addresses page" do	
