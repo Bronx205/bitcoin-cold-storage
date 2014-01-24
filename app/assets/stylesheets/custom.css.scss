@@ -189,9 +189,6 @@ footer a {
   color: $grayLight; 
   padding: 5px;
 }
-.btn-align {
-  margin-bottom: 10px;  
-}
 
 footer a:hover { 
   color: #222;
@@ -347,6 +344,7 @@ li.tile{
   margin-bottom: 10px;  
 }
 table#private_output, table#public_output{
+  margin-top:50;
  th {
     font-size:20;
     text-align:center;
@@ -382,6 +380,10 @@ table#private_output, table#public_output{
     width:20;
     text-align:center;
   }
+  hr{
+    margin-bottom:5px;
+    margin-top:5px;
+  }
 }
 .normal{
   font-weight:normal;
@@ -392,6 +394,13 @@ table#private_output, table#public_output{
 .download{
   font-size:14;
   padding-left:1em;
+}
+.download_button{
+  display:inline;
+  padding-left:2em;
+  a {
+    margin-bottom:5;  
+  }  
 }
 
 .invisible{

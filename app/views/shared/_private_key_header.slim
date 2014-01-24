@@ -3,3 +3,6 @@ th.title_prvkey colspan="2"
 	| Private Key 
 	.normal
 		| (Wallet Import Format)
+	.download_button
+		= link_to save_non_encrypted_button,download_path(download: :plain_private_keys),
+ target: "_blank", class: "btn btn-danger"
