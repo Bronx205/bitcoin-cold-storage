@@ -370,11 +370,13 @@ table#private_output, table#public_output{
   }
   .separator{
     width:50;
-    border-right:solid #eeeeee;
+    border-right:solid #476790;
+    border-right-width:1;
   }
   .separator_thin{
-    width:5;
-    border-right:solid #eeeeee;
+    width:1;    
+    border-right:solid #476790;
+    border-right-width:1;
   }  
   .counter{
     width:20;
@@ -383,6 +385,7 @@ table#private_output, table#public_output{
   hr{
     margin-bottom:5px;
     margin-top:5px;
+    border-top: 1px solid #476790;
   }
 }
 .normal{
