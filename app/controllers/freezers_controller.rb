@@ -2,7 +2,7 @@ class FreezersController < ApplicationController
 	require 'rqrcode'
 	
 	before_filter :clear_flash_messages
-	before_filter	:clear_cache,							only: [:create]
+	# before_filter	:clear_cache,							only: [:create]
 	before_filter	:redirect_home,						only: [:addresses, :private_keys]
 
   def new

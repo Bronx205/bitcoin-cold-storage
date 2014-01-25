@@ -46,7 +46,7 @@ describe "Freezers" do
 				describe "and redirect home if there is no such file" do
 					before do
 					  delete_file(pa_path)
-					  Rails.cache.clear
+					  # Rails.cache.clear
 					  visit addresses_path
 					end
 					it { should have_title(home_title) }
