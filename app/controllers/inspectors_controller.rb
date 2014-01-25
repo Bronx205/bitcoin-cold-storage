@@ -1,5 +1,6 @@
 class InspectorsController < ApplicationController
   def new
+  	@title=inspect_title
   end
 
   def create

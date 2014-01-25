@@ -1,0 +1,11 @@
+= form_tag :inspectors do
+	table id="inspector_setup"
+		tr
+			td 
+				= text_field_tag :recover_password,'', placeholder: recover_passwd_placeholder, class: "input-xxlarge"
+		tr
+			td 
+				= file_field_tag 'csv',  id: "unencrypted_csv", class: 'file_upload'
+		tr
+			td 
+				= submit_tag inspect_button,  id: "recover_button", class: "btn btn-danger"				

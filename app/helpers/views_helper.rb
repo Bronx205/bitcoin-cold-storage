@@ -44,6 +44,14 @@ module ViewsHelper
 		'Inspect the addresses recovered from cold storage'
 	end	
 
+	def inspect_title
+		'Inspect private keys in cold storage files'
+	end
+	
+	def inspect_button
+		'Inspect'
+	end
+
 	def freeze_title
 		'Freeze'
 	end
