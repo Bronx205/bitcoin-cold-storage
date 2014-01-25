@@ -45,14 +45,19 @@ class FreezersController < ApplicationController
   # end
 
   def download
-  	case params[:download]
-  	when 'addresses'
-	  	send_file public_addresses_file_path('csv'), filename: public_addresses_file_name+".csv"
-	  when 'plain_private_keys'
-	  	send_file private_keys_file_path('csv',false), filename: private_keys_file_name+".csv"	  	
-	  else
-	  	render 'addresses'
-	  end
+  	begin
+	  	case params[:download]
+	  	when 'addresses'
+		  	send_file public_addresses_file_path('csv'), filename: public_addresses_file_name+".csv"
+		  when 'plain_private_keys'
+		  	send_file private_keys_file_path('csv',false), filename: private_keys_file_name+".csv"	  	
+		  else
+		  	render 'addresses'
+		  end
+		rescue ActionController::MissingFile
+			flash[:error]= missing_file_error
+			redirect_to root_path
+		end
   end
 
   private

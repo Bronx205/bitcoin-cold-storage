@@ -119,5 +119,8 @@ module ViewsHelper
 	def save_addresses_button
 		'Save copy'
 	end
+	def missing_file_error
+		'An error occured, please try again'
+	end
 
 end
