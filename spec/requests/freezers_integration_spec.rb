@@ -17,6 +17,7 @@ describe "Freezers" do
 		  click_button generate_button	
 		end		
 		it_should_behave_like 'the private keys page'		
+		it_should_behave_like 'it has download buttons'
 		it { should have_selector('div.alert.alert-password', text: 'supercali') }
 		describe "and should show the correct number of rows" do
 			it { should have_selector("td#qr_address_2") }
@@ -28,7 +29,8 @@ describe "Freezers" do
 			fill_in 'howmany', 	with: 1		
 		  click_button generate_button	
 		end		
-		it_should_behave_like 'the private keys page'		
+		it_should_behave_like 'the private keys page'	
+		it_should_behave_like 'it has download buttons'	
 		it { should have_selector('div.alert.alert-password', text: 'randomly generated') }
 		describe "cold storage files are saved and are fresh" do
 			specify{File.exist?(pa_path).should be_true }			
@@ -90,5 +92,6 @@ describe "Freezers" do
 		  click_button generate_button			  
 		end		
 		it_should_behave_like 'the private keys page'	
+		it_should_behave_like 'it has download buttons'
 	end		
 end

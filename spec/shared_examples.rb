@@ -31,8 +31,16 @@ shared_examples_for "the private keys page" do
 	it { should have_selector("td#qr_address_1") }
 	it { should have_selector("td#prvkey_wif_1") }
 	it { should have_selector("td#qr_prvkey_wif_1") }	
-  it { should have_xpath("//a[@class='btn btn-danger'][text()='#{save_non_encrypted_button}']")}    
+end
+
+shared_examples_for 'it has download buttons' do
+  it { should have_xpath("//a[@class='btn btn-danger'][text()='#{save_non_encrypted_button}']")} 
   it { should have_xpath("//a[@class='btn btn-success'][text()='#{save_addresses_button}']")}    
+end
+
+shared_examples_for 'it does not have download buttons' do
+  it { should_not have_xpath("//a[@class='btn btn-danger'][text()='#{save_non_encrypted_button}']")} 
+  it { should_not have_xpath("//a[@class='btn btn-success'][text()='#{save_addresses_button}']")}    
 end
 
 shared_examples_for "the addresses page" do	
