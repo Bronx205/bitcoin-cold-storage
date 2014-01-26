@@ -6,7 +6,7 @@ include FilesHelper
 
 describe "Inspectors:" do
 	let!(:test_pa_path) { file_fixtures_directory+public_addresses_file_name+'.csv' }
-	let!(:test_pk_path) { file_fixtures_directory+private_keys_file_name+'.csv' }
+	let!(:test_pk_path) { file_fixtures_directory+private_keys_file_name+'.csv' }	
 	subject { page }
 	before do
 	  visit inspect_path
@@ -41,5 +41,14 @@ describe "Inspectors:" do
 			it { should have_selector("td#qr_prvkey_wif_2") }				
 			it { should_not have_selector('td.text_pubkey#address_11') }			
 		end
-	end	
+	end
+	describe "loading an invalid file" do
+		before do
+		  attach_file "file", file_fixtures_directory+'foo.bar'
+		  click_button inspect_button
+		  # save_and_open_page
+		end
+		it_should_behave_like 'the inspect page'
+		it { should have_selector('div.alert.alert-error', text: upload_format_error) }		
+	end			
 end

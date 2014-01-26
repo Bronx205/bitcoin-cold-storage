@@ -133,4 +133,7 @@ module ViewsHelper
 	def upload_format_error
 		'Accepting only csv, html or aes file types'
 	end
+	def incorrect_format_flash
+		'The uploaded file is not in the correct format'
+	end
 end

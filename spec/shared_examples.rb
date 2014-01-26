@@ -88,5 +88,5 @@ shared_examples_for "flash should go away" do
 	describe "when reloading heatup page" do
 		before { click_link heatup_title }
 		it { should_not have_selector('div.alert')} if file_there?(private_keys_file_path('html',true))
-	end					
+	end		
 end

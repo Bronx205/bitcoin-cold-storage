@@ -1,5 +1,6 @@
 module FilesHelper
 	require 'csv'
+	require 'bitcoin'
 
 	def save_file(path, data)
 		File.open(path,'w') {|file| file.write data }
@@ -107,6 +108,15 @@ module FilesHelper
 				csv << row.unshift(data_nested_array.index(row)+1)
 			end
 		end
+	end
+	def addresses_csv_format?(csv_data)
+		return false if csv_data[0][0]!="#"
+		return false if csv_data[0][1]!="Bitcoin Address"
+		return false if csv_data[0][2]!=nil
+		return false if csv_data[1][0]!="1"
+		return false if csv_data[1][2]!=nil
+		return false unless Bitcoin::valid_address?(csv_data[1][1])
+		true
 	end
 
 end

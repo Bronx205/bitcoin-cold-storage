@@ -44,4 +44,11 @@ describe FilesHelper do
 		end		
 	end
 
+	describe "addresses_csv_format" do
+		let!(:foo) { CSV.read(file_fixtures_directory+'foo.bar') }
+		let!(:test_pa_path) { file_fixtures_directory+public_addresses_file_name+'.csv' }
+		let!(:good_file) { CSV.read(test_pa_path) }
+		it {addresses_csv_format?(good_file).should be_true}
+	end
+
 end

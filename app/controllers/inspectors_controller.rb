@@ -5,14 +5,21 @@ class InspectorsController < ApplicationController
 
   def create
     @file=params[:file]
+    @title=inspect_title
     case @file.original_filename[-3..-1]
     when 'csv'
       @csv_data=CSV.read(@file.path)
+      # binding.pry      
       case @csv_data[0].length
       when 2
-        @keys=build_addresses_hash_array(@csv_data)
-        @title=addresses_title
-        render 'addresses'
+        if addresses_csv_format?(@csv_data)
+          @keys=build_addresses_hash_array(@csv_data)
+          @title=addresses_title
+          render 'addresses'          
+        else
+          flash[:error] = incorrect_format_flash
+          render 'new'
+        end
       when 3
         @keys=build_private_keys_hash_array(@csv_data)
         @title=private_keys_title
@@ -20,6 +27,7 @@ class InspectorsController < ApplicationController
       end
     else
       flash[:error] = upload_format_error
+      render 'new'
     end
   end
 
