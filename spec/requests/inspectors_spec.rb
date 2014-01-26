@@ -20,5 +20,7 @@ describe "Inspectors:" do
 		end
 		it_should_behave_like 'the addresses page'
 		it { should have_selector('td.text_pubkey#address_1', text: data[1][1]) }
+		it { should have_selector('td.text_pubkey#address_10', text: data[10][1]) }
+		it { should_not have_selector('td.text_pubkey#address_11') }
 	end
 end
