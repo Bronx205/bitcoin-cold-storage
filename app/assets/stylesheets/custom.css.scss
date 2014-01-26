@@ -345,6 +345,7 @@ li.tile{
 }
 table#private_output, table#public_output{
   margin-top:50;
+  margin-left:25;
  th {
     font-size:20;
     text-align:center;
@@ -381,6 +382,13 @@ table#private_output, table#public_output{
   .counter{
     width:20;
     text-align:center;
+    border-left:solid #476790;
+    border-left-width:1;
+  }
+  .header{
+    text-align:center;
+    border-left:solid #476790;
+    border-left-width:1;   
   }
   hr{
     margin-bottom:5px;
