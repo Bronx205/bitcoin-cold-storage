@@ -4,8 +4,18 @@ class InspectorsController < ApplicationController
   end
 
   def create
-  	@csv_file=params[:csv].read
-  	
+    @file=params[:file]
+    # binding.pry
+
+    case @file.original_filename[-3..-1]
+    when 'csv'
+      @csv_data=CSV.read(@file.path)
+      @keys=build_addresses_hash_array(@csv_data)
+      @title=addresses_title
+      render 'addresses'
+    else
+      flash[:error] = upload_format_error
+    end
   end
 
   def addresses

@@ -130,5 +130,7 @@ module ViewsHelper
 	def missing_file_error
 		'An error occured, please try again'
 	end
-
+	def upload_format_error
+		'Accepting only csv, html or aes file types'
+	end
 end

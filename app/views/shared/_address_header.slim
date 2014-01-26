@@ -2,5 +2,6 @@ th.separator_thin
 th.title_pubkey colspan="2"
 	| Bitcoin Address
 	.download_button
-		= link_to save_addresses_button,download_path(download: :addresses),
- target: "_blank", class: "btn btn-success"
+		- unless params[:controller]=='inspectors'
+			= link_to save_addresses_button,download_path(download: :addresses),
+	 target: "_blank", class: "btn btn-success"

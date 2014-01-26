@@ -4,7 +4,7 @@ h1
 	table id="inspector_setup"
 		tr
 			td 
-				= file_field_tag 'csv',  id: "unencrypted_csv", class: 'file_upload'
+				= file_field_tag 'file',:accept => "text/csv", class: 'file_upload', value: public_addresses_file_path('csv')
 		/ tr
 		/ 	td 
 		/ 		= text_field_tag :recover_password,'', placeholder: recover_passwd_placeholder, class: "input-xxlarge"
