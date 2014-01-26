@@ -21,6 +21,10 @@ module FilesHelper
 		relative_root_path +  '/files/'
 	end
 
+	def file_fixtures_directory
+		relative_root_path +  '/spec/fixtures/files/'
+	end
+
 	def plaintext_file_name
 		public_addresses_file_path('html')
 	end
