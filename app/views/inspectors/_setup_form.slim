@@ -1,11 +1,13 @@
+h1
+	| Upload a cold storage file
 = form_tag({action: :create}, multipart: true) do
 	table id="inspector_setup"
 		tr
 			td 
-				= text_field_tag :recover_password,'', placeholder: recover_passwd_placeholder, class: "input-xxlarge"
-		tr
-			td 
 				= file_field_tag 'csv',  id: "unencrypted_csv", class: 'file_upload'
+		/ tr
+		/ 	td 
+		/ 		= text_field_tag :recover_password,'', placeholder: recover_passwd_placeholder, class: "input-xxlarge"
 		tr
 			td 
 				= submit_tag inspect_button,  id: "recover_button", class: "btn btn-danger"				
