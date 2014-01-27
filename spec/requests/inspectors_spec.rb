@@ -5,8 +5,8 @@ include ViewsHelper
 include FilesHelper
 
 describe "Inspectors:" do
-	let!(:test_pa_path) { file_fixtures_directory+public_addresses_file_name+'.csv' }
-	let!(:test_pk_path) { file_fixtures_directory+private_keys_file_name+'.csv' }	
+	let!(:test_pa_path) { file_fixtures_directory+'valid/10addresses.csv' }
+	let!(:test_pk_path) { file_fixtures_directory+'valid/10private_keys.csv' }	
 	subject { page }
 	before do
 	  visit inspect_path
@@ -42,13 +42,80 @@ describe "Inspectors:" do
 			it { should_not have_selector('td.text_pubkey#address_11') }			
 		end
 	end
-	describe "loading an invalid file" do
-		before do
-		  attach_file "file", file_fixtures_directory+'foo.bar'
-		  click_button inspect_button
-		  # save_and_open_page
+	describe "invalid files" do
+		describe "foo.bar" do		
+			before do
+			  attach_file "file", file_fixtures_directory+'invalid/foo.bar'
+			  click_button inspect_button			  
+			end
+			it_should_behave_like 'the inspect page'
+			it { page.should have_selector('div.alert.alert-error', text: upload_format_error) }	
+		end	
+		describe "loading an address file with an invalid bitcoin address invalid_address.csv" do		
+			before do
+			  attach_file "file", file_fixtures_directory+'invalid/invalid_address.csv'
+			  click_button inspect_button			  
+			end
+			it_should_behave_like 'the inspect page'
+			it { page.should have_selector('div.alert.alert-error', text: incorrect_format_flash) }	
 		end
-		it_should_behave_like 'the inspect page'
-		it { should have_selector('div.alert.alert-error', text: upload_format_error) }		
-	end			
+		describe "loading a file with an invalid addresses format invalid_addresses_format.csv" do		
+			before do
+			  attach_file "file", file_fixtures_directory+'invalid/invalid_addresses_format.csv'
+			  click_button inspect_button			  
+			end
+			it_should_behave_like 'the inspect page'
+			it { page.should have_selector('div.alert.alert-error', text: incorrect_format_flash) }	
+		end
+		describe "loading an addresses file with an invalid header format invalid_addresses_header.csv" do		
+			before do
+			  attach_file "file", file_fixtures_directory+'invalid/invalid_addresses_header.csv'
+			  click_button inspect_button			  
+			end
+			it_should_behave_like 'the inspect page'
+			it { page.should have_selector('div.alert.alert-error', text: incorrect_format_flash) }	
+		end	
+		describe "loading a private keys file with an invalid_format" do		
+			before do
+			  attach_file "file", file_fixtures_directory+'invalid/invalid_format.csv'
+			  click_button inspect_button			  
+			end
+			it_should_behave_like 'the inspect page'
+			it { page.should have_selector('div.alert.alert-error', text: incorrect_format_flash) }	
+		end
+		describe "loading a file with an invalid header format invalid_header_format.csv" do		
+			before do
+			  attach_file "file", file_fixtures_directory+'invalid/invalid_header_format.csv'
+			  click_button inspect_button			  
+			end
+			it_should_behave_like 'the inspect page'
+			it { page.should have_selector('div.alert.alert-error', text: incorrect_format_flash) }	
+		end	
+		describe "loading an pkey file with an invalid format invalid_prvkey_format.csv" do		
+			before do
+			  attach_file "file", file_fixtures_directory+'invalid/invalid_prvkey_format.csv'
+			  click_button inspect_button			  
+			end
+			it_should_behave_like 'the inspect page'
+			it { page.should have_selector('div.alert.alert-error', text: incorrect_format_flash) }	
+		end	
+		describe "loading a private keys file with an invalid bitcoin address prkey_with_invalid_address" do		
+			before do
+			  attach_file "file", file_fixtures_directory+'invalid/prkey_with_invalid_address.csv'
+			  click_button inspect_button			  
+			end
+			it_should_behave_like 'the inspect page'
+			it { page.should have_selector('div.alert.alert-error', text: incorrect_format_flash) }	
+		end
+		describe "loading a prkey_with_non_matching_key_pairs" do		
+			before do
+			  attach_file "file", file_fixtures_directory+'invalid/prkey_with_non_matching_key_pairs.csv'
+			  click_button inspect_button			  
+			end
+			it_should_behave_like 'the inspect page'
+			it { page.should have_selector('div.alert.alert-error', text: incorrect_format_flash) }	
+		end											
+	end
+
+							
 end

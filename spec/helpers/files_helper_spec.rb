@@ -45,10 +45,23 @@ describe FilesHelper do
 	end
 
 	describe "addresses_csv_format" do
-		let!(:foo) { CSV.read(file_fixtures_directory+'foo.bar') }
-		let!(:test_pa_path) { file_fixtures_directory+public_addresses_file_name+'.csv' }
+		let!(:foo) { CSV.read(file_fixtures_directory+'invalid/foo.bar') }
+		let!(:test_pa_path) { file_fixtures_directory+'valid/'+public_addresses_file_name+'.csv' }
 		let!(:good_file) { CSV.read(test_pa_path) }
 		it {addresses_csv_format?(good_file).should be_true}
+		['foo.bar','invalid_address.csv','invalid_addresses_format.csv','invalid_addresses_header.csv','invalid_format.csv','invalid_header_format.csv'].each do |example|
+			it {addresses_csv_format?(CSV.read(file_fixtures_directory+'invalid/'+example)).should be_false}	
+		end	
+	end
+
+	describe "private_keys_csv_format" do
+		let!(:foo) { CSV.read(file_fixtures_directory+'invalid/foo.bar') }
+		let!(:test_pk_path) { file_fixtures_directory+'valid/'+private_keys_file_name+'.csv' }
+		let!(:good_file) { CSV.read(test_pk_path)}
+		it {private_keys_csv_format?(good_file).should be_true}
+		['foo.bar','invalid_address.csv','invalid_addresses_format.csv','invalid_addresses_header.csv','invalid_format.csv','invalid_header_format.csv','invalid_prvkey_format.csv','prkey_with_invalid_address.csv','prkey_with_non_matching_key_pairs.csv'].each do |example|
+			it {private_keys_csv_format?(CSV.read(file_fixtures_directory+'invalid/'+example)).should be_false} 
+		end		
 	end
 
 end

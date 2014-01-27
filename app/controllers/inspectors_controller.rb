@@ -18,16 +18,24 @@ class InspectorsController < ApplicationController
           render 'addresses'          
         else
           flash[:error] = incorrect_format_flash
-          render 'new'
+          redirect_to inspect_path
         end
       when 3
-        @keys=build_private_keys_hash_array(@csv_data)
-        @title=private_keys_title
-        render 'private_keys'        
+        if private_keys_csv_format?(@csv_data)
+          @keys=build_private_keys_hash_array(@csv_data)
+          @title=private_keys_title
+          render 'private_keys'          
+        else
+          flash[:error] = incorrect_format_flash
+          redirect_to inspect_path
+        end      
+      else
+        flash[:error] = incorrect_format_flash
+        redirect_to inspect_path        
       end
     else
       flash[:error] = upload_format_error
-      render 'new'
+      redirect_to inspect_path
     end
   end
 

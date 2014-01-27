@@ -118,5 +118,15 @@ module FilesHelper
 		return false unless Bitcoin::valid_address?(csv_data[1][1])
 		true
 	end
-
+	def private_keys_csv_format?(csv_data)
+		return false if csv_data[0][0]!="#"
+		return false if csv_data[0][1]!="Bitcoin Address"
+		return false if csv_data[0][2]!="Private Key"
+		return false if csv_data[0][3]!=nil
+		return false if csv_data[1][0]!="1"
+		return false if csv_data[1][3]!=nil
+		return false unless Bitcoin::valid_address?(csv_data[1][1])
+		return false unless Bitcoin::Key.from_base58(csv_data[1][2]).addr == csv_data[1][1]
+		true
+	end
 end
