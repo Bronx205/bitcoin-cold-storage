@@ -129,4 +129,10 @@ module FilesHelper
 		return false unless Bitcoin::Key.from_base58(csv_data[1][2]).addr == csv_data[1][1]
 		true
 	end
+
+	def clear_coldstorage_files
+		delete_file(public_addresses_file_path('csv'))
+		delete_file(private_keys_file_path('csv',false))
+		delete_file(private_keys_file_path('csv',true))
+	end
 end

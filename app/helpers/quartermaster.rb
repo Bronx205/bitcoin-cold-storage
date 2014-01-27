@@ -30,9 +30,10 @@ class Quartermaster
 		save_file(private_keys_file_path('csv',true),encrypted_file)
 	end	
 
-	def dump_files
-		save_unencrypted_private_keys
+	def dump_files(password)
 		save_public_addresses
+		save_unencrypted_private_keys
+		save_encrypted_private_keys(password)
 	end
 
 	private
