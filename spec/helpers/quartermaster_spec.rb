@@ -66,9 +66,11 @@ describe "quartermaster" do
 				end				
 				specify{File.exist?(pk_encrypted_path).should be_true }
 				describe "the file should be encrypted" do
-					let!(:encrypted_data) { CSV.read(pk_encrypted_path) }
+					let!(:encrypted_data) { File.read(pk_encrypted_path) }
 					let!(:decrypted_data) { JSON.parse decrypt(encrypted_data,'foo') }					
 					subject { decrypted_data }			
+					it { should be_an_instance_of Array }
+					it { encrypted_data.should be_an_instance_of String }
 					it { expect{decrypt(encrypted_data,'bar')}.to raise_error }
 					it { expect{decrypt(encrypted_data[1..-1],'foo')}.to raise_error }
 					it { encrypted_data.index(' ').should be_nil }
