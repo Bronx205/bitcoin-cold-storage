@@ -26,7 +26,7 @@ describe "Inspectors:" do
 			it { should_not have_selector('td.text_pubkey#address_11') }			
 		end
 	end
-	describe "loading a private keys csv file" do
+	describe "loading an unencrypted private keys csv file" do
 		let!(:data) { CSV.read(test_pk_path) }
 		before do
 		  attach_file "file", test_pk_path
@@ -34,7 +34,7 @@ describe "Inspectors:" do
 		end
 		it_should_behave_like 'the private keys page'
 		it_should_behave_like 'it does not have download buttons'		
-		describe "and show the addresses correctly" do
+		describe "should show the addresses correctly" do
 			it { should have_selector('td.text_pubkey#address_1', text: data[1][1]) }
 			it { should have_selector('td.text_pubkey#address_10', text: data[10][1]) }
 			it { should have_selector("td#qr_address_2") }
