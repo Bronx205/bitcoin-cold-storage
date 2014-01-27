@@ -406,11 +406,20 @@ table#private_output, table#public_output{
   font-size:14;
   padding-left:1em;
 }
-.download_button{
+.addresses_download_button{
   display:inline;
   padding-left:2em;
   a {
     margin-bottom:5;  
+  }  
+}
+.private_keys_download_button{
+  display:inline;
+  padding-left:1em;
+  padding-:1em;
+  a {
+    margin-bottom:5; 
+    margin-right:2em; 
   }  
 }
 

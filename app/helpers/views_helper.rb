@@ -117,11 +117,11 @@ module ViewsHelper
 	end
 
 	def save_non_encrypted_button
-		'NON-ENCRYPTED'
+		'Save NON-ENCRYPTED'
 	end
 
 	def save_encrypted_button
-		'encrypted'
+		'Save encrypted'
 	end
 
 	def save_non_encrypted_title
@@ -133,8 +133,12 @@ module ViewsHelper
 	end
 
 	def save_addresses_button
-		'Save copy'
+		'Save a copy'
 	end
+	def save_private_keys_button
+		save_addresses_button
+	end
+
 	def missing_file_error
 		'An error occured, please try again'
 	end

@@ -35,7 +35,7 @@ end
 
 shared_examples_for 'it has download buttons' do
   it { should have_xpath("//a[@class='btn btn-danger'][text()='#{save_non_encrypted_button}']")} 
-  # it { should have_xpath("//a[@class='btn btn-danger'][text()='#{save_encrypted_button}']")} 
+  it { should have_xpath("//a[@class='btn btn-success'][text()='#{save_encrypted_button}']")} 
   it { should have_xpath("//a[@class='btn btn-success'][text()='#{save_addresses_button}']")}    
 end
 
