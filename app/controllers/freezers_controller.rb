@@ -14,9 +14,9 @@ class FreezersController < ApplicationController
 		@title=full_title(freeze_title)		
 		howmany=params[:howmany].to_i
 		if (1..KEYS_LIMIT).include?(howmany)
-			@qm=Quartermaster.new(KeyGenerator.new(howmany).keys)	
-			@qm.dump_files
+			@qm=Quartermaster.new(KeyGenerator.new(howmany).keys)				
 			@password=set_password(params[:password])			
+			@qm.dump_files(@password)
 			flash[:password]=password_message(@password,@password==params[:password])
 			redirect_to private_keys_path 
 		else
