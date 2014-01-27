@@ -50,7 +50,9 @@ class FreezersController < ApplicationController
 	  	when 'addresses'
 		  	send_file public_addresses_file_path('csv'), filename: public_addresses_file_name+".csv"
 		  when 'unencrypted_private_keys'
-		  	send_file private_keys_file_path('csv',false), filename: private_keys_file_name+".csv"	  	
+		  	send_file private_keys_file_path('csv',false), filename: private_keys_file_name+".csv"
+		  when 'encrypted_private_keys'
+		  	send_file private_keys_file_path('csv',true), filename: private_keys_file_name+".csv.aes"	 		  		  	
 		  else
 		  	render 'addresses'
 		  end
