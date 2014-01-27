@@ -5,7 +5,7 @@ module OvensHelper
 	end
 
 	def decrypt_loaded(path=private_keys_file_path('html',true),password)
-		decrypt_my_file(load_encrypted(path),password)
+		decrypt(load_encrypted(path),password)
 	end
 
 	def trim_css(html_string)

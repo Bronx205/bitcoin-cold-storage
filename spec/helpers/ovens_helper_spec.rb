@@ -7,7 +7,7 @@ describe OvensHelper do
 
 	describe "load encrypted file:" do
 		let!(:html) { '<html>foo</html>' }
-		let!(:file) { encrypt_my_file(html,'bar') }
+		let!(:file) { encrypt(html,'bar') }
 		let!(:path) { coldstorage_directory + 'test.html' }
 		before do
 			save_file(path,file)
@@ -17,7 +17,7 @@ describe OvensHelper do
 			subject { loaded }
 			it { should_not be_blank }
 			describe "and the file can be encrypted:" do
-				specify{decrypt_my_file(loaded,'bar').should == html}
+				specify{decrypt(loaded,'bar').should == html}
 				specify{decrypt_loaded(path,'bar').should == html}
 			end			
 		end

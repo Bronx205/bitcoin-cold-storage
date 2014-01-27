@@ -15,14 +15,14 @@ class Quartermaster
 		save_enum_csv(public_addresses_file_path('csv'),header,data)
 	end
 
-	def save_private_keys
+	def save_unencrypted_private_keys
 		header=['Bitcoin Address','Private Key']
 		data=private_keys_array
 		save_enum_csv(private_keys_file_path('csv',false),header,data)
 	end	
 
 	def dump_files
-		save_private_keys
+		save_unencrypted_private_keys
 		save_public_addresses
 	end
 

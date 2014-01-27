@@ -1,10 +1,10 @@
 module CryptoHelper
 
-	def encrypt_my_file(file,password)
+	def encrypt(file,password)
 		AESCrypt.encrypt(file,password)
 	end
 
-	def decrypt_my_file(file,password)
+	def decrypt(file,password)
 		AESCrypt.decrypt(file,password)
 	end	
 

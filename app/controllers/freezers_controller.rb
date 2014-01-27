@@ -105,7 +105,7 @@ end
 		# 	@explanation=entropy_explanation(@password.length, @alphabet,@entropy)
 		# 	html=render_to_string
 		# 	plaintext=inject_css(html)
-		# 	encrypted=encrypt_my_file(plaintext,@password)
+		# 	encrypted=encrypt(plaintext,@password)
 		# 	save_full_html(plaintext,encrypted)
 		# 	# send_data('foo', filename: 'foo.txt')
 		# end
