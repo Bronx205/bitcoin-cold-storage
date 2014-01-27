@@ -1,5 +1,7 @@
 class Quartermaster
 	include FilesHelper
+	include CryptoHelper
+
 	require 'bitcoin'
 
 	attr_reader :keys
@@ -22,10 +24,10 @@ class Quartermaster
 	end	
 
 	def save_encrypted_private_keys(password)
-		header=['Bitcoin Address','Private Key']
-		data=private_keys_array
-		encrypted_data=encrypt(data,password)
-		save_enum_csv(private_keys_file_path('csv',true),header,data)
+		save_unencrypted_private_keys
+		non_encrypted_file=CSV.read(private_keys_file_path('csv',false))
+		encrypted_file=encrypt(non_encrypted_file,password)
+		save_file(private_keys_file_path('csv',true),encrypted_file)
 	end	
 
 	def dump_files

@@ -1,6 +1,7 @@
 require 'spec_helper'
 
 include FilesHelper
+include CryptoHelper
 
 describe "quartermaster" do
 
@@ -58,16 +59,21 @@ describe "quartermaster" do
 		describe "save_encrypted_private_keys" do
 			it { expect{qm.save_encrypted_private_keys}.to raise_error }
 			it { expect{qm.save_encrypted_private_keys('foo')}.not_to raise_error }
-			before { qm.save_encrypted_private_keys('foo') }
 			describe "should save an encrypted csv.aes file to the PRIVATE folder" do	
+				before do
+					delete_file(pk_encrypted_path)
+				  qm.save_encrypted_private_keys('foo')
+				end				
 				specify{File.exist?(pk_encrypted_path).should be_true }
 				describe "the file should be encrypted" do
 					let!(:encrypted_data) { CSV.read(pk_encrypted_path) }
-					let!(:decrypted_data) { decrypt(encrypted_data,'foo') }
-					subject { decrypted_data }					
+					let!(:decrypted_data) { JSON.parse decrypt(encrypted_data,'foo') }
+					subject { decrypted_data }			
+					# it { encrypted_data.should be_nil }		
+					# it { decrypted_data.should be_nil }		
 					it { encrypted_data.index(' ').should be_nil }
 					it { encrypted_data.length.should > size+1 }
-					describe "and when decrypted gives correct data" do
+					describe "and when decrypted gives correct data" do						
 						it { decrypted_data[0][0].should == '#' }
 						it { decrypted_data[0][1].should == 'Bitcoin Address' }
 						it { decrypted_data[0][2].should == 'Private Key' }
