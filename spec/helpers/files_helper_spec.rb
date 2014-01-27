@@ -3,8 +3,8 @@ require 'spec_helper'
 describe FilesHelper do
 	let!(:header) { ['c1','c2'] }
 	let!(:data) { [['11','12'],['21','22']] }
-	let!(:path) { coldstorage_directory + 'csvtest.csv' }
-	let!(:epath) { coldstorage_directory + 'ecsvtest.csv' }
+	let!(:path) { file_fixtures_directory + 'csvtest.csv' }
+	let!(:epath) { file_fixtures_directory + 'ecsvtest.csv' }
 	it {expect {save_csv(path,header,data)}.not_to raise_error}
 	it {expect {save_enum_csv(epath,header,data)}.not_to raise_error}
 
