@@ -35,6 +35,7 @@ end
 
 shared_examples_for 'it has download buttons' do
   it { should have_xpath("//a[@class='btn btn-danger'][text()='#{save_non_encrypted_button}']")} 
+  # it { should have_xpath("//a[@class='btn btn-danger'][text()='#{save_encrypted_button}']")} 
   it { should have_xpath("//a[@class='btn btn-success'][text()='#{save_addresses_button}']")}    
 end
 
@@ -67,6 +68,16 @@ shared_examples_for "it failed decryption" do
 	it { should_not have_selector("td#prvkey_wif_1") }
 	it { should have_selector('div.alert.alert-error', text: failed_decryption_message) }
 end
+
+shared_examples_for 'it saved the files' do
+	specify{File.exist?(pa_path).should be_true }			
+	specify{(File.ctime(pa_path).to_f-Time.now.to_f).to_i.should be < 1}
+	specify{File.exist?(non_encrypted_pk_path).should be_true }
+	specify{(File.ctime(non_encrypted_pk_path).to_f-Time.now.to_f).to_i.should be < 1}
+	specify{File.exist?(encrypted_pk_path).should be_true }
+	specify{(File.ctime(encrypted_pk_path).to_f-Time.now.to_f).to_i.should be < 1}		
+end
+
 
 shared_examples_for "flash should go away" do
 	describe "when navigating home" do

@@ -18,7 +18,8 @@ describe "Freezers" do
 			fill_in 'password', with: 'supercali'  
 		  click_button generate_button	
 		end		
-		it_should_behave_like 'the private keys page'		
+		it_should_behave_like 'it saved the files'
+		it_should_behave_like 'the private keys page'
 		it_should_behave_like 'it has download buttons'
 		it { should have_selector('div.alert.alert-password', text: 'supercali') }
 		describe "and should show the correct number of rows" do
@@ -28,19 +29,18 @@ describe "Freezers" do
 	end
 	describe "submitting without password should default to a strong password"  do
 		before do
-			fill_in 'howmany', 	with: 1		
+			fill_in 'howmany', 	with: 1
 		  click_button generate_button	
 		end		
 		it_should_behave_like 'the private keys page'	
 		it_should_behave_like 'it has download buttons'	
-		it { should have_selector('div.alert.alert-password', text: 'randomly generated') }
-		describe "cold storage files are saved and are fresh" do
-			specify{File.exist?(pa_path).should be_true }			
-			specify{(File.ctime(pa_path).to_f-Time.now.to_f).to_i.should be < 1}
-			specify{File.exist?(non_encrypted_pk_path).should be_true }
-			specify{(File.ctime(non_encrypted_pk_path).to_f-Time.now.to_f).to_i.should be < 1}
-			specify{File.exist?(encrypted_pk_path).should be_true }
-			specify{(File.ctime(encrypted_pk_path).to_f-Time.now.to_f).to_i.should be < 1}										
+		it { should have_selector('div.alert.alert-password', text: 'randomly generated') }			
+	end
+	describe "views" do
+		before do
+			fill_in 'howmany', 	with: 2		
+			fill_in 'password', with: 'moooohaha'  
+		  click_button generate_button	
 		end
 		describe "addresses view" do
 			describe "should show in HTML the content of addresses.csv" do
@@ -80,7 +80,7 @@ describe "Freezers" do
 					it { should have_title(home_title) }
 				end				
 			end
-			describe "save private keys button should redirect home if no file" do
+			describe "save unencrypted button should redirect home if no file" do
 				before do
 				  delete_file(non_encrypted_pk_path)
 				  click_link save_non_encrypted_button
@@ -88,7 +88,7 @@ describe "Freezers" do
 				it { should have_title(home_title) }
 				it { should have_selector('div.alert.alert-error', text: missing_file_error) }				
 			end			
-		end					
+		end				
 	end
 	describe "should not die on a big dispatch" do
 		before do

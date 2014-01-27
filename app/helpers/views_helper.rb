@@ -117,10 +117,18 @@ module ViewsHelper
 	end
 
 	def save_non_encrypted_button
-		'Save a NON-ENCRYPTED copy'
+		'NON-ENCRYPTED'
 	end
 
 	def save_encrypted_button
+		'encrypted'
+	end
+
+	def save_non_encrypted_title
+		'Save a NON-ENCRYPTED copy'
+	end
+
+	def save_encrypted_title
 		'Save an encrypted copy'
 	end
 
