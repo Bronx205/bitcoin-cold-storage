@@ -1,15 +1,15 @@
+h2.view_header
+	= freeze_page_header
 = form_tag :freezers do
 	table id="setup"
 		tr
-			td
-				| How many addresses would like to generate?
-			td 
+			td colspan="2"
+				| How many addresses would you like to generate?
+			td.align_right 
 				= text_field_tag :howmany,0, placeholder: howmany_placeholder, class: "input-small"
 		tr
-			td
-				| Override our automatic password with your own		
-			td 
+			td colspan="3"
 				= text_field_tag :password,'', placeholder: password_placeholder, class: "input-xxlarge"
 		tr
-			td 
+			td
 				= submit_tag generate_button,  id: "howmany_button", class: "btn btn-primary"

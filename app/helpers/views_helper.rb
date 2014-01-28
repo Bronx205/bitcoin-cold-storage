@@ -21,7 +21,7 @@ module ViewsHelper
 	end
 
 	def generate_button
-		'Generate Addresses'
+		'Generate Cold Storage Files'
 	end
 
 	def recover_button
@@ -59,6 +59,10 @@ module ViewsHelper
 	def freeze_page_title
 		'Generate Bitcoin Addresses for Cold Storage'
 	end
+
+	def freeze_page_header
+		'Generate Cold Storage files'
+	end
 	
 	def freeze_button
 		'Freeze'
@@ -85,7 +89,8 @@ module ViewsHelper
 	end
 
 	def password_placeholder
-		'Your Password (optional)'
+		'Override our strong password with your own? (optional)'	
+		# 'Your Password (optional)'
 	end
 
 	def password_flash_prefix

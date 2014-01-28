@@ -89,10 +89,13 @@ p {
   line-height: 1.7em;
 }
 table#setup{
-  width:85%;
+  // width:85%;
   th, td {
    padding: 10px; 
-  }  
+  }
+  td.align_right{
+    text-align:right;
+   }  
 }
 
 /* header */
@@ -343,6 +346,13 @@ li.tile{
 .btn-align {
   margin-bottom: 10px;  
 }
+h2.view_header{
+  font-size:2em;
+  font-weight:bold;
+  color:#1E8492;
+  margin-left:2em;
+}
+
 table#private_output, table#public_output{
   margin-top:50;
   margin-left:25;

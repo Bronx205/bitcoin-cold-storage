@@ -9,6 +9,7 @@ end
 
 shared_examples_for "the freeze page" do
 	it { should have_title full_title(freeze_page_title) }
+	it { should have_selector('h2', freeze_page_header)}
 	it { should have_selector('input#howmany') }
 	it { should have_xpath("//input[@value=0]")}
 	it { should have_button generate_button}
