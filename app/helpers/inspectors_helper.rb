@@ -44,8 +44,9 @@ module InspectorsHelper
   def process_addresses(csv_data)
     if addresses_csv_format?(csv_data)
       @keys=build_addresses_hash_array(csv_data)
-      @title=addresses_title
-      render 'addresses'          
+      # @title=addresses_title
+      flash[:keys] = @keys
+      redirect_to inspect_addresses_path
     else
       flash[:error] = incorrect_format_flash
       redirect_to inspect_path
@@ -55,8 +56,9 @@ module InspectorsHelper
   def process_private_keys(csv_data)
     if private_keys_csv_format?(csv_data)
       @keys=build_private_keys_hash_array(csv_data)
-      @title=private_keys_title
-      render 'private_keys'          
+      # @title=private_keys_title
+      flash[:keys] = @keys
+      redirect_to inspect_keys_path
     else
       flash[:error] = incorrect_format_flash
       redirect_to inspect_path
