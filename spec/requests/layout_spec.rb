@@ -17,8 +17,8 @@ describe "layout" do
 		before { find('#navbar_freeze',:visible => true).click }
 		it_should_behave_like "the freeze page"
 	end
-	describe "heatup link should show heatup page" do
-		before { find('#navbar_heatup',:visible => true).click }
-		it_should_behave_like "the heatup page" if file_there?(private_keys_file_path('html',true))
+	describe "inspect link should show inspect page" do
+		before { find('#navbar_inspect',:visible => true).click }
+		it_should_behave_like "the inspect page"
 	end		
 end

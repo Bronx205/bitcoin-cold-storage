@@ -6,12 +6,12 @@ class FreezersController < ApplicationController
 	before_filter	:redirect_home,						only: [:addresses, :private_keys]
 
   def new
-		@title=full_title(freeze_title)
+		@title=freeze_title
 		flash[:new] = false
 	end
 	
 	def create
-		@title=full_title(freeze_title)		
+		@title=freeze_title
 		howmany=params[:howmany].to_i
 		if (1..KEYS_LIMIT).include?(howmany)
 			@qm=Quartermaster.new(KeyGenerator.new(howmany).keys)				

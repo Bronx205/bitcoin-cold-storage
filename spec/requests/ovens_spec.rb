@@ -34,7 +34,7 @@ describe "Ovens:", disabled: true do
 		before do
 		  delete_file(private_keys_file_path('html',true))
 		  visit root_path
-		  find('#navbar_heatup',:visible => true).click 
+		  find('#navbar_inspect',:visible => true).click 
 		end
 		it { should have_title home_title}
 		it { should have_selector('div.alert.alert-error', text: no_file_message) }
