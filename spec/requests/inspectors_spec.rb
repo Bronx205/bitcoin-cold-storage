@@ -5,8 +5,10 @@ include ViewsHelper
 include FilesHelper
 
 describe "Inspectors:" do
-	let!(:test_pa_path) { file_fixtures_directory+'valid/10addresses.csv' }
-	let!(:test_pk_path) { file_fixtures_directory+'valid/10private_keys.csv' }	
+	let!(:test_pa_path) { file_fixtures_directory+'valid/10_addresses.csv' }
+	let!(:test_unencrypted_pk_path) { file_fixtures_directory+'valid/10_private_keys.csv' }	
+	let!(:test_encrypted_pk_path) { file_fixtures_directory+'valid/2_private_keys_moohaha.csv.aes' }	
+	let!(:test_decrypted_pk_path) { file_fixtures_directory+'valid/2_private_keys_moohaha.csv' }	
 	subject { page }
 	before do
 	  visit inspect_path
@@ -27,14 +29,14 @@ describe "Inspectors:" do
 		end
 	end
 	describe "loading an unencrypted private keys csv file" do
-		let!(:data) { CSV.read(test_pk_path) }
+		let!(:data) { CSV.read(test_unencrypted_pk_path) }
 		before do
-		  attach_file "file", test_pk_path
+		  attach_file "file", test_unencrypted_pk_path
 		  click_button inspect_button
 		end
 		it_should_behave_like 'the private keys page'
 		it_should_behave_like 'it does not have download buttons'		
-		describe "should show the addresses correctly" do
+		describe "should show the keys correctly" do
 			it { should have_selector('td.text_pubkey#address_1', text: data[1][1]) }
 			it { should have_selector('td.text_pubkey#address_10', text: data[10][1]) }
 			it { should have_selector("td#qr_address_2") }
@@ -42,6 +44,23 @@ describe "Inspectors:" do
 			it { should_not have_selector('td.text_pubkey#address_11') }			
 		end
 	end
+	describe "loading an encrypted private keys csv.aes file" do
+		let!(:data) { CSV.read(test_decrypted_pk_path) }
+		before do
+		  attach_file "file", test_encrypted_pk_path
+		  fill_in 'password', with: 'moohaha'
+		  click_button inspect_button
+		end
+		it_should_behave_like 'the private keys page'
+		it_should_behave_like 'it does not have download buttons'		
+		describe "should show the keys correctly" do
+			it { should have_selector('td.text_pubkey#address_1', text: data[1][1]) }
+			it { should have_selector('td.text_pubkey#address_2', text: data[2][1]) }
+			it { should have_selector("td#qr_address_2") }
+			it { should have_selector("td#qr_prvkey_wif_2") }				
+			it { should_not have_selector('td.text_pubkey#address_11') }			
+		end
+	end	
 	describe "invalid files" do
 		describe "foo.bar" do		
 			before do
