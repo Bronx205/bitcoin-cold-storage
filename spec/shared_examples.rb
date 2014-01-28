@@ -18,6 +18,7 @@ end
 
 shared_examples_for "the inspect page" do
 	it { should have_title full_title(inspect_page_title) }
+	it { should have_selector('h2', inspect_page_header)}
 	it { should have_xpath("//input[@type='file']")}
 	it { should have_button inspect_button}
 	it { should have_selector('input#password.input-xxlarge') }

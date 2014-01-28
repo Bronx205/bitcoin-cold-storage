@@ -24,7 +24,7 @@ module ViewsHelper
 		'Generate Cold Storage Files'
 	end
 
-	def recover_button
+	def recover_addresses_button
 		'Recover Addresses'
 	end
 
@@ -33,7 +33,8 @@ module ViewsHelper
 	end
 
 	def recover_passwd_placeholder
-		'Your cold storage password'
+		'Enter the password used for encrypting your Cold Storage files'
+		# 'Your cold storage password'
 	end	
 
 	def cold_view_title
@@ -47,9 +48,17 @@ module ViewsHelper
 	def inspect_page_title
 		'Inspect the content of your Cold Storage files'
 	end
+
+	def inspect_page_header
+		inspect_page_title
+	end
 	
 	def inspect_button
 		'Inspect'
+	end
+
+	def recover_button
+		'Inspect Cold Storage file'
 	end
 
 	def inspect_button_title
