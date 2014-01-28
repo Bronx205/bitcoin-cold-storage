@@ -9,5 +9,6 @@ class ApplicationController < ActionController::Base
   include FreezersHelper
   include FilesHelper
   include DataHelper
+  include InspectorsHelper
 
 end

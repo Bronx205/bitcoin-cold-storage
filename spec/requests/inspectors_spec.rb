@@ -133,7 +133,16 @@ describe "Inspectors:" do
 			end
 			it_should_behave_like 'the inspect page'
 			it { page.should have_selector('div.alert.alert-error', text: incorrect_format_flash) }	
-		end											
+		end
+		describe "loading an encrypted private keys file with wrong password" do		
+			before do
+			  attach_file "file", test_encrypted_pk_path
+			  fill_in 'password', with: 'foobar'
+			  click_button inspect_button			  
+			end
+			it_should_behave_like 'the inspect page'
+			it { page.should have_selector('div.alert.alert-error', text: wrong_password_flash) }	
+		end															
 	end
 
 							

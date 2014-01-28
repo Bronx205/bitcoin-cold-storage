@@ -148,4 +148,9 @@ module ViewsHelper
 	def incorrect_format_flash
 		'The uploaded file is not in the correct format'
 	end
+	def wrong_password_flash
+		'Wrong password, try again'
+	end
+
+
 end
