@@ -18,15 +18,14 @@ class FreezersController < ApplicationController
 			@password=set_password(params[:password])			
 			@qm.dump_files(@password)
 			flash[:password]=password_message(@password,@password==params[:password])
-			redirect_to private_keys_path 
+			redirect_to new_keys_path 
 		else
 			flash.now[:error] = addresses_range_notice
 			render 'new'
 		end
 	end
 
-  def addresses
-  	redirect_to root_path unless File.exist?(public_addresses_file_path('csv'))
+  def addresses  	
   	@title=addresses_title
     @data=CSV.read(public_addresses_file_path('csv'))
     @keys=build_addresses_hash_array(@data)

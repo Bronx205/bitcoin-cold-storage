@@ -33,7 +33,7 @@ describe "Freezers:" do
 		it_should_behave_like "flash should go away"
 	end
 	# describe "visiting the addresses path without an addresses.csv file should flash error and redirect home" do
-	# 	before { visit private_keys_path }
+	# 	before { visit new_keys_path }
 	# 	it { should have_title home_title }
 	# end	
 			

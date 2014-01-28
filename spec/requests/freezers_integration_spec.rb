@@ -45,13 +45,13 @@ describe "Freezers" do
 		describe "addresses view" do
 			describe "should show in HTML the content of addresses.csv" do
 				let!(:data) { CSV.read(pa_path) }
-				before { visit addresses_path }
+				before { visit new_addresses_path }
 				it_should_behave_like 'the addresses page'
 				it { should have_selector('td.text_pubkey#address_1', text: data[1][1]) }
 				describe "and redirect home if there is no such file" do
 					before do
 					  delete_file(pa_path)
-					  visit addresses_path
+					  visit new_addresses_path
 					end
 					it { should have_title(home_title) }
 				end
@@ -68,14 +68,14 @@ describe "Freezers" do
 		describe "private keys view" do
 			describe "should show in HTML the content of private_keys.csv" do
 				let!(:data) { CSV.read(non_encrypted_pk_path) }
-				before { visit private_keys_path }
+				before { visit new_keys_path }
 				it_should_behave_like 'the private keys page'
 				it { should have_selector('td.text_pubkey#address_1', text: data[1][1]) }
 				it { should have_selector('td.text_prvkey#prvkey_wif_1', text: data[1][2]) }
 				describe "and redirect home if there is no such file" do
 					before do
 					  delete_file(pa_path)
-					  visit private_keys_path
+					  visit new_keys_path
 					end
 					it { should have_title(home_title) }
 				end				
