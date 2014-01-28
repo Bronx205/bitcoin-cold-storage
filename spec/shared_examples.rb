@@ -8,7 +8,7 @@ shared_examples_for "all pages" do
 end	
 
 shared_examples_for "the freeze page" do
-	it { should have_title full_title(freeze_title) }
+	it { should have_title full_title(freeze_page_title) }
 	it { should have_selector('input#howmany') }
 	it { should have_xpath("//input[@value=0]")}
 	it { should have_button generate_button}
@@ -93,7 +93,7 @@ shared_examples_for "flash should go away" do
 		it { should_not have_selector('div.alert')}
 	end						
 	describe "when navigating to freeze page" do
-		before { click_link freeze_title }
+		before { click_link freeze_button }
 		it { should_not have_selector('div.alert')}
 	end		
 	describe "when navigating to the inspect page" do

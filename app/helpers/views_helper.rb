@@ -45,35 +45,43 @@ module ViewsHelper
 	end	
 
 	def inspect_page_title
-		'Inspect private keys in cold storage files'
+		'Inspect the content of your Cold Storage files'
 	end
 	
 	def inspect_button
 		'Inspect'
 	end
 
-	def freeze_title
+	def inspect_button_title
+		inspect_page_title
+	end
+
+	def freeze_page_title
+		'Generate Bitcoin Addresses for Cold Storage'
+	end
+	
+	def freeze_button
 		'Freeze'
+	end
+
+	def freeze_button_title
+		freeze_page_title
 	end
 
 	def heatup_title
 		'Heat-up'
 	end
 
+	def heatup_button_title
+		'Decrypt and inspect your Cold Stored Bitcoin Addresses'
+	end
+	
 	def addresses_title
 		'Bitcoin Addresses'
 	end
 	
 	def private_keys_title
 		'Private Keys'
-	end
-
-	def freeze_button_title
-		'Generate an encrypted file containing Bitcoin Addresses for Cold Storage'
-	end
-
-	def heatup_button_title
-		'Decrypt and inspect your Cold Stored Bitcoin Addresses'
 	end
 
 	def password_placeholder

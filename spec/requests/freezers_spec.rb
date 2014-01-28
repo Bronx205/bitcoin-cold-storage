@@ -28,7 +28,7 @@ describe "Freezers:" do
 		  fill_in 'howmany', with: KEYS_LIMIT+1
 		  click_button generate_button
 		end
-		it { should have_title freeze_title }
+		it { should have_title freeze_page_title }
 		it { should have_selector('div.alert.alert-error', text: addresses_range_notice) }
 		it_should_behave_like "flash should go away"
 	end

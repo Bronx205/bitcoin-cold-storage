@@ -12,17 +12,15 @@ describe "Static" do
     it { should have_title full_title(home_title) }
     it { should have_selector('div#catchy', text: catch_phrase) }
     it { should have_selector('div#elevator', text: elevator_pitch) }
-    it { should have_link 'freeze_button' }
-    it { should have_link 'heatup_button' }
-    it { should have_xpath("//a[@class='btn btn-primary'][@title='#{freeze_button_title}']")}
-    it { should have_xpath("//a[@class='btn btn-danger'][@title='#{heatup_button_title}']")}    
-    describe "freeze button" do
-      before { find('#freeze_button',visible: true).click}
-      it { should have_title(freeze_title) }
+    it { should have_xpath("//a[@class='btn btn-primary'][@title='#{freeze_button_title}'][@id='big_freeze_button']")}
+    it { should have_xpath("//a[@class='btn btn-danger'][@title='#{inspect_button_title}'][@id='big_inspect_button']")}    
+    describe "big freeze button takes you to the freeze page" do
+      before { find('#big_freeze_button',visible: true).click}
+      it { should have_title(freeze_page_title) }
     end
-    describe "heatup button" do
-      before { find('#heatup_button',visible: true).click }
-      it { should have_title(heatup_title) } if file_there?(private_keys_file_path('html',true))
+    describe "big inspect button should take you to the inspect page" do
+      before { find('#big_inspect_button',visible: true).click }
+      it { should have_title(inspect_page_title) } 
     end
   end 
 
