@@ -3,3 +3,4 @@ td.text_pubkey id="address_#{counter}"
 td.qr_pubkey id="qr_address_#{counter}"
 	.qr_address 
 		= render 'shared/qr', qr: generate_qr(row[:addr]), id: 'address:' + row[:addr] unless Rails.env.test?
+		= render 'shared/show_qr', id: "addres_qr_btn_#{counter}"
