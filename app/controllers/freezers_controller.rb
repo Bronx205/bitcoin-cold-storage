@@ -7,7 +7,6 @@ class FreezersController < ApplicationController
 
   def new
 		@title=freeze_page_title
-		flash[:new] = false
 	end
 	
 	def create
