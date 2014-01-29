@@ -1,5 +1,7 @@
 class InspectorsController < ApplicationController
-  
+
+  before_filter :redirect_on_refresh, only: [:addresses, :private_keys]
+    
   def new
   	@title=inspect_page_title
   end
@@ -11,7 +13,7 @@ class InspectorsController < ApplicationController
 
   def addresses
   	@title = addresses_title
-  	@keys = flash[:keys]
+  	@keys = flash[:keys]    
   end
 
   def private_keys
@@ -84,4 +86,7 @@ class InspectorsController < ApplicationController
       end
     end  
 
+    def redirect_on_refresh
+      redirect_to inspect_path if flash[:keys].blank?
+    end
 end

@@ -26,6 +26,10 @@ describe "Inspectors:" do
 			it { should have_selector('td.text_pubkey#address_1', text: data[1][1]) }
 			it { should have_selector('td.text_pubkey#address_10', text: data[10][1]) }
 			it { should_not have_selector('td.text_pubkey#address_11') }			
+			describe "redirect to inspect page on reload" do
+				before { visit inspect_addresses_path }
+				it_should_behave_like 'the inspect page'
+			end
 		end
 	end
 	describe "loading an unencrypted private keys csv file" do
@@ -41,7 +45,11 @@ describe "Inspectors:" do
 			it { should have_selector('td.text_pubkey#address_10', text: data[10][1]) }
 			it { should have_selector("td#qr_address_2") }
 			it { should have_selector("td#qr_prvkey_wif_2") }				
-			it { should_not have_selector('td.text_pubkey#address_11') }			
+			it { should_not have_selector('td.text_pubkey#address_11') }
+			describe "redirect to inspect page on reload" do
+				before { visit inspect_keys_path }
+				it_should_behave_like 'the inspect page'
+			end						
 		end
 	end
 	describe "loading an encrypted private keys csv.aes file" do
@@ -58,7 +66,11 @@ describe "Inspectors:" do
 			it { should have_selector('td.text_pubkey#address_2', text: data[2][1]) }
 			it { should have_selector("td#qr_address_2") }
 			it { should have_selector("td#qr_prvkey_wif_2") }				
-			it { should_not have_selector('td.text_pubkey#address_11') }			
+			it { should_not have_selector('td.text_pubkey#address_11') }
+			describe "redirect to inspect page on reload" do
+				before { visit inspect_keys_path }
+				it_should_behave_like 'the inspect page'
+			end								
 		end
 	end	
 	describe "invalid files" do
