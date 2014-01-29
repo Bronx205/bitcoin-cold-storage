@@ -20,8 +20,8 @@ describe "Inspectors:" do
 		  attach_file "file", test_pa_path
 		  click_button inspect_button
 		end
-		it { should_not have_selector('td.black')}
 		it_should_behave_like 'the addresses page'
+		it { should_not have_selector('td.black')}
 		it_should_behave_like 'it does not have download buttons'
 		describe "and show the addresses correctly" do
 			it { should have_selector('td.text_pubkey#address_1', text: data[1][1]) }
@@ -29,11 +29,7 @@ describe "Inspectors:" do
 			it { should_not have_selector('td.text_pubkey#address_11') }
 			describe "clicking the QR link should generate the QR" do
 				before { click_link 'address_qr_btn_1' }
-				# it { should have_selector('td.black') }
-			end
-			describe "redirect to inspect page on reload" do
-				before { visit inspect_addresses_path }
-				it_should_behave_like 'the inspect page'
+				it { should have_selector('td.black') }
 			end
 		end
 	end
@@ -44,6 +40,7 @@ describe "Inspectors:" do
 		  click_button inspect_button
 		end
 		it_should_behave_like 'the private keys page'
+		it { should_not have_selector('td.black')}
 		it_should_behave_like 'it does not have download buttons'		
 		describe "should show the keys correctly" do
 			it { should have_selector('td.text_pubkey#address_1', text: data[1][1]) }
@@ -51,9 +48,13 @@ describe "Inspectors:" do
 			it { should have_selector("td#qr_address_2") }
 			it { should have_selector("td#qr_prvkey_wif_2") }				
 			it { should_not have_selector('td.text_pubkey#address_11') }
-			describe "redirect to inspect page on reload" do
-				before { visit inspect_keys_path }
-				it_should_behave_like 'the inspect page'
+			describe "clicking the first addresse QR link should generate the QR" do
+				before { click_link 'address_qr_btn_1' }
+				it { should have_selector('td.black') }
+			end
+			describe "clicking the first private keys QR link should generate the QR" do
+				before { click_link 'prvkey_qr_btn_1' }
+				it { should have_selector('td.black') }
 			end						
 		end
 	end
@@ -71,11 +72,7 @@ describe "Inspectors:" do
 			it { should have_selector('td.text_pubkey#address_2', text: data[2][1]) }
 			it { should have_selector("td#qr_address_2") }
 			it { should have_selector("td#qr_prvkey_wif_2") }				
-			it { should_not have_selector('td.text_pubkey#address_11') }
-			describe "redirect to inspect page on reload" do
-				before { visit inspect_keys_path }
-				it_should_behave_like 'the inspect page'
-			end								
+			it { should_not have_selector('td.text_pubkey#address_11') }						
 		end
 	end	
 	describe "invalid files" do

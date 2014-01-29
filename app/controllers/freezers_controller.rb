@@ -2,7 +2,6 @@ class FreezersController < ApplicationController
 	require 'rqrcode'
 	
 	before_filter :clear_flash_messages
-	# before_filter	:clear_cache,							only: [:create]
 	before_filter	:redirect_home,						only: [:addresses, :private_keys]
 
   def new
@@ -25,13 +24,14 @@ class FreezersController < ApplicationController
 	end
 
   def addresses  	
-  	@expose=params[:expose]["address_qr_btn_".length..-1] unless params[:expose].nil?
+  	@expose=params[:expose]
   	@title=addresses_title
     @data=CSV.read(public_addresses_file_path('csv'))
     @keys=build_addresses_hash_array(@data)
   end
 
   def private_keys
+  	@expose=params[:expose]
   	@title=private_keys_title
     @data=CSV.read(private_keys_file_path('csv',false))
     @keys=build_private_keys_hash_array(@data)
@@ -87,6 +87,8 @@ class FreezersController < ApplicationController
 	  def files_exist?
 	  	File.exist?(public_addresses_file_path('csv')) && File.exist?(private_keys_file_path('csv',false))
 	  end
+
+
 end
 
 # send_data(inject_css(render_to_string), :filename => "colds.html") if @download=='plaintext'

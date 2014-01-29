@@ -20,12 +20,21 @@ describe "Freezers" do
 		end		
 		it_should_behave_like 'it saved the files'
 		it_should_behave_like 'the private keys page'
+		it { should_not have_selector('td.black')}
 		it_should_behave_like 'it has download buttons'
 		it { should have_selector('div.alert.alert-password', text: 'supercali') }
 		describe "and should show the correct number of rows" do
 			it { should have_selector("td#qr_address_2") }
 			it { should have_selector("td#qr_prvkey_wif_2") }	
 		end
+		describe "clicking the first addresse QR link should generate the QR" do
+			before { click_link 'address_qr_btn_1' }
+			it { should have_selector('td.black') }
+		end
+		describe "clicking the first private keys QR link should generate the QR" do
+			before { click_link 'prvkey_qr_btn_1' }
+			it { should have_selector('td.black') }
+		end						
 	end
 	describe "submitting without password should default to a strong password"  do
 		before do
@@ -47,7 +56,12 @@ describe "Freezers" do
 				let!(:data) { CSV.read(pa_path) }
 				before { visit new_addresses_path }
 				it_should_behave_like 'the addresses page'
+				it { should_not have_selector('td.black')}
 				it { should have_selector('td.text_pubkey#address_1', text: data[1][1]) }
+				describe "clicking the first addresse QR link should generate the QR" do
+					before { click_link 'address_qr_btn_1' }
+					it { should have_selector('td.black') }
+				end				
 				describe "and redirect home if there is no such file" do
 					before do
 					  delete_file(pa_path)

@@ -36,5 +36,5 @@ describe "Freezers:" do
 	# 	before { visit new_keys_path }
 	# 	it { should have_title home_title }
 	# end	
-			
+
 end
