@@ -1,1 +1,1 @@
-= link_to 'QR',request.fullpath, id: id
+= link_to 'QR',params.merge(:expose => "#{id}"), id: id

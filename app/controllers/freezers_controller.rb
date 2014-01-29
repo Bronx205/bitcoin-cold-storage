@@ -25,6 +25,7 @@ class FreezersController < ApplicationController
 	end
 
   def addresses  	
+  	@expose=params[:expose]["address_qr_btn_".length..-1] unless params[:expose].nil?
   	@title=addresses_title
     @data=CSV.read(public_addresses_file_path('csv'))
     @keys=build_addresses_hash_array(@data)

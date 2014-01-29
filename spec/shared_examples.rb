@@ -34,8 +34,9 @@ shared_examples_for "the private keys page" do
 	it { should have_selector("td#prvkey_wif_1") }
 	it { should have_selector("td#qr_prvkey_wif_1") }	
 	it { should_not have_selector('div.alert.alert-keys')}
-	it { should have_link 'addres_qr_btn_1'}
+	it { should have_link 'address_qr_btn_1'}
 	it { should have_link 'prvkey_qr_btn_1'}
+	
 end
 
 shared_examples_for "the addresses page" do	
@@ -47,8 +48,9 @@ shared_examples_for "the addresses page" do
 	it { should have_selector("td#qr_address_1") }
 	it { should_not have_selector("td#prvkey_wif_1") }	
 	it { should_not have_selector('div.alert.alert-keys')}
-	it { should have_link 'addres_qr_btn_1'}
+	it { should have_link 'address_qr_btn_1'}
 	it { should_not have_link 'prvkey_qr_btn_1'}
+	
 end
 
 shared_examples_for 'it has download buttons' do

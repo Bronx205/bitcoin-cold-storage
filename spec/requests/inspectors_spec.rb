@@ -20,12 +20,17 @@ describe "Inspectors:" do
 		  attach_file "file", test_pa_path
 		  click_button inspect_button
 		end
+		it { should_not have_selector('td.black')}
 		it_should_behave_like 'the addresses page'
 		it_should_behave_like 'it does not have download buttons'
 		describe "and show the addresses correctly" do
 			it { should have_selector('td.text_pubkey#address_1', text: data[1][1]) }
 			it { should have_selector('td.text_pubkey#address_10', text: data[10][1]) }
-			it { should_not have_selector('td.text_pubkey#address_11') }			
+			it { should_not have_selector('td.text_pubkey#address_11') }
+			describe "clicking the QR link should generate the QR" do
+				before { click_link 'address_qr_btn_1' }
+				# it { should have_selector('td.black') }
+			end
 			describe "redirect to inspect page on reload" do
 				before { visit inspect_addresses_path }
 				it_should_behave_like 'the inspect page'

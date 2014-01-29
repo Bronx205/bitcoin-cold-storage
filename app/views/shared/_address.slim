@@ -1,6 +1,8 @@
 td.text_pubkey id="address_#{counter}"
 	= row[:addr]
 td.qr_pubkey id="qr_address_#{counter}"
-	.qr_address 
-		= render 'shared/qr', qr: generate_qr(row[:addr]), id: 'address:' + row[:addr] unless Rails.env.test?
-		= render 'shared/show_qr', id: "addres_qr_btn_#{counter}"
+	.qr_address
+		- if @expose==counter.to_s			
+			= render 'shared/qr', qr: generate_qr(row[:addr]), id: 'address:' + row[:addr] 
+		- else
+			= render 'shared/show_qr', foo: row[:addr], id: "address_qr_btn_#{counter}"

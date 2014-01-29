@@ -11,7 +11,7 @@ class InspectorsController < ApplicationController
     process_uploaded_file(params[:file],params[:password])
   end
 
-  def addresses
+  def addresses    
   	@title = addresses_title
   	@keys = flash[:keys]    
   end
