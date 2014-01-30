@@ -14,11 +14,18 @@ describe "Inspectors:" do
 	  visit inspect_path
 	end
 	it_should_behave_like 'the inspect page'
+	describe "flash error and stay on inspect page if no file was attached" do
+		before do		  
+		  click_button recover_button
+		end
+		it_should_behave_like 'the inspect page'
+		it { should have_selector('div.alert.alert-error', text: no_file_loaded_flash)}
+	end
 	describe "loading an addresses csv file" do
 		let!(:data) { CSV.read(test_pa_path) }
 		before do
 		  attach_file "file", test_pa_path
-		  click_button inspect_button
+		  click_button recover_button
 		end
 		it_should_behave_like 'the addresses page'
 		it { should_not have_selector('td.black')}
@@ -37,7 +44,7 @@ describe "Inspectors:" do
 		let!(:data) { CSV.read(test_unencrypted_pk_path) }
 		before do
 		  attach_file "file", test_unencrypted_pk_path
-		  click_button inspect_button
+		  click_button recover_button
 		end
 		it_should_behave_like 'the private keys page'
 		it { should_not have_selector('td.black')}
@@ -63,7 +70,7 @@ describe "Inspectors:" do
 		before do
 		  attach_file "file", test_encrypted_pk_path
 		  fill_in 'password', with: 'moohaha'
-		  click_button inspect_button
+		  click_button recover_button
 		end
 		it_should_behave_like 'the private keys page'
 		it_should_behave_like 'it does not have download buttons'		
@@ -79,7 +86,7 @@ describe "Inspectors:" do
 		describe "foo.bar" do		
 			before do
 			  attach_file "file", file_fixtures_directory+'invalid/foo.bar'
-			  click_button inspect_button			  
+			  click_button recover_button			  
 			end
 			it_should_behave_like 'the inspect page'
 			it { page.should have_selector('div.alert.alert-error', text: upload_format_error) }	
@@ -87,7 +94,7 @@ describe "Inspectors:" do
 		describe "loading an address file with an invalid bitcoin address invalid_address.csv" do		
 			before do
 			  attach_file "file", file_fixtures_directory+'invalid/invalid_address.csv'
-			  click_button inspect_button			  
+			  click_button recover_button			  
 			end
 			it_should_behave_like 'the inspect page'
 			it { page.should have_selector('div.alert.alert-error', text: incorrect_format_flash) }	
@@ -95,7 +102,7 @@ describe "Inspectors:" do
 		describe "loading a file with an invalid addresses format invalid_addresses_format.csv" do		
 			before do
 			  attach_file "file", file_fixtures_directory+'invalid/invalid_addresses_format.csv'
-			  click_button inspect_button			  
+			  click_button recover_button			  
 			end
 			it_should_behave_like 'the inspect page'
 			it { page.should have_selector('div.alert.alert-error', text: incorrect_format_flash) }	
@@ -103,7 +110,7 @@ describe "Inspectors:" do
 		describe "loading an addresses file with an invalid header format invalid_addresses_header.csv" do		
 			before do
 			  attach_file "file", file_fixtures_directory+'invalid/invalid_addresses_header.csv'
-			  click_button inspect_button			  
+			  click_button recover_button			  
 			end
 			it_should_behave_like 'the inspect page'
 			it { page.should have_selector('div.alert.alert-error', text: incorrect_format_flash) }	
@@ -111,7 +118,7 @@ describe "Inspectors:" do
 		describe "loading a private keys file with an invalid_format" do		
 			before do
 			  attach_file "file", file_fixtures_directory+'invalid/invalid_format.csv'
-			  click_button inspect_button			  
+			  click_button recover_button			  
 			end
 			it_should_behave_like 'the inspect page'
 			it { page.should have_selector('div.alert.alert-error', text: incorrect_format_flash) }	
@@ -119,7 +126,7 @@ describe "Inspectors:" do
 		describe "loading a file with an invalid header format invalid_header_format.csv" do		
 			before do
 			  attach_file "file", file_fixtures_directory+'invalid/invalid_header_format.csv'
-			  click_button inspect_button			  
+			  click_button recover_button			  
 			end
 			it_should_behave_like 'the inspect page'
 			it { page.should have_selector('div.alert.alert-error', text: incorrect_format_flash) }	
@@ -127,7 +134,7 @@ describe "Inspectors:" do
 		describe "loading an pkey file with an invalid format invalid_prvkey_format.csv" do		
 			before do
 			  attach_file "file", file_fixtures_directory+'invalid/invalid_prvkey_format.csv'
-			  click_button inspect_button			  
+			  click_button recover_button			  
 			end
 			it_should_behave_like 'the inspect page'
 			it { page.should have_selector('div.alert.alert-error', text: incorrect_format_flash) }	
@@ -135,7 +142,7 @@ describe "Inspectors:" do
 		describe "loading a private keys file with an invalid bitcoin address prkey_with_invalid_address" do		
 			before do
 			  attach_file "file", file_fixtures_directory+'invalid/prkey_with_invalid_address.csv'
-			  click_button inspect_button			  
+			  click_button recover_button			  
 			end
 			it_should_behave_like 'the inspect page'
 			it { page.should have_selector('div.alert.alert-error', text: incorrect_format_flash) }	
@@ -143,7 +150,7 @@ describe "Inspectors:" do
 		describe "loading a prkey_with_non_matching_key_pairs" do		
 			before do
 			  attach_file "file", file_fixtures_directory+'invalid/prkey_with_non_matching_key_pairs.csv'
-			  click_button inspect_button			  
+			  click_button recover_button			  
 			end
 			it_should_behave_like 'the inspect page'
 			it { page.should have_selector('div.alert.alert-error', text: incorrect_format_flash) }	
@@ -152,7 +159,7 @@ describe "Inspectors:" do
 			before do
 			  attach_file "file", test_encrypted_pk_path
 			  fill_in 'password', with: 'foobar'
-			  click_button inspect_button			  
+			  click_button recover_button			  
 			end
 			it_should_behave_like 'the inspect page'
 			it { page.should have_selector('div.alert.alert-error', text: wrong_password_flash) }	

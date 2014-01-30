@@ -173,6 +173,9 @@ module ViewsHelper
 	def wrong_password_flash
 		'Wrong password, try again'
 	end
+	def no_file_loaded_flash
+		'No file was loaded'
+	end
 
 
 end

@@ -8,7 +8,12 @@ class InspectorsController < ApplicationController
 
   def create    
     @title=inspect_page_title
-    process_uploaded_file(params[:file],params[:password])
+    if params[:file].blank?
+      flash.now[:error] = no_file_loaded_flash
+      render 'new'      
+    else
+      process_uploaded_file(params[:file],params[:password])  
+    end    
   end
 
   def addresses
