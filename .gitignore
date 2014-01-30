@@ -16,7 +16,7 @@
 /tmp
 
 # Ignore non text files saved in the files directory
-# /files
+/files
 
 # Ignore .rvmrc
 .rvmrc

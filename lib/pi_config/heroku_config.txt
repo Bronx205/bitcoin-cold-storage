@@ -1,0 +1,33 @@
+To fix heroku file security issues i checked in the 3 coldstorage files, and then to have git stop tracking them I had to use :
+
+Had the very same issue this week when I accidentally committed, then tried to remove a build file from a shared repository, and this:
+
+http://gitready.com/intermediate/2009/02/18/temporarily-ignoring-files.html
+
+has worked fine for me and not mentioned so far.
+
+git update-index --assume-unchanged <file>
+To remove the file you're interested in from version control, then use all your other commands as normal.
+
+git update-index --no-assume-unchanged <file>
+If you ever wanted to put it back in.
+
+so I ran this
+
+
+no changes added to commit (use "git add" and/or "git commit -a")
+[coldstorage (master)]$ gs
+# On branch master
+# Changes not staged for commit:
+#   (use "git add <file>..." to update what will be committed)
+#   (use "git checkout -- <file>..." to discard changes in working directory)
+#
+#	modified:   .gitignore
+#	modified:   files/PRIVATE/NON-ENCRYPTED/private_keys.csv
+#	modified:   files/PRIVATE/encrypted/private_keys.csv.aes
+#	modified:   files/public/addresses.csv
+#
+no changes added to commit (use "git add" and/or "git commit -a")
+[coldstorage (master)]$ git update-index --assume-unchanged files/PRIVATE/NON-ENCRYPTED/private_keys.csv
+[coldstorage (master)]$ git update-index --assume-unchanged files/PRIVATE/encrypted/private_keys.csv.aes
+[coldstorage (master)]$ git update-index --assume-unchanged files/public/addresses.csv
