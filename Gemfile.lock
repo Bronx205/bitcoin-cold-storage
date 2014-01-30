@@ -290,6 +290,7 @@ DEPENDENCIES
   database_cleaner (~> 1.0.0.RC1)
   factory_girl_rails (= 4.2.0)
   faker (= 1.1.2)
+  ffi
   growl (= 1.0.3)
   guard-rspec (= 2.5.0)
   guard-spork (= 1.5.0)
