@@ -14,15 +14,13 @@ class InspectorsController < ApplicationController
   def addresses
     @expose=params[:expose]   
   	@title = addresses_title
-  	@keys = flash[:keys]    
-    flash[:keys] = @keys
+  	@keys = $keys
   end
 
   def private_keys
     @expose=params[:expose]
   	@title = private_keys_title
-  	@keys = flash[:keys]
-    flash[:keys] = @keys
+  	@keys = $keys
   end
 
   private
@@ -71,7 +69,7 @@ class InspectorsController < ApplicationController
     def process_addresses(csv_data)
       if addresses_csv_format?(csv_data)
         @keys=build_addresses_hash_array(csv_data)
-        flash[:keys] = @keys
+        $keys = @keys
         redirect_to inspect_addresses_path
       else
         flash[:error] = incorrect_format_flash
@@ -82,7 +80,7 @@ class InspectorsController < ApplicationController
     def process_private_keys(csv_data)
       if private_keys_csv_format?(csv_data)
         @keys=build_private_keys_hash_array(csv_data)
-        flash[:keys] = @keys
+        $keys = @keys
         redirect_to inspect_keys_path
       else
         flash[:error] = incorrect_format_flash
@@ -91,6 +89,6 @@ class InspectorsController < ApplicationController
     end  
 
     def redirect_on_refresh
-      redirect_to inspect_path if flash[:keys].blank?
+      redirect_to inspect_path if $keys.blank?
     end
 end

@@ -4,7 +4,7 @@ h2.view_header
 	table id="setup"
 		tr
 			td colspan="2"
-				| How many addresses would you like to generate?
+				= "How many addresses to generate? (at most #{KEYS_LIMIT})"
 			td.align_right 
 				= text_field_tag :howmany,0, placeholder: howmany_placeholder, class: "input-small"
 		tr
