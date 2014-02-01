@@ -36,7 +36,8 @@ shared_examples_for "the private keys page" do
 	it { should_not have_selector('div.alert.alert-keys')}
 	it { should have_link 'address_qr_btn_1'}
 	it { should have_link 'prvkey_qr_btn_1'}
-	
+	it { should have_xpath("//a[@class='btn btn-primary'][text()='#{qr_button}'][@id='address_qr_btn_1']")} 
+	it { should have_xpath("//a[@class='btn btn-primary'][text()='#{qr_button}'][@id='prvkey_qr_btn_1']")} 	
 end
 
 shared_examples_for "the addresses page" do	
@@ -50,7 +51,7 @@ shared_examples_for "the addresses page" do
 	it { should_not have_selector('div.alert.alert-keys')}
 	it { should have_link 'address_qr_btn_1'}
 	it { should_not have_link 'prvkey_qr_btn_1'}
-	
+	it { should have_xpath("//a[@class='btn btn-primary'][text()='#{qr_button}'][@id='address_qr_btn_1']")} 	
 end
 
 shared_examples_for 'it has download buttons' do

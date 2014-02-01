@@ -176,6 +176,12 @@ module ViewsHelper
 	def no_file_loaded_flash
 		'No file was loaded'
 	end
+	def qr_button
+		'QR code'
+	end
+	def qr_button_title
+		"Show QR code"
+	end
 
 
 end
