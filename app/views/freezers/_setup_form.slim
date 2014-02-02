@@ -13,13 +13,19 @@ h2.view_header
 		tr
 			td colspan="3"
 				div.left
-					| Shamir Secret Sharing:
+					| Split password into
+				div.left
+					= text_field_tag :ssss_n,5, placeholder: ssss_n_placeholder,title: ssss_n_title, class: "input-mini"
+				div.left
+					| "shares"
+		tr
+			td colspan="3"
+				div.left
+					|	A minimum of 
 				div.left
 					= text_field_tag :ssss_m,3, placeholder: ssss_m_placeholder,title: ssss_m_title, class: "input-mini"
 				div.left
-					| out of 
-				div.left
-					= text_field_tag :ssss_n,5, placeholder: ssss_n_placeholder,title: ssss_n_title, class: "input-mini"
+					| will be needed to recover your password
 		tr
 			td
 				= submit_tag generate_button,  id: "howmany_button", class: "btn btn-primary"
