@@ -12,12 +12,12 @@ require 'secretsharing'
 				byte.to_s
 			end
 		end
-		temp.join
+		temp.unshift('100').join
 	end
 
 	def int_string_to_string(int_string)
-		raise 'Not an int string' unless int_string?(int_string)
-		int_string.scan(/\d{3}/).map(&:to_i).pack('c*')
+		raise int_string + 'is not an int string' unless int_string?(int_string)
+		int_string.scan(/\d{3}/).map(&:to_i).drop(1).pack('c*')
 	end
 
 	def int_string?(string)
