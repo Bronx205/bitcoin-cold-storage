@@ -182,6 +182,16 @@ module ViewsHelper
 	def qr_button_title
 		"Show QR code"
 	end
-
-
+	def ssss_n_placeholder
+		'total'
+	end
+	def ssss_m_placeholder
+		'minimal'
+	end
+	def ssss_n_title
+		'Total number of shares'
+	end
+	def ssss_m_title
+		'Minimal number of shares needed for password retrieval'
+	end
 end
