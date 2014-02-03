@@ -73,14 +73,10 @@ module FilesHelper
 		end		
 	end
 
-	# def private_keys_file_path(file_type,encrypted? = false)
-	# 	if encrypted?
-	# 		temp = encrypted_directory_path
-	# 	else
-	# 		temp = unencrypted_directory_path
-	# 	end
-	# 	temp + private_keys_file_name + "." + file_type	
-	# end
+	def password_shares_path(number)
+		raise 'Share number must be positive' unless number > 0
+		encrypted_directory_path+'password_share_'+number.to_s+'.csv'
+	end
 
 	def read_address_csv(path)
 		CSV.read(path,headers: true,col_sep: "\t").map do |row|

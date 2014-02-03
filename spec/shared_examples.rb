@@ -86,14 +86,26 @@ shared_examples_for "it failed decryption" do
 	it { should have_selector('div.alert.alert-error', text: failed_decryption_message) }
 end
 
+
 shared_examples_for 'it saved the files' do
-	specify{File.exist?(pa_path).should be_true }			
-	specify{(File.ctime(pa_path).to_f-Time.now.to_f).to_i.should be < 1}
-	specify{File.exist?(non_encrypted_pk_path).should be_true }
-	specify{(File.ctime(non_encrypted_pk_path).to_f-Time.now.to_f).to_i.should be < 1}
-	specify{File.exist?(encrypted_pk_path).should be_true }
-	specify{(File.ctime(encrypted_pk_path).to_f-Time.now.to_f).to_i.should be < 1}		
+	 let(:files_paths) { [pa_path,non_encrypted_pk_path, encrypted_pk_path,password_shares_path(1),password_shares_path(2)] }
+	 it "should check the file" do
+		files_paths.each do |path|
+			File.exist?(path).should be_true
+			(File.ctime(path).to_f-Time.now.to_f).to_i.should be < 1
+		end		 	
+	 end
 end
+
+# shared_examples_for 'it saved the files' do
+# 	specify{File.exist?(pa_path).should be_true }			
+# 	specify{(File.ctime(pa_path).to_f-Time.now.to_f).to_i.should be < 1}
+# 	specify{File.exist?(non_encrypted_pk_path).should be_true }
+# 	specify{(File.ctime(non_encrypted_pk_path).to_f-Time.now.to_f).to_i.should be < 1}
+# 	specify{File.exist?(encrypted_pk_path).should be_true }
+# 	specify{(File.ctime(encrypted_pk_path).to_f-Time.now.to_f).to_i.should be < 1}		
+# end
+
 
 
 shared_examples_for "flash should go away" do

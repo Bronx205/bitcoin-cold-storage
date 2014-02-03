@@ -85,7 +85,28 @@ describe "quartermaster" do
 					end
 				end	
 			end
-		end					
+		end
+		describe "save_password_shares" do
+			it { expect{qm.save_password_shares}.to raise_error }
+			it { expect{qm.save_password_shares('foo')}.to raise_error }
+			it { expect{qm.save_password_shares('foo',{n:3,k:2})}.not_to raise_error }
+			describe "should save a csv file to the PRIVATE folder" do	
+				before do
+					delete_file(password_shares_path(1))
+				  qm.save_password_shares('bar',{n: 3,k: 2})
+				end				
+				specify{File.exist?(password_shares_path(1)).should be_true }
+				specify{File.exist?(password_shares_path(2)).should be_true }
+				specify{File.exist?(password_shares_path(3)).should be_true }
+				describe "with a list of password shares" do
+					let!(:share1) { CSV.read(password_shares_path(1)) }
+					let!(:share2) { CSV.read(password_shares_path(2)) }
+					it { share1[0][0].should == 'Password Share' }
+					it { share1[0][1].should be_nil }
+					it { share1[1][0].should_not be_blank }
+				end	
+			end
+		end							
 	end
 
 end

@@ -28,12 +28,23 @@ class Quartermaster
 		non_encrypted_file=CSV.read(private_keys_file_path('csv',false))
 		encrypted_file=encrypt(non_encrypted_file,password)
 		save_file(private_keys_file_path('csv',true),encrypted_file)
-	end	
+	end
 
-	def dump_files(password)
+	def save_password_shares(password, ssss_hash)
+		header=['Password Share']
+		data=[['foobar']]
+		n=ssss_hash[:n]
+		n.times do |count|
+			save_csv(password_shares_path(count+1),header,data)
+		end
+	end
+
+
+	def dump_files(password,ssss_hash)
 		save_public_addresses
 		save_unencrypted_private_keys
 		save_encrypted_private_keys(password)
+		save_password_shares(password,ssss_hash)
 	end
 
 	private

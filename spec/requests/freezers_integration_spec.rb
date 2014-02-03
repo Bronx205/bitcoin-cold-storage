@@ -43,8 +43,8 @@ describe "Freezers" do
 		end		
 		it_should_behave_like 'the private keys page'	
 		it_should_behave_like 'it has download buttons'	
-		describe "the number of share links should be 3 (default)" do
-			it { should have_link 'password_share_3'}  
+		describe "the number of share links should be 5 (default)" do
+			it { should have_link 'password_share_5'}  
 		end
 		it { should have_selector('div.alert.alert-password', text: 'randomly generated') }			
 	end
@@ -107,9 +107,9 @@ describe "Freezers" do
 				it { should have_title(home_title) }
 				it { should have_selector('div.alert.alert-error', text: missing_file_error) }				
 			end
-			describe "the number of share links should be 2" do
-				it { should have_link 'password_share_2'}  
-				it { should_not have_link 'password_share_3'}  
+			describe "the number of share links should be 3" do
+				it { should have_link 'password_share_3'}  
+				it { should_not have_link 'password_share_4'}  
 			end						
 		end				
 	end
