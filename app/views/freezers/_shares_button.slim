@@ -4,6 +4,5 @@ div.btn-group.bottom5
     span.caret
   ul.dropdown-menu role='menu'
     li
-      = link_to 'Save Share #1', "#", id: 'password_share_1'
-      = link_to 'Save Share #2', "#", id: 'password_share_2'
-      = link_to 'Save Share #3', "#", id: 'password_share_3'
+      - @k.times do |k|
+        = link_to "Save Share ##{k+1}", "#", id: "password_share_#{k}"

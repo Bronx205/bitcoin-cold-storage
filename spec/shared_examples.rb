@@ -15,7 +15,7 @@ shared_examples_for "the freeze page" do
 	it { should have_button generate_button}
 	it { should have_selector('input#password.input-xxlarge') }
 	it { should have_selector('input#ssss_n.input-mini') }
-	it { should have_selector('input#ssss_m.input-mini') }
+	it { should have_selector('input#ssss_k.input-mini') }
 end
 
 shared_examples_for "the inspect page" do

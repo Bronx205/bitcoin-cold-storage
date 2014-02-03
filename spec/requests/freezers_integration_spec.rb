@@ -42,13 +42,18 @@ describe "Freezers" do
 		  click_button generate_button	
 		end		
 		it_should_behave_like 'the private keys page'	
-		it_should_behave_like 'it has download buttons'			
+		it_should_behave_like 'it has download buttons'	
+		describe "the number of share links should be 3 (default)" do
+			it { should have_link 'password_share_3'}  
+		end
 		it { should have_selector('div.alert.alert-password', text: 'randomly generated') }			
 	end
 	describe "views" do
 		before do
 			fill_in 'howmany', 	with: 2		
-			fill_in 'password', with: 'moooohaha'  
+			fill_in 'password', with: 'moooohaha' 
+			fill_in 'ssss_n', 	with: '3' 
+			fill_in 'ssss_k', 	with: '2' 
 		  click_button generate_button	
 		end
 		describe "addresses view" do
@@ -101,7 +106,11 @@ describe "Freezers" do
 				end
 				it { should have_title(home_title) }
 				it { should have_selector('div.alert.alert-error', text: missing_file_error) }				
-			end			
+			end
+			describe "the number of share links should be 2" do
+				it { should have_link 'password_share_2'}  
+				it { should_not have_link 'password_share_3'}  
+			end						
 		end				
 	end
 	describe "should not die on a big dispatch" do

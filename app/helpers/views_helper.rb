@@ -185,13 +185,13 @@ module ViewsHelper
 	def ssss_n_placeholder
 		'total'
 	end
-	def ssss_m_placeholder
+	def ssss_k_placeholder
 		'minimal'
 	end
 	def ssss_n_title
 		'Total number of shares'
 	end
-	def ssss_m_title
+	def ssss_k_title
 		'Minimal number of shares needed for password retrieval'
 	end
 	def save_shares_button

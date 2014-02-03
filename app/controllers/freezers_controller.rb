@@ -15,6 +15,7 @@ class FreezersController < ApplicationController
 			@qm=Quartermaster.new(KeyGenerator.new(howmany).keys)				
 			@password=set_password(params[:password])			
 			@qm.dump_files(@password)
+  		$ssss=[params[:ssss_n],params[:ssss_k]]
 			flash[:password]=password_message(@password,@password==params[:password])
 			redirect_to new_keys_path 
 		else
@@ -32,6 +33,7 @@ class FreezersController < ApplicationController
 
   def private_keys
   	@expose=params[:expose]
+  	@k=$ssss[0].to_i
   	@title=private_keys_title
     @data=CSV.read(private_keys_file_path('csv',false))
     @keys=build_private_keys_hash_array(@data)
