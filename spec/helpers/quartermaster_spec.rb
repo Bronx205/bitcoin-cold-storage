@@ -6,20 +6,24 @@ include CryptoHelper
 describe "quartermaster" do
 
 	describe "init" do
-		it {expect {Quartermaster.new([1])}.to raise_error(RuntimeError, 'Invalid keys')}
-		it {expect {Quartermaster.new([])}.to raise_error(RuntimeError, 'Invalid keys')}
-		it {expect {Quartermaster.new}.to raise_error(ArgumentError, 'wrong number of arguments (0 for 1)')}
+		it {expect {Quartermaster.new([1])}.to raise_error(ArgumentError, 'wrong number of arguments (1 for 2)')}
+		it {expect {Quartermaster.new}.to raise_error(ArgumentError, 'wrong number of arguments (0 for 2)')}		
+		it {expect {Quartermaster.new([1],'a')}.to raise_error(RuntimeError, 'Invalid keys')}
+		it {expect {Quartermaster.new([],'b')}.to raise_error(RuntimeError, 'Invalid keys')}
 	end
 	describe "quartermaster" do
 		let!(:keygen) { KeyGenerator.new(2) }
 		let!(:size) { keygen.howmany }
-		let!(:qm) { Quartermaster.new(keygen.keys) }
+		let!(:pass) { "I love yoO $$ a Bu$hel!! \n and \t peck...." }			
+		let!(:qm) { Quartermaster.new(keygen.keys,pass) }
 		let!(:pa_path) { public_addresses_file_path('csv') }
 		let!(:pk_unencrypted_path) { private_keys_file_path('csv',false) }
 		let!(:pk_encrypted_path) { private_keys_file_path('csv',true) }
 		subject { qm }
 		it { should respond_to :keys }
+		it { should respond_to :password }
 		its(:keys) { should==keygen.keys }
+		its(:password) { should==pass }
 		it { should respond_to :save_public_addresses }
 		it { should respond_to :save_unencrypted_private_keys }
 		describe "save_public_addresses" do
@@ -57,17 +61,16 @@ describe "quartermaster" do
 			end
 		end
 		describe "save_encrypted_private_keys" do
-			it { expect{qm.save_encrypted_private_keys}.to raise_error }
-			it { expect{qm.save_encrypted_private_keys('foo')}.not_to raise_error }
+			it { expect{qm.save_encrypted_private_keys}.not_to raise_error }
 			describe "should save an encrypted csv.aes file to the PRIVATE folder" do	
 				before do
 					delete_file(pk_encrypted_path)
-				  qm.save_encrypted_private_keys('foo')
+				  qm.save_encrypted_private_keys
 				end				
 				specify{File.exist?(pk_encrypted_path).should be_true }
 				describe "the file should be encrypted" do
 					let!(:encrypted_data) { File.read(pk_encrypted_path) }
-					let!(:decrypted_data) { JSON.parse decrypt(encrypted_data,'foo') }					
+					let!(:decrypted_data) { JSON.parse decrypt(encrypted_data,pass) }					
 					subject { decrypted_data }			
 					it { should be_an_instance_of Array }
 					it { encrypted_data.should be_an_instance_of String }
@@ -86,17 +89,16 @@ describe "quartermaster" do
 				end	
 			end
 		end
-		describe "save_password_shares" do
-			let!(:pass) { "I love yoO $$ a Bu$hel!! \n and \t peck...." }			
+		describe "save_password_shares" do			
 			it { expect{qm.save_password_shares}.to raise_error }
 			it { expect{qm.save_password_shares('foo')}.to raise_error }
-			it { expect{qm.save_password_shares('foo',{n:3,k:2})}.not_to raise_error }
+			it { expect{qm.save_password_shares({n:3,k:2})}.not_to raise_error }
 			describe "should save a csv file to the PRIVATE folder" do	
 				before do
 					delete_file(password_shares_path(1))
 					delete_file(password_shares_path(2))
 					delete_file(password_shares_path(3))
-				  qm.save_password_shares(pass,{n: 3,k: 2})
+				  qm.save_password_shares({n: 3,k: 2})
 				end				
 				specify{File.exist?(password_shares_path(1)).should be_true }
 				specify{File.exist?(password_shares_path(2)).should be_true }

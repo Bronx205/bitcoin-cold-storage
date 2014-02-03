@@ -4,11 +4,12 @@ class Quartermaster
 
 	require 'bitcoin'
 
-	attr_reader :keys
+	attr_reader :keys, :password
 
-	def initialize(key_array)
+	def initialize(key_array,password)
 		raise 'Invalid keys' unless valid_array?(key_array)
 		@keys=key_array
+		@password=password
 	end
 
 	def save_public_addresses
@@ -23,18 +24,18 @@ class Quartermaster
 		save_enum_csv(private_keys_file_path('csv',false),header,data)
 	end	
 
-	def save_encrypted_private_keys(password)
+	def save_encrypted_private_keys
 		save_unencrypted_private_keys
 		non_encrypted_file=CSV.read(private_keys_file_path('csv',false))
-		encrypted_file=encrypt(non_encrypted_file,password)
+		encrypted_file=encrypt(non_encrypted_file,@password)
 		save_file(private_keys_file_path('csv',true),encrypted_file)
 	end
 
-	def save_password_shares(password, ssss_hash)
+	def save_password_shares(ssss_hash)
 		header=['Password Share']		
 		n=ssss_hash[:n]
 		k=ssss_hash[:k]
-		splitter=PasswordSplitter.new(n,k,password)		
+		splitter=PasswordSplitter.new(n,k,@password)		
 		n.times do |count|
 			data = []
 			data << splitter.shares[count]	
@@ -42,12 +43,11 @@ class Quartermaster
 		end
 	end
 
-
-	def dump_files(password,ssss_hash)
+	def dump_files(ssss_hash)
 		save_public_addresses
 		save_unencrypted_private_keys
-		save_encrypted_private_keys(password)
-		save_password_shares(password,ssss_hash)
+		save_encrypted_private_keys
+		save_password_shares(ssss_hash)
 	end
 
 	private
