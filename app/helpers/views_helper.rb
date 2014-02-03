@@ -194,4 +194,7 @@ module ViewsHelper
 	def ssss_m_title
 		'Minimal number of shares needed for password retrieval'
 	end
+	def save_shares_button
+		'Save Shares'
+	end
 end

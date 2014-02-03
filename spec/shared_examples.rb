@@ -60,11 +60,15 @@ shared_examples_for 'it has download buttons' do
   it { should have_xpath("//a[@class='btn btn-danger'][text()='#{save_non_encrypted_button}']")} 
   it { should have_xpath("//a[@class='btn btn-success'][text()='#{save_encrypted_button}']")} 
   it { should have_xpath("//a[@class='btn btn-success'][text()='#{save_addresses_button}']")}    
+  it { should have_button save_shares_button}
+	it { should have_link 'password_share_1'}  
 end
 
 shared_examples_for 'it does not have download buttons' do
   it { should_not have_xpath("//a[@class='btn btn-danger'][text()='#{save_non_encrypted_button}']")} 
   it { should_not have_xpath("//a[@class='btn btn-success'][text()='#{save_addresses_button}']")}    
+  it { should_not have_button save_shares_button}
+  it { should_not have_link 'password_share_1'}
 end
 
 shared_examples_for "the heatup page" do
