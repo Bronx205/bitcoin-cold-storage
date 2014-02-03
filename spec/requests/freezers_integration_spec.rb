@@ -43,6 +43,7 @@ describe "Freezers" do
 		end		
 		it_should_behave_like 'the private keys page'	
 		it_should_behave_like 'it has download buttons'	
+		it { should have_link 'password_share_1'}
 		it { should have_selector('div.alert.alert-password', text: 'randomly generated') }			
 	end
 	describe "views" do
