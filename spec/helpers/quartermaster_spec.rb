@@ -94,13 +94,15 @@ describe "quartermaster" do
 			describe "should save a csv file to the PRIVATE folder" do	
 				before do
 					delete_file(password_shares_path(1))
+					delete_file(password_shares_path(2))
+					delete_file(password_shares_path(3))
 				  qm.save_password_shares(pass,{n: 3,k: 2})
 				end				
 				specify{File.exist?(password_shares_path(1)).should be_true }
 				specify{File.exist?(password_shares_path(2)).should be_true }
 				specify{File.exist?(password_shares_path(3)).should be_true }
 				describe "with a list of password shares" do
-					let!(:pgp) { PasswordSplitter.new(3,2) }
+					let!(:ps) { PasswordSplitter.new(3,2) }
 					let!(:share1) { CSV.read(password_shares_path(1)) }
 					let!(:share2) { CSV.read(password_shares_path(2)) }
 					it { share1[0][0].should == 'Password Share' }
@@ -108,7 +110,7 @@ describe "quartermaster" do
 					it { share1[1][0].should_not be_blank }
 					# it { share2[1][0].should be_nil }
 					# it { (share1[1][0]+"\n"+share2[1][0]).should be_nil  }
-					it { pgp.join(2,share1[1][0]+"\n"+share2[1][0]).should == pass  }
+					it { ps.join(2,share1[1][0]+"\n"+share2[1][0]).should == pass  }
 				end	
 			end
 		end							

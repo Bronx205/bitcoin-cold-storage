@@ -31,11 +31,14 @@ class Quartermaster
 	end
 
 	def save_password_shares(password, ssss_hash)
-		header=['Password Share']
-		data=[['foobar']]
+		header=['Password Share']		
 		n=ssss_hash[:n]
+		k=ssss_hash[:k]
+		splitter=PasswordSplitter.new(n,k,password)		
 		n.times do |count|
-			save_csv(password_shares_path(count+1),header,data)
+			data = []
+			data << splitter.shares[count]	
+			save_csv(password_shares_path(count+1),header,[].push(data))
 		end
 	end
 
