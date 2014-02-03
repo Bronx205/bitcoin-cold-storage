@@ -6,10 +6,11 @@ class Quartermaster
 
 	attr_reader :keys, :password
 
-	def initialize(key_array,password)
+	def initialize(key_array,password,ssss_hash)
 		raise 'Invalid keys' unless valid_array?(key_array)
 		@keys=key_array
 		@password=password
+		@ssss_hash=ssss_hash
 	end
 
 	def save_public_addresses
@@ -31,10 +32,10 @@ class Quartermaster
 		save_file(private_keys_file_path('csv',true),encrypted_file)
 	end
 
-	def save_password_shares(ssss_hash)
+	def save_password_shares
 		header=['Password Share']		
-		n=ssss_hash[:n]
-		k=ssss_hash[:k]
+		n=@ssss_hash[:n]
+		k=@ssss_hash[:k]
 		splitter=PasswordSplitter.new(n,k,@password)		
 		n.times do |count|
 			data = []
@@ -43,11 +44,11 @@ class Quartermaster
 		end
 	end
 
-	def dump_files(ssss_hash)
+	def dump_files
 		save_public_addresses
 		save_unencrypted_private_keys
 		save_encrypted_private_keys
-		save_password_shares(ssss_hash)
+		save_password_shares
 	end
 
 	private

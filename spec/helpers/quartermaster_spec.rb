@@ -6,16 +6,16 @@ include CryptoHelper
 describe "quartermaster" do
 
 	describe "init" do
-		it {expect {Quartermaster.new([1])}.to raise_error(ArgumentError, 'wrong number of arguments (1 for 2)')}
-		it {expect {Quartermaster.new}.to raise_error(ArgumentError, 'wrong number of arguments (0 for 2)')}		
-		it {expect {Quartermaster.new([1],'a')}.to raise_error(RuntimeError, 'Invalid keys')}
-		it {expect {Quartermaster.new([],'b')}.to raise_error(RuntimeError, 'Invalid keys')}
+		it {expect {Quartermaster.new([1])}.to raise_error(ArgumentError, 'wrong number of arguments (1 for 3)')}
+		it {expect {Quartermaster.new}.to raise_error(ArgumentError, 'wrong number of arguments (0 for 3)')}		
+		it {expect {Quartermaster.new([1],'a',{n:3, k:2}) }.to raise_error(RuntimeError, 'Invalid keys')}
+		it {expect {Quartermaster.new([],'b',{n:3, k:2}) }.to raise_error(RuntimeError, 'Invalid keys')}
 	end
 	describe "quartermaster" do
 		let!(:keygen) { KeyGenerator.new(2) }
 		let!(:size) { keygen.howmany }
 		let!(:pass) { "I love yoO $$ a Bu$hel!! \n and \t peck...." }			
-		let!(:qm) { Quartermaster.new(keygen.keys,pass) }
+		let!(:qm) { Quartermaster.new(keygen.keys,pass,{n:3, k:2}) }
 		let!(:pa_path) { public_addresses_file_path('csv') }
 		let!(:pk_unencrypted_path) { private_keys_file_path('csv',false) }
 		let!(:pk_encrypted_path) { private_keys_file_path('csv',true) }
@@ -90,15 +90,14 @@ describe "quartermaster" do
 			end
 		end
 		describe "save_password_shares" do			
-			it { expect{qm.save_password_shares}.to raise_error }
 			it { expect{qm.save_password_shares('foo')}.to raise_error }
-			it { expect{qm.save_password_shares({n:3,k:2})}.not_to raise_error }
+			it { expect{qm.save_password_shares}.not_to raise_error }
 			describe "should save a csv file to the PRIVATE folder" do	
 				before do
 					delete_file(password_shares_path(1))
 					delete_file(password_shares_path(2))
 					delete_file(password_shares_path(3))
-				  qm.save_password_shares({n: 3,k: 2})
+				  qm.save_password_shares
 				end				
 				specify{File.exist?(password_shares_path(1)).should be_true }
 				specify{File.exist?(password_shares_path(2)).should be_true }

@@ -12,12 +12,12 @@ class FreezersController < ApplicationController
 		@title=freeze_page_title
 		howmany=params[:howmany].to_i
 		if (1..KEYS_LIMIT).include?(howmany)
-			@password=set_password(params[:password])			
+			password=set_password(params[:password])			
 			keys=KeyGenerator.new(howmany).keys
 			$ssss={n: params[:ssss_n].to_i,k: params[:ssss_k].to_i}
-			@qm=Quartermaster.new(keys,@password)			
-			@qm.dump_files($ssss)  		
-			flash[:password]=password_message(@password,@password==params[:password])
+			@qm=Quartermaster.new(keys,password,$ssss)			
+			@qm.dump_files
+			flash[:password]=password_message(password,password==params[:password])
 			redirect_to new_keys_path 
 		else
 			flash.now[:error] = addresses_range_notice
