@@ -26,7 +26,7 @@ describe SecretSharingHelper do
 		end
 	end
 
-	['foobar','I like Mike', 'foobarbuz \n quuax', 'is this password too looooong $$','a'*100].each do |example|
+	['foobar','I like Mike', 'foobarbuz \n quuax', 'is this password too looooong $$','a'*100,'123'].each do |example|
 		describe "splittin the string"+example+"can be retrieved" do		
 			let!(:ss) { SecretSharing::Shamir.new(3,2) }
 			let!(:secret) { ss.set_fixed_secret(string_to_int_string(example)) }
