@@ -8,6 +8,7 @@ class Quartermaster
 
 	def initialize(key_array,password,ssss_hash)
 		raise 'Invalid keys' unless valid_array?(key_array)
+		clear_coldstorage_files if old_coldstorage_files?
 		@keys=key_array
 		@password=password
 		@ssss_hash=ssss_hash

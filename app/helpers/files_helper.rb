@@ -130,5 +130,15 @@ module FilesHelper
 		delete_file(public_addresses_file_path('csv'))
 		delete_file(private_keys_file_path('csv',false))
 		delete_file(private_keys_file_path('csv',true))
+		FileUtils.rm Dir[password_shares_path(1)[0..-6]+'*.csv']
 	end
+
+	def old_coldstorage_files?
+		File.exists?(public_addresses_file_path('csv')) ||
+		File.exists?(private_keys_file_path('csv',false)) ||
+		File.exists?(private_keys_file_path('csv',true)) ||
+		!Dir.glob(password_shares_path(1)[0..-6]+'*.csv').empty?
+	end
+
+
 end

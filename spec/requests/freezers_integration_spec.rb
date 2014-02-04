@@ -110,6 +110,12 @@ describe "Freezers" do
 			describe "the number of share links should be 3" do
 				it { should have_link 'password_share_3'}  
 				it { should_not have_link 'password_share_4'}  
+				describe "as is the number of shares files" do
+					3.times do |n|
+						specify{File.exist?(password_shares_path(n+1)).should be_true }	
+					end						
+					specify{File.exist?(password_shares_path(4)).should be_false }						
+				end
 			end						
 		end				
 	end

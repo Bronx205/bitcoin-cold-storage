@@ -26,6 +26,9 @@ describe "quartermaster" do
 		its(:password) { should==pass }
 		it { should respond_to :save_public_addresses }
 		it { should respond_to :save_unencrypted_private_keys }
+		describe "cleanup of old files" do
+			it { old_coldstorage_files?.should be_false }
+		end		
 		describe "save_public_addresses" do
 			it { expect{qm.save_public_addresses}.not_to raise_error }
 			before { qm.save_public_addresses }
@@ -94,24 +97,29 @@ describe "quartermaster" do
 			it { expect{qm.save_password_shares}.not_to raise_error }
 			describe "should save a csv file to the PRIVATE folder" do	
 				before do
-					delete_file(password_shares_path(1))
-					delete_file(password_shares_path(2))
-					delete_file(password_shares_path(3))
+					clear_coldstorage_files
 				  qm.save_password_shares
+				end
+				3.times do |n|
+					specify{File.exist?(password_shares_path(n+1)).should be_true }	
 				end				
-				specify{File.exist?(password_shares_path(1)).should be_true }
-				specify{File.exist?(password_shares_path(2)).should be_true }
-				specify{File.exist?(password_shares_path(3)).should be_true }
 				describe "with a list of password shares" do
 					let!(:ps) { PasswordSplitter.new(3,2) }
-					let!(:share1) { CSV.read(password_shares_path(1)) }
-					let!(:share2) { CSV.read(password_shares_path(2)) }
+					3.times do |n|
+						let!("share#{n+1}") { CSV.read(password_shares_path(n+1)) }	
+					end
 					it { share1[0][0].should == 'Password Share' }
 					it { share1[0][1].should be_nil }
 					it { share1[1][0].should_not be_blank }
-					# it { share2[1][0].should be_nil }
-					# it { (share1[1][0]+"\n"+share2[1][0]).should be_nil  }
 					it { ps.join(2,share1[1][0]+"\n"+share2[1][0]).should == pass  }
+					it { share2[0][0].should == 'Password Share' }
+					it { share2[0][1].should be_nil }
+					it { share2[1][0].should_not be_blank }
+					it { ps.join(2,share2[1][0]+"\n"+share3[1][0]).should == pass  }					
+					it { share3[0][0].should == 'Password Share' }
+					it { share3[0][1].should be_nil }
+					it { share3[1][0].should_not be_blank }
+					it { ps.join(2,share3[1][0]+"\n"+share2[1][0]).should == pass  }					
 				end	
 			end
 		end							
