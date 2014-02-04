@@ -135,7 +135,7 @@ module ViewsHelper
 		'Create and recover encrypted addresses on your offline Raspberry Pi'
 	end
 	def addresses_range_notice
-		'The number of addresses must be positive and no bigger than ' + KEYS_LIMIT.to_s
+		'The number of addresses must be an interger between 1 and ' + KEYS_LIMIT.to_s
 	end
 
 	def entropy_explanation(length, alphabet, entropy)
@@ -203,7 +203,7 @@ module ViewsHelper
 		'Save Shares'
 	end
 	def at_least_two_shares_flash
-		'Number of shares must be an interger greater than 2'
+		'Number of shares must be an interger between 2 and '+ SHARES_LIMIT.to_s
 	end
 	def k_not_smaller_than_n_flash
 		'The number of shares required for password reconstruction must be smaller than the total number of shares'
