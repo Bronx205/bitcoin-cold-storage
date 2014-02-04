@@ -54,7 +54,9 @@ class FreezersController < ApplicationController
 		  when 'unencrypted_private_keys'
 		  	send_file private_keys_file_path('csv',false), filename: private_keys_file_name+".csv"
 		  when 'encrypted_private_keys'
-		  	send_file private_keys_file_path('csv',true), filename: private_keys_file_name+".csv.aes"	 		  		  	
+		  	send_file private_keys_file_path('csv',true), filename: private_keys_file_name+".csv.aes"
+		  when 'password_share'
+		  	send_file password_shares_path(params[:share].to_i), filename: password_share_file_name+'_'+params[:share]+'.csv'
 		  else
 		  	render 'addresses'
 		  end

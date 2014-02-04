@@ -59,7 +59,10 @@ module FilesHelper
 	end
 	def private_keys_file_name
 		'private_keys'
-	end	
+	end
+	def password_share_file_name
+		'password_share'
+	end
 
 	def public_addresses_file_path(file_type)
 		public_directory_path + public_addresses_file_name + "." + file_type
@@ -75,7 +78,7 @@ module FilesHelper
 
 	def password_shares_path(number)
 		raise 'Share number must be positive' unless number > 0
-		encrypted_directory_path+'password_share_'+number.to_s+'.csv'
+		encrypted_directory_path+password_share_file_name+'_'+number.to_s+'.csv'
 	end
 
 	def read_address_csv(path)
