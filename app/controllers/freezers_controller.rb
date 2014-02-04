@@ -11,16 +11,16 @@ class FreezersController < ApplicationController
 	def create
 		@title=freeze_page_title
 		howmany=params[:howmany].to_i
-		if (1..KEYS_LIMIT).include?(howmany)
+		$ssss={n: params[:ssss_n].to_i,k: params[:ssss_k].to_i}
+		if valid_params?(howmany,$ssss) 
 			password=set_password(params[:password])			
-			keys=KeyGenerator.new(howmany).keys
-			$ssss={n: params[:ssss_n].to_i,k: params[:ssss_k].to_i}
+			keys=KeyGenerator.new(howmany).keys			
 			@qm=Quartermaster.new(keys,password,$ssss)			
 			@qm.dump_files
 			flash[:password]=password_message(password,password==params[:password])
 			redirect_to new_keys_path 
 		else
-			flash.now[:error] = addresses_range_notice
+			flash.now[:error] = build_validation_message(howmany,$ssss)			
 			render 'new'
 		end
 	end
@@ -93,6 +93,16 @@ class FreezersController < ApplicationController
 	  	File.exist?(public_addresses_file_path('csv')) && File.exist?(private_keys_file_path('csv',false))
 	  end
 
+	  def build_validation_message(howmany,ssss_hash)
+	  	message=""
+	  	message << addresses_range_notice unless (1..KEYS_LIMIT).include?(howmany)
+	  	message << at_least_two_shares_flash unless (2..SHARES_LIMIT).include?(ssss_hash[:n]) && (2..SHARES_LIMIT).include?(ssss_hash[:k])
+	  	message << k_not_smaller_than_n_flash unless ssss_hash[:k]<ssss_hash[:n]
+	  	return message
+	  end
+	  def valid_params?(howmany,ssss_hash)
+	  	(1..KEYS_LIMIT).include?(howmany) && (2..SHARES_LIMIT).include?(ssss_hash[:n]) && (2..SHARES_LIMIT).include?(ssss_hash[:k]) && ssss_hash[:k]<ssss_hash[:n]
+	  end
 
 end
 

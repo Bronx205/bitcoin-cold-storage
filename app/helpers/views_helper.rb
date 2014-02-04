@@ -197,4 +197,10 @@ module ViewsHelper
 	def save_shares_button
 		'Save Shares'
 	end
+	def at_least_two_shares_flash
+		'Number of shares must be an interger greater than 2. '
+	end
+	def k_not_smaller_than_n_flash
+		'The number of shares required for password reconstruction must be smaller than the total number of shares. '
+	end
 end

@@ -9,7 +9,7 @@ describe "Freezers" do
 	let!(:encrypted_pk_path) { private_keys_file_path('csv',true) }
 	subject { page }
 	before do
-		clear_coldstorage_files
+		clear_coldstorage_files if old_coldstorage_files?
 	  visit freeze_path
 	end
 	describe "submitting should redirect to view if a positive number is requested"  do
@@ -126,5 +126,5 @@ describe "Freezers" do
 		end		
 		it_should_behave_like 'the private keys page'	
 		it_should_behave_like 'it has download buttons'
-	end		
+	end
 end
