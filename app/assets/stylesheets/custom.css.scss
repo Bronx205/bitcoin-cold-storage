@@ -507,3 +507,12 @@ h1.heatup_header{
 .bottom5{
   margin-bottom:5;
 }
+.left{
+  float:left;
+  .input-mini{
+    margin-right:0.5em;
+    margin-left:0.5em;
+    width:3em;
+    text-align:center;
+  }
+}

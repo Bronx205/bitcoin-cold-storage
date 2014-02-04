@@ -14,18 +14,10 @@ h2.view_header
 			td colspan="3"
 				div.left
 					| Split password into
-				div.left
 					= text_field_tag :ssss_n,5, placeholder: ssss_n_placeholder,title: ssss_n_title, class: "input-mini"
-				div.left
-					| "shares"
-		tr
-			td colspan="3"
-				div.left
-					|	A minimum of 
-				div.left
+					| shares and require at least
 					= text_field_tag :ssss_k,3, placeholder: ssss_k_placeholder,title: ssss_k_title, class: "input-mini"
-				div.left
-					| will be needed to recover your password
+					| to recover
 		tr
-			td
+			td.center colspan="3"
 				= submit_tag generate_button,  id: "howmany_button", class: "btn btn-primary"
