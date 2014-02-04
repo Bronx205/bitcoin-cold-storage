@@ -95,9 +95,9 @@ class FreezersController < ApplicationController
 
 	  def build_validation_message(howmany,ssss_hash)
 	  	message=""
-	  	message << addresses_range_notice unless (1..KEYS_LIMIT).include?(howmany)
-	  	message << at_least_two_shares_flash unless (2..SHARES_LIMIT).include?(ssss_hash[:n]) && (2..SHARES_LIMIT).include?(ssss_hash[:k])
-	  	message << k_not_smaller_than_n_flash unless ssss_hash[:k]<ssss_hash[:n]
+	  	message << addresses_range_notice + ". " unless (1..KEYS_LIMIT).include?(howmany)
+	  	message << at_least_two_shares_flash + ". " unless (2..SHARES_LIMIT).include?(ssss_hash[:n]) && (2..SHARES_LIMIT).include?(ssss_hash[:k])
+	  	message << k_not_smaller_than_n_flash + ". " unless ssss_hash[:k]<ssss_hash[:n]
 	  	return message
 	  end
 	  def valid_params?(howmany,ssss_hash)

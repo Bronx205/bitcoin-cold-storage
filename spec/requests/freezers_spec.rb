@@ -50,7 +50,7 @@ describe "Freezers:" do
 			  click_button generate_button
 			end
 			it { should have_title freeze_page_title }
-			it { should have_selector('div.alert.alert-error', text: at_least_two_shares_flash) }
+			it { should have_selector('div.alert.alert-error', text: /#{at_least_two_shares_flash}/) }
 			it_should_behave_like "flash should go away"			
 		end
 		describe "negative k" do
@@ -60,7 +60,7 @@ describe "Freezers:" do
 			  click_button generate_button
 			end
 			it { should have_title freeze_page_title }
-			it { should have_selector('div.alert.alert-error', text: at_least_two_shares_flash) }
+			it { should have_selector('div.alert.alert-error', text: /#{at_least_two_shares_flash}/) }
 			it_should_behave_like "flash should go away"			
 		end
 		describe "non numberic k" do
@@ -70,7 +70,7 @@ describe "Freezers:" do
 			  click_button generate_button
 			end
 			it { should have_title freeze_page_title }
-			it { should have_selector('div.alert.alert-error', text: at_least_two_shares_flash) }
+			it { should have_selector('div.alert.alert-error', text: /#{at_least_two_shares_flash}/) }
 			it_should_behave_like "flash should go away"			
 		end
 		describe "k not smaller than n" do
@@ -81,7 +81,7 @@ describe "Freezers:" do
 			  click_button generate_button
 			end
 			it { should have_title freeze_page_title }
-			it { should have_selector('div.alert.alert-error', text: k_not_smaller_than_n_flash) }
+			it { should have_selector('div.alert.alert-error', text: /#{k_not_smaller_than_n_flash}/) }
 			it_should_behave_like "flash should go away"			
 		end	
 		describe "k not smaller than n" do
@@ -92,7 +92,7 @@ describe "Freezers:" do
 			  click_button generate_button
 			end
 			it { should have_title freeze_page_title }
-			it { should have_selector('div.alert.alert-error', text: at_least_two_shares_flash) }
+			it { should have_selector('div.alert.alert-error', text: /#{at_least_two_shares_flash}/) }
 			it_should_behave_like "flash should go away"			
 		end														
 	end	

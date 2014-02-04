@@ -24,6 +24,7 @@ shared_examples_for "the inspect page" do
 	it { should have_xpath("//input[@type='file']")}
 	it { should have_button inspect_button}
 	it { should have_selector('input#password.input-xxlarge') }
+	it { should have_selector('textarea#shares')}
 end
 
 shared_examples_for "the private keys page" do	
