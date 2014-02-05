@@ -35,32 +35,49 @@ describe "password splitter" do
 	end
 
 	describe "join" do
-		let(:empty) { PasswordSplitter.new }
-		let!(:pg) { PasswordSplitter.new(3,2) }
-		let!(:pass) { "I love yoO $$ a Bu$hel!! \n and \t peck...." }
-		let!(:pgp) { PasswordSplitter.new(5,3,pass) }
-		let!(:pg_shares_input_string) { pg.shares.drop(1).join("\n") }
-		let!(:pgp_missing_shares_input_string) { pg.shares.drop(3).join("\n") }
-		let!(:pgp_shares_input_string_n) { pgp.shares.drop(2).join("\n") }
-		let!(:pgp_shares_input_string_rn) { pgp.shares.drop(2).join("\r\n") }
-		let!(:pgp_shares_input_string_t) { pgp.shares.drop(2).join("\t") }
-		let!(:pgp_shares_input_string_s) { pgp.shares.drop(2).join(" ") }
-		let!(:pgp_shares_input_string_ns) { pgp.shares.drop(2).join("\n ") }
-		it "should raise error if not enough shares" do
-			expect {pg.join(2,'123')}.to raise_error('Not enough shares')
-			expect {empty.join(2,'123')}.to raise_error('Not enough shares')
-			expect {pgp.join(3,pgp_missing_shares_input_string)}.to raise_error('Not enough shares')
+		describe "random password" do
+			let(:empty) { PasswordSplitter.new }
+			let!(:pg) { PasswordSplitter.new(3,2) }		
+			let!(:pg_shares) { pg.shares.drop(1).join("\n") }
+			it "should raise error if not enough shares" do
+				expect {pg.join(2,'123')}.to raise_error('Not enough shares')
+			end	
+			it "should retrieve the password" do
+				pg.join(2,pg_shares).should == pg.password	
+				empty.join(2,pg_shares).should == pg.password		
+			end										
 		end
-		it "should retrieve the password" do
-			pg.join(2,pg_shares_input_string).should == pg.password	
-			empty.join(2,pg_shares_input_string).should == pg.password	
-			pgp.join(3,pgp_shares_input_string_n).should == pass
-			pgp.join(3,pgp_shares_input_string_rn).should == pass
-			pgp.join(3,pgp_shares_input_string_t).should == pass
-			pgp.join(3,pgp_shares_input_string_s).should == pass
-			pgp.join(3,pgp_shares_input_string_ns).should == pass			
-		end		
+		describe "user password" do
+			let(:empty) { PasswordSplitter.new }
+			let!(:pass) { "I love yoO $$ a Bu$hel!! \n and \t peck...." }
+			let!(:ps) { PasswordSplitter.new(5,3,pass) }
+			let!(:ps_missing_shares) { ps.shares.drop(3).join("\n") }
+			let!(:ps_shares_1) { ps.shares.drop(2).join("\n") }
+			let!(:ps_shares_2) { ps.shares.rotate.drop(2).join("\n") }
+			let!(:ps_shares_3) { ps.shares.rotate(2).drop(2).join("\n") }
+			it "should raise error if not enough shares" do
+				expect {empty.join(3,ps_missing_shares)}.to raise_error('Not enough shares')
+			end
+			it "should retrieve the password in various share combos" do	
+				empty.join(3,ps_shares_1).should == pass
+				empty.join(3,ps_shares_2).should == pass
+				empty.join(3,ps_shares_3).should == pass
+			end				
+		end
+		describe "white space characters in input string" do
+			let(:empty) { PasswordSplitter.new }
+			let!(:pass) { "I love yoO $$ a Bu$hel!! \n and \t peck...." }
+			let!(:ps) { PasswordSplitter.new(5,3,pass) }
+			let!(:ps_shares_rn) { ps.shares.drop(2).join("\r\n") }
+			let!(:ps_shares_t) { ps.shares.drop(2).join("\t") }
+			let!(:ps_shares_s) { ps.shares.drop(2).join(" ") }
+			let!(:ps_shares_ns) { ps.shares.drop(2).join("\n ") }			
+			it "should retrieve the password" do	
+				empty.join(3,ps_shares_rn).should == pass
+				empty.join(3,ps_shares_t).should == pass
+				empty.join(3,ps_shares_s).should == pass
+				empty.join(3,ps_shares_ns).should == pass			
+			end				
+		end
 	end
-
-
 end
