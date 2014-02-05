@@ -12,7 +12,7 @@ class InspectorsController < ApplicationController
       flash.now[:error] = no_file_loaded_flash
       render 'new'      
     else
-      process_uploaded_file(params[:file],params[:password])  
+      process_uploaded_file(params[:file],params[:password],params[:shares])  
     end    
   end
 
@@ -30,12 +30,12 @@ class InspectorsController < ApplicationController
 
   private
 
-    def process_uploaded_file(file,password)
+    def process_uploaded_file(file,password,shares)
       case file.original_filename[-3..-1]
       when 'csv'
         process_csv(file)
       when 'aes'
-        process_aes(file,password)
+        process_aes(file,password,shares)
       else
         flash[:error] = upload_format_error
         redirect_to inspect_path
@@ -47,7 +47,25 @@ class InspectorsController < ApplicationController
       address_or_key(csv_data)    
     end
 
-    def process_aes(file,password)
+    def process_aes(file,password,shares)
+      if password.blank?
+        process_aes_with_password(file,get_password_from_shares(shares))
+      else
+        process_aes_with_password(file,password)        
+      end      
+    end
+
+    def get_password_from_shares(shares)
+      if shares.blank?
+        return shares
+      else
+        k=shares.split(/\s+/).length
+        ps=PasswordSplitter.new
+        return ps.join(k,shares)
+      end
+    end
+
+    def process_aes_with_password(file,password)
       encrypted_data=File.read(file.path)
       begin
         decrypted_data=JSON.parse decrypt(encrypted_data,password)

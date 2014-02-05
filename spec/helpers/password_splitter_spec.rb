@@ -35,19 +35,30 @@ describe "password splitter" do
 	end
 
 	describe "join" do
+		let(:empty) { PasswordSplitter.new }
 		let!(:pg) { PasswordSplitter.new(3,2) }
 		let!(:pass) { "I love yoO $$ a Bu$hel!! \n and \t peck...." }
 		let!(:pgp) { PasswordSplitter.new(5,3,pass) }
 		let!(:pg_shares_input_string) { pg.shares.drop(1).join("\n") }
 		let!(:pgp_missing_shares_input_string) { pg.shares.drop(3).join("\n") }
-		let!(:pgp_shares_input_string) { pgp.shares.drop(2).join("\n") }
+		let!(:pgp_shares_input_string_n) { pgp.shares.drop(2).join("\n") }
+		let!(:pgp_shares_input_string_rn) { pgp.shares.drop(2).join("\r\n") }
+		let!(:pgp_shares_input_string_t) { pgp.shares.drop(2).join("\t") }
+		let!(:pgp_shares_input_string_s) { pgp.shares.drop(2).join(" ") }
+		let!(:pgp_shares_input_string_ns) { pgp.shares.drop(2).join("\n ") }
 		it "should raise error if not enough shares" do
 			expect {pg.join(2,'123')}.to raise_error('Not enough shares')
+			expect {empty.join(2,'123')}.to raise_error('Not enough shares')
 			expect {pgp.join(3,pgp_missing_shares_input_string)}.to raise_error('Not enough shares')
 		end
 		it "should retrieve the password" do
 			pg.join(2,pg_shares_input_string).should == pg.password	
-			pgp.join(3,pgp_shares_input_string).should == pass
+			empty.join(2,pg_shares_input_string).should == pg.password	
+			pgp.join(3,pgp_shares_input_string_n).should == pass
+			pgp.join(3,pgp_shares_input_string_rn).should == pass
+			pgp.join(3,pgp_shares_input_string_t).should == pass
+			pgp.join(3,pgp_shares_input_string_s).should == pass
+			pgp.join(3,pgp_shares_input_string_ns).should == pass			
 		end		
 	end
 

@@ -12,7 +12,7 @@ class PasswordSplitter
 	end
 
 	def join(k,string)
-		shares=string.split("\n")
+		shares=string.split(/\s+/)
 		raise 'Not enough shares' if shares.length < k
 		shamir=SecretSharing::Shamir.new(k)
 		shares.each do |share|
