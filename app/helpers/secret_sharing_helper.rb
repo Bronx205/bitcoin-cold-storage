@@ -16,11 +16,12 @@ require 'secretsharing'
 	end
 
 	def int_string_to_string(int_string)
-		raise int_string + 'is not an int string' unless int_string?(int_string)
-		int_string.scan(/\d{3}/).map(&:to_i).drop(1).pack('c*')
+		raise int_string.to_s + 'is not an int string' unless int_string?(int_string)
+		int_string.to_s.scan(/\d{3}/).map(&:to_i).drop(1).pack('c*')
 	end
 
 	def int_string?(string)
+		string=string.to_s
 		return false unless (string.length)%3 == 0
 		# string.each_char do |char|
 		# 	return false unless ('0'.ord..'9'.ord).include?(char.ord)

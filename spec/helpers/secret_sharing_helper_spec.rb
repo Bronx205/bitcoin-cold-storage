@@ -16,13 +16,22 @@ describe SecretSharingHelper do
 			end			
 			it { retrieved1.secret.should be_nil }
 		end
-		describe "putting in all 4 shares should retrieve the secret" do
+		describe "putting in all 3 shares should retrieve the secret" do
 			before do
 				retrieved1 << shares[0]
 				retrieved1 << shares[1]
 				retrieved1 << shares[2]
 			end			
 			it { retrieved1.secret.should == secret }
+		end
+		it "should work for any combo of 3 out of 5" do			
+			shares.combination(3).to_a.each do |combo|
+				retriever=SecretSharing::Shamir.new(3)
+		  	combo.each do |share|
+		  		retriever << share
+			  end
+			  retriever.secret.should == secret
+			end			
 		end
 	end
 
@@ -108,6 +117,8 @@ describe SecretSharingHelper do
 
 	describe "int_string_to_string" do
 		it {expect {int_string_to_string('123f') }.to raise_error(/not an int string/)}
+		it {expect {int_string_to_string(1) }.to raise_error(/not an int string/)}
+		it {int_string_to_string(123).should == '' }
 		it {int_string_to_string('100102111111').should == 'foo'}
 		it {int_string_to_string('100097').should == 'a'}
 		it {int_string_to_string('100073032119097110116032036049048048').should == 'I want $100' }	
