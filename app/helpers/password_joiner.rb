@@ -1,5 +1,5 @@
 class PasswordJoiner
-	include SecretSharingHelper
+	require 'shamir-secret-sharing'
 	attr_reader :password
 
 	def initialize(string)
