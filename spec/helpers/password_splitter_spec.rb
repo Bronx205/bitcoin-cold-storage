@@ -23,7 +23,7 @@ describe "password splitter" do
 	describe "initializer with a password" do		
 		subject { user }
 		describe "should have the right attributes" do		
-			its(:k) { should == 2 }
+			its(:k) { should == 3 }
 			it {user.shares.length.should == 4}
 		end
 	end
