@@ -111,15 +111,15 @@ describe "quartermaster" do
 					it { share1[0][0].should == 'Password Share' }
 					it { share1[0][1].should be_nil }
 					it { share1[1][0].should_not be_blank }
-					it { ps.join(2,share1[1][0]+"\n"+share2[1][0]).should == pass  }
+					it { PasswordJoiner.new([share1[1][0],share2[1][0]]).password.should == pass  }
 					it { share2[0][0].should == 'Password Share' }
 					it { share2[0][1].should be_nil }
 					it { share2[1][0].should_not be_blank }
-					it { ps.join(2,share2[1][0]+"\n"+share3[1][0]).should == pass  }					
+					it { PasswordJoiner.new([share2[1][0],share3[1][0]]).password.should == pass  }
 					it { share3[0][0].should == 'Password Share' }
 					it { share3[0][1].should be_nil }
 					it { share3[1][0].should_not be_blank }
-					it { ps.join(2,share3[1][0]+"\n"+share2[1][0]).should == pass  }					
+					it { PasswordJoiner.new([share3[1][0],share1[1][0]]).password.should == pass  }									
 				end	
 			end
 		end							

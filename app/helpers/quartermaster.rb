@@ -39,9 +39,7 @@ class Quartermaster
 		k=@ssss_hash[:k]
 		splitter=PasswordSplitter.new(n,k,@password)		
 		n.times do |count|
-			data = []
-			data << splitter.shares[count]	
-			save_csv(password_shares_path(count+1),header,[].push(data))
+			save_csv(password_shares_path(count+1),header,[[splitter.shares[count]]])
 		end
 	end
 
