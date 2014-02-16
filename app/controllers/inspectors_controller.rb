@@ -35,7 +35,7 @@ class InspectorsController < ApplicationController
       when 'csv'
         process_csv(file)
       when 'aes'
-        process_aes(file,password,shares)
+        process_aes(file,password,shares.split(/\s+/))
       else
         flash[:error] = upload_format_error
         redirect_to inspect_path
@@ -47,22 +47,12 @@ class InspectorsController < ApplicationController
       address_or_key(csv_data)    
     end
 
-    def process_aes(file,password,shares)
+    def process_aes(file,password,shares_array)
       if password.blank?
-        process_aes_with_password(file,get_password_from_shares(shares))
+        process_aes_with_password(file,PasswordJoiner.new(shares_array).password)
       else
         process_aes_with_password(file,password)        
       end      
-    end
-
-    def get_password_from_shares(shares)
-      if shares.blank?
-        return shares
-      else
-        k=shares.split(/\s+/).length
-        ps=PasswordSplitter.new
-        return ps.join(k,shares)
-      end
     end
 
     def process_aes_with_password(file,password)

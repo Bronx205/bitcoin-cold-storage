@@ -79,18 +79,18 @@ describe "Inspectors:" do
 			it { should_not have_selector('td.text_pubkey#address_11') }						
 		end
 	end
-	describe "loading an encrypted private keys csv.aes file with 2 ssss shares" do
-		let!(:encrypted_pkss_path) { file_fixtures_directory+'valid/private_keys_foo.csv.aes' }	
+	describe "loading an encrypted private keys csv.aes file with 3 ssss shares" do
+		let!(:encrypted_pkss_path) { file_fixtures_directory+'valid/private_keys_assafassaf.csv.aes' }	
 		before do
 		  attach_file "file", encrypted_pkss_path
-		  fill_in 'shares', with: '0013B27E42CDD7BC70A'+"\n"+'0025F013B5A3328040A'
+		  fill_in 'shares', with: "yqYDrPMxpJxd4J4wDRUF3ZY\n3CXayg5rygx7pnnC3WzFnqR3\n3JyctF9DDyWZUnoHwYSkWUL6"
 		  click_button recover_button
 		end
 		it_should_behave_like 'the private keys page'
 		it_should_behave_like 'it does not have download buttons'		
 		describe "should show the keys correctly" do
-			it { should have_selector('td.text_pubkey#address_1', text: '1HKoy9Gp823n7157Hxj8RvKMLV5njpUEU9') }
-			it { should have_selector('td.text_prvkey#prvkey_wif_3', text: '5JLtMz4FB3NPRBbsf75QLYeBDHUL4A6nC8g5BjPuBYe2tNfj3iX') }
+			it { should have_selector('td.text_pubkey#address_1', text: '1EuwQKv3mieF3VahcwpAiyGU58KV3qXf8X') }
+			it { should have_selector('td.text_prvkey#prvkey_wif_3', text: '5K8SLSAVMmB13Lk2Ao7ojfZDrLRCnMvp5ZRd7igxXNH21mw44Dm') }
 			it { should have_selector("td#qr_address_2") }
 			it { should have_selector("td#qr_prvkey_wif_2") }				
 			it { should_not have_selector('td.text_pubkey#address_4') }						
