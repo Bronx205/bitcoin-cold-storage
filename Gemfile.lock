@@ -11,6 +11,12 @@ GIT
     rails_log_stdout (0.0.1)
 
 GIT
+  remote: git://github.com/lian/shamir-secret-sharing.git
+  revision: 648562b2515f170047ddddde2c79e8b3426be523
+  specs:
+    shamir-secret-sharing (0.0.1)
+
+GIT
   remote: git://github.com/sporkrb/spork-rails.git
   revision: 0dd45e59d3237b4c8f9efc215b46d9c07072a95e
   specs:
@@ -313,6 +319,7 @@ DEPENDENCIES
   sdoc
   secretsharing
   selenium-webdriver (= 2.35.1)
+  shamir-secret-sharing!
   slim
   spork-rails!
   sqlite3

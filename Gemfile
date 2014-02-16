@@ -12,6 +12,7 @@ gem 'rqrcode-rails3'
 gem 'bitcoin-ruby'
 gem 'aescrypt'
 gem 'secretsharing'
+gem 'shamir-secret-sharing', github: "lian/shamir-secret-sharing"
 # gem 'protected_attributes'
 
 group :development, :test do
