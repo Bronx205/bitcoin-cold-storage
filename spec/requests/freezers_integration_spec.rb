@@ -9,14 +9,14 @@ describe "Freezers" do
 	let!(:encrypted_pk_path) { private_keys_file_path('csv',true) }
 	subject { page }
 	before do
-		clear_coldstorage_files if old_coldstorage_files?
+		clear_coldstorage_files if files_exist?
 	  visit freeze_path
 	end
 	describe "submitting should redirect to view if a positive number is requested"  do
 		before do
 			fill_in 'howmany', 	with: 2		
 			fill_in 'password', with: 'supercali'  
-		  click_button generate_button	
+		  click_button generate_button			  
 		end		
 		it_should_behave_like 'it saved the files'
 		it_should_behave_like 'the private keys page'
@@ -39,7 +39,7 @@ describe "Freezers" do
 	describe "submitting without password should default to a strong password"  do
 		before do
 			fill_in 'howmany', 	with: 1
-		  click_button generate_button	
+		  click_button generate_button			  
 		end		
 		it_should_behave_like 'the private keys page'	
 		it_should_behave_like 'it has download buttons'	
@@ -69,15 +69,16 @@ describe "Freezers" do
 				end				
 				describe "and redirect home if there is no such file" do
 					before do
-					  delete_file(pa_path)
+					  clear_coldstorage_files
 					  visit new_addresses_path
+					  # save_and_open_page
 					end
 					it { should have_title(home_title) }
 				end
 			end
 			describe "save addresses button should redirect home if no file" do
 				before do
-				  delete_file(pa_path)
+				  clear_coldstorage_files
 				  click_link save_addresses_button
 				end
 				it { should have_title(home_title) }				
@@ -93,7 +94,7 @@ describe "Freezers" do
 				it { should have_selector('td.text_prvkey#prvkey_wif_1', text: data[1][2]) }
 				describe "and redirect home if there is no such file" do
 					before do
-					  delete_file(pa_path)
+					  clear_coldstorage_files
 					  visit new_keys_path
 					end
 					it { should have_title(home_title) }
@@ -101,7 +102,7 @@ describe "Freezers" do
 			end
 			describe "save unencrypted button should redirect home if no file" do
 				before do
-				  delete_file(non_encrypted_pk_path)
+				  clear_coldstorage_files
 				  click_link save_non_encrypted_button
 				end
 				it { should have_title(home_title) }
@@ -122,9 +123,13 @@ describe "Freezers" do
 	describe "should not die on a big dispatch" do
 		before do
 			fill_in 'howmany', with: 10		  
-		  click_button generate_button			  
+		  click_button generate_button		  	  
 		end		
 		it_should_behave_like 'the private keys page'	
 		it_should_behave_like 'it has download buttons'
 	end
+	# after do
+	# 	clear_coldstorage_files if files_exist?
+	# end
+
 end

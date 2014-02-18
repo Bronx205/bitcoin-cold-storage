@@ -29,7 +29,7 @@ describe "quartermaster" do
 		it { should respond_to :save_public_addresses }
 		it { should respond_to :save_unencrypted_private_keys }
 		describe "cleanup of old files" do
-			it { old_coldstorage_files?.should be_false }
+			it { files_exist?.should be_false }
 		end		
 		describe "save_public_addresses" do
 			it { expect{qm.save_public_addresses}.not_to raise_error }

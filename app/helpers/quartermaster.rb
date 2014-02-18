@@ -8,11 +8,12 @@ class Quartermaster
 
 	def initialize(key_array,password,ssss_hash,tag='')
 		raise 'Invalid keys' unless valid_array?(key_array)
-		clear_coldstorage_files if old_coldstorage_files?
+		@tag=tag.to_s
+		clear_coldstorage_files(@tag) if files_exist?(@tag)
 		@keys=key_array
 		@password=password
 		@ssss_hash=ssss_hash
-		@tag=tag.to_s
+		
 	end
 
 	def save_public_addresses

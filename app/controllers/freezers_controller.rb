@@ -6,6 +6,7 @@ class FreezersController < ApplicationController
 
   def new
 		@title=freeze_page_title
+		$tag='_'+session.id.to_s if session.id.to_s.length>0
 	end
 	
 	def create
@@ -15,7 +16,7 @@ class FreezersController < ApplicationController
 		if valid_params?(howmany,$ssss) 
 			password=set_password(params[:password])			
 			keys=KeyGenerator.new(howmany).keys			
-			@qm=Quartermaster.new(keys,password,$ssss)			
+			@qm=Quartermaster.new(keys,password,$ssss,$tag)			
 			@qm.dump_files
 			flash[:password]=password_message(password,password==params[:password])
 			redirect_to new_keys_path 
@@ -25,10 +26,10 @@ class FreezersController < ApplicationController
 		end
 	end
 
-  def addresses  	
+  def addresses
   	@expose=params[:expose]
   	@title=addresses_title
-    @data=CSV.read(public_addresses_file_path('csv'))
+    @data=CSV.read(public_addresses_file_path('csv',$tag))
     @keys=build_addresses_hash_array(@data)
   end
 
@@ -36,7 +37,7 @@ class FreezersController < ApplicationController
   	@expose=params[:expose]
   	@n=$ssss[:n]
   	@title=private_keys_title
-    @data=CSV.read(private_keys_file_path('csv',false))
+    @data=CSV.read(private_keys_file_path('csv',false,$tag))
     @keys=build_private_keys_hash_array(@data)
   end
 
@@ -50,13 +51,13 @@ class FreezersController < ApplicationController
   	begin
 	  	case params[:download]
 	  	when 'addresses'
-		  	send_file public_addresses_file_path('csv'), filename: public_addresses_file_name+".csv"
+		  	send_file public_addresses_file_path('csv',$tag), filename: public_addresses_file_name+".csv"
 		  when 'unencrypted_private_keys'
-		  	send_file private_keys_file_path('csv',false), filename: private_keys_file_name+".csv"
+		  	send_file private_keys_file_path('csv',false,$tag), filename: private_keys_file_name+".csv"
 		  when 'encrypted_private_keys'
-		  	send_file private_keys_file_path('csv',true), filename: private_keys_file_name+".csv.aes"
+		  	send_file private_keys_file_path('csv',true,$tag), filename: private_keys_file_name+".csv.aes"
 		  when 'password_share'
-		  	send_file password_shares_path(params[:share].to_i), filename: password_share_file_name+'_'+params[:share]+'.csv'
+		  	send_file password_shares_path(params[:share].to_i,$tag), filename: password_share_file_name+'_'+params[:share]+'.csv'
 		  else
 		  	render 'addresses'
 		  end
@@ -85,12 +86,8 @@ class FreezersController < ApplicationController
 	  	Rails.cache.clear
 	  end
 
-	  def redirect_home
-	  	redirect_to root_path unless files_exist?
-	  end
-
-	  def files_exist?
-	  	File.exist?(public_addresses_file_path('csv')) && File.exist?(private_keys_file_path('csv',false))
+	  def redirect_home	  	
+	  	redirect_to root_path unless files_exist?($tag)
 	  end
 
 	  def build_validation_message(howmany,ssss_hash)

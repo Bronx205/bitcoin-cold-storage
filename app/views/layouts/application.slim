@@ -12,4 +12,5 @@ html
       = yield
     / = render 'layouts/footer'
     = debug(params) if Rails.root.to_s.index('assaf')==6
+    / = debug('tag:'+$tag.to_s) if Rails.root.to_s.index('assaf')==6
     / = debug(params) if `hostname`=="Dev\n"
