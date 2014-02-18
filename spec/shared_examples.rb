@@ -89,7 +89,7 @@ end
 
 
 shared_examples_for 'it saved the files' do
-	 let(:files_paths) { [pa_path,non_encrypted_pk_path, encrypted_pk_path,password_shares_path(1),password_shares_path(2)] }
+	 let(:files_paths) { [pa_path,non_encrypted_pk_path, encrypted_pk_path,password_shares_path(1,$tag),password_shares_path(2,$tag)] }
 	 it "should check the file" do
 		files_paths.each do |path|
 			File.exist?(path).should be_true

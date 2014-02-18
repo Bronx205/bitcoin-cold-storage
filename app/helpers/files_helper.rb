@@ -129,12 +129,12 @@ module FilesHelper
 		true
 	end
 
-	# def clear_coldstorage_directory
-	# 	FileUtils.rm Dir[public_addresses_file_path('csv')+'*.csv']		
-	# 	FileUtils.rm Dir[password_shares_path(1)[0..-6]+'*.csv']
-	# 	FileUtils.rm Dir[password_shares_path(1)[0..-6]+'*.csv']
-	# 	FileUtils.rm Dir[password_shares_path(1)[0..-6]+'*.csv']
-	# end
+	def nuke_coldstorage_directory
+		FileUtils.rm_rf(Dir["#{public_directory_path}*.csv"])
+		FileUtils.rm_rf(Dir["#{encrypted_directory_path}*.aes"])
+		FileUtils.rm_rf(Dir["#{encrypted_directory_path}*.csv"])
+		FileUtils.rm_rf(Dir["#{unencrypted_directory_path}*.csv"])
+	end
 
 	def clear_coldstorage_files(tag='')
 		tag=tag.to_s

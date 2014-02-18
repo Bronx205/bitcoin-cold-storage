@@ -6,7 +6,7 @@ class FreezersController < ApplicationController
 
   def new
 		@title=freeze_page_title
-		$tag='_'+session.id.to_s if session.id.to_s.length>0
+		$tag=set_tag
 	end
 	
 	def create
@@ -27,6 +27,7 @@ class FreezersController < ApplicationController
 	end
 
   def addresses
+  	# $tag=set_tag
   	@expose=params[:expose]
   	@title=addresses_title
     @data=CSV.read(public_addresses_file_path('csv',$tag))
@@ -34,6 +35,7 @@ class FreezersController < ApplicationController
   end
 
   def private_keys
+  	# $tag=set_tag
   	@expose=params[:expose]
   	@n=$ssss[:n]
   	@title=private_keys_title
@@ -73,6 +75,16 @@ class FreezersController < ApplicationController
 	    params.require(:keys).permit(:howmany, :password)
 	  end
 
+	  def set_tag
+	  	if Rails.env=='test'
+	  		$tag='_test'
+	  	elsif Rails.env=='development'
+	  		$tag='_dev'
+	  	elsif Rails.env=='production'
+	  		$tag='_'+session.id.to_s if session.id.to_s.length>0	
+	  	end	  	
+	  end
+
 		def set_password(string)
 			return PasswordGenerator.new.password if string.blank?
 			string.to_s
@@ -86,7 +98,8 @@ class FreezersController < ApplicationController
 	  	Rails.cache.clear
 	  end
 
-	  def redirect_home	  	
+	  def redirect_home
+	  	$tag=set_tag
 	  	redirect_to root_path unless files_exist?($tag)
 	  end
 

@@ -9,7 +9,7 @@ describe "Freezers" do
 	let!(:encrypted_pk_path) { private_keys_file_path('csv',true,$tag) }
 	subject { page }
 	before do
-		clear_coldstorage_files if files_exist?
+		nuke_coldstorage_directory
 	  visit freeze_path
 	end
 	describe "submitting should redirect to view if a positive number is requested"  do
@@ -113,9 +113,9 @@ describe "Freezers" do
 				it { should_not have_link 'password_share_4'}  
 				describe "as is the number of shares files" do
 					3.times do |n|
-						specify{File.exist?(password_shares_path(n+1)).should be_true }	
+						specify{File.exist?(password_shares_path(n+1,$tag)).should be_true }	
 					end						
-					specify{File.exist?(password_shares_path(4)).should be_false }						
+					specify{File.exist?(password_shares_path(4,$tag)).should be_false }						
 				end
 			end						
 		end				
@@ -128,8 +128,8 @@ describe "Freezers" do
 		it_should_behave_like 'the private keys page'	
 		it_should_behave_like 'it has download buttons'
 	end
-	# after do
-	# 	clear_coldstorage_files if files_exist?
-	# end
+	after(:all) do
+		nuke_coldstorage_directory
+	end
 
 end
