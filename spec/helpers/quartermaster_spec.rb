@@ -6,8 +6,8 @@ include CryptoHelper
 describe "quartermaster" do
 
 	describe "init" do
-		it {expect {Quartermaster.new([1])}.to raise_error(ArgumentError, 'wrong number of arguments (1 for 3)')}
-		it {expect {Quartermaster.new}.to raise_error(ArgumentError, 'wrong number of arguments (0 for 3)')}		
+		it {expect {Quartermaster.new([1])}.to raise_error(ArgumentError, 'wrong number of arguments (1 for 3..4)')}
+		it {expect {Quartermaster.new}.to raise_error(ArgumentError, 'wrong number of arguments (0 for 3..4)')}		
 		it {expect {Quartermaster.new([1],'a',{n:3, k:2}) }.to raise_error(RuntimeError, 'Invalid keys')}
 		it {expect {Quartermaster.new([],'b',{n:3, k:2}) }.to raise_error(RuntimeError, 'Invalid keys')}
 	end
@@ -22,8 +22,10 @@ describe "quartermaster" do
 		subject { qm }
 		it { should respond_to :keys }
 		it { should respond_to :password }
+		it { should respond_to :tag }
 		its(:keys) { should==keygen.keys }
 		its(:password) { should==pass }
+		its(:tag) { should be_blank }
 		it { should respond_to :save_public_addresses }
 		it { should respond_to :save_unencrypted_private_keys }
 		describe "cleanup of old files" do
@@ -92,8 +94,7 @@ describe "quartermaster" do
 				end	
 			end
 		end
-		describe "save_password_shares" do			
-			it { expect{qm.save_password_shares('foo')}.to raise_error }
+		describe "save_password_shares" do						
 			it { expect{qm.save_password_shares}.not_to raise_error }
 			describe "should save a csv file to the PRIVATE folder" do	
 				before do

@@ -64,21 +64,21 @@ module FilesHelper
 		'password_share'
 	end
 
-	def public_addresses_file_path(file_type)
-		public_directory_path + public_addresses_file_name + "." + file_type
+	def public_addresses_file_path(file_type,tag='')
+		public_directory_path+public_addresses_file_name+tag+"."+file_type
 	end
 
-	def private_keys_file_path(file_type,encrypted = true)
+	def private_keys_file_path(file_type,encrypted = true,tag='')
 		if encrypted
-			return encrypted_directory_path + private_keys_file_name + "." + file_type + ".aes"		
+			return encrypted_directory_path+private_keys_file_name+tag+"."+file_type+".aes"		
 		else
-			return unencrypted_directory_path + private_keys_file_name + "." + file_type
+			return unencrypted_directory_path+private_keys_file_name+tag+"."+file_type
 		end		
 	end
 
-	def password_shares_path(number)
+	def password_shares_path(number,tag='')
 		raise 'Share number must be positive' unless number > 0
-		encrypted_directory_path+password_share_file_name+'_'+number.to_s+'.csv'
+		encrypted_directory_path+password_share_file_name+'_'+number.to_s+tag+'.csv'
 	end
 
 	def read_address_csv(path)
@@ -129,18 +129,20 @@ module FilesHelper
 		true
 	end
 
-	def clear_coldstorage_files
-		delete_file(public_addresses_file_path('csv'))
-		delete_file(private_keys_file_path('csv',false))
-		delete_file(private_keys_file_path('csv',true))
-		FileUtils.rm Dir[password_shares_path(1)[0..-6]+'*.csv']
+	def clear_coldstorage_files(tag='')
+		delete_file(public_addresses_file_path('csv',tag))
+		delete_file(private_keys_file_path('csv',false,tag))
+		delete_file(private_keys_file_path('csv',true,tag))
+		# FileUtils.rm Dir[password_shares_path(1,tag)[0..-6]+'*.csv']
+		FileUtils.rm Dir['*'+tag+'.csv']
 	end
 
-	def old_coldstorage_files?
-		File.exists?(public_addresses_file_path('csv')) ||
-		File.exists?(private_keys_file_path('csv',false)) ||
-		File.exists?(private_keys_file_path('csv',true)) ||
-		!Dir.glob(password_shares_path(1)[0..-6]+'*.csv').empty?
+	def old_coldstorage_files?(tag='')
+		File.exists?(public_addresses_file_path('csv',tag)) ||
+		File.exists?(private_keys_file_path('csv',false,tag)) ||
+		File.exists?(private_keys_file_path('csv',true,tag)) ||
+		# !Dir.glob(password_shares_path(1)[0..-6]+'*.csv').empty?
+		!Dir.glob('*'+tag+'.csv').empty?
 	end
 
 

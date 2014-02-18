@@ -4,33 +4,34 @@ class Quartermaster
 
 	require 'bitcoin'
 
-	attr_reader :keys, :password
+	attr_reader :keys, :password, :tag
 
-	def initialize(key_array,password,ssss_hash)
+	def initialize(key_array,password,ssss_hash,tag='')
 		raise 'Invalid keys' unless valid_array?(key_array)
 		clear_coldstorage_files if old_coldstorage_files?
 		@keys=key_array
 		@password=password
 		@ssss_hash=ssss_hash
+		@tag=tag.to_s
 	end
 
 	def save_public_addresses
 		header=['Bitcoin Address']
 		data=addresses_array
-		save_enum_csv(public_addresses_file_path('csv'),header,data)
+		save_enum_csv(public_addresses_file_path('csv',@tag),header,data)
 	end
 
 	def save_unencrypted_private_keys
 		header=['Bitcoin Address','Private Key']
 		data=private_keys_array
-		save_enum_csv(private_keys_file_path('csv',false),header,data)
+		save_enum_csv(private_keys_file_path('csv',false,@tag),header,data)
 	end	
 
 	def save_encrypted_private_keys
 		save_unencrypted_private_keys
-		non_encrypted_file=CSV.read(private_keys_file_path('csv',false))
+		non_encrypted_file=CSV.read(private_keys_file_path('csv',false,@tag))
 		encrypted_file=encrypt(non_encrypted_file,@password)
-		save_file(private_keys_file_path('csv',true),encrypted_file)
+		save_file(private_keys_file_path('csv',true,@tag),encrypted_file)
 	end
 
 	def save_password_shares
@@ -39,7 +40,7 @@ class Quartermaster
 		k=@ssss_hash[:k]
 		splitter=PasswordSplitter.new(n,k,@password)		
 		n.times do |count|
-			save_csv(password_shares_path(count+1),header,[[splitter.shares[count]]])
+			save_csv(password_shares_path(count+1,@tag),header,[[splitter.shares[count]]])
 		end
 	end
 
