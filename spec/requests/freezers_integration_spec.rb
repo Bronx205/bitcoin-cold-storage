@@ -4,9 +4,9 @@ include ViewsHelper
 include FilesHelper
 
 describe "Freezers" do
-	let!(:pa_path) { public_addresses_file_path('csv') }
-	let!(:non_encrypted_pk_path) { private_keys_file_path('csv',false) }
-	let!(:encrypted_pk_path) { private_keys_file_path('csv',true) }
+	let!(:pa_path) { public_addresses_file_path('csv',$tag) }
+	let!(:non_encrypted_pk_path) { private_keys_file_path('csv',false,$tag) }
+	let!(:encrypted_pk_path) { private_keys_file_path('csv',true,$tag) }
 	subject { page }
 	before do
 		clear_coldstorage_files if files_exist?
@@ -69,7 +69,7 @@ describe "Freezers" do
 				end				
 				describe "and redirect home if there is no such file" do
 					before do
-					  clear_coldstorage_files
+					  clear_coldstorage_files($tag)
 					  visit new_addresses_path
 					  # save_and_open_page
 					end
@@ -78,7 +78,7 @@ describe "Freezers" do
 			end
 			describe "save addresses button should redirect home if no file" do
 				before do
-				  clear_coldstorage_files
+				  clear_coldstorage_files($tag)
 				  click_link save_addresses_button
 				end
 				it { should have_title(home_title) }				
@@ -94,7 +94,7 @@ describe "Freezers" do
 				it { should have_selector('td.text_prvkey#prvkey_wif_1', text: data[1][2]) }
 				describe "and redirect home if there is no such file" do
 					before do
-					  clear_coldstorage_files
+					  clear_coldstorage_files($tag)
 					  visit new_keys_path
 					end
 					it { should have_title(home_title) }
@@ -102,7 +102,7 @@ describe "Freezers" do
 			end
 			describe "save unencrypted button should redirect home if no file" do
 				before do
-				  clear_coldstorage_files
+				  clear_coldstorage_files($tag)
 				  click_link save_non_encrypted_button
 				end
 				it { should have_title(home_title) }
