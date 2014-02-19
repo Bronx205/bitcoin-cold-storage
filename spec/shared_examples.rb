@@ -11,7 +11,7 @@ shared_examples_for "the freeze page" do
 	it { should have_title full_title(freeze_page_title) }
 	it { should have_selector('h2', freeze_page_header)}
 	it { should have_selector('input#howmany.input-mini') }
-	it { should have_xpath("//input[@value=0]")}
+	it { should have_xpath("//input[@value=10]")}
 	it { should have_button generate_button}
 	it { should have_selector('input#password.input-xxlarge') }
 	it { should have_selector('input#ssss_n.input-mini') }
