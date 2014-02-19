@@ -1,15 +1,21 @@
 h2.view_header
 	= freeze_page_header
 = form_tag :freezers do
-	table id="setup"
+	table id="setup" 
 		tr
-			td colspan="2"
+			td colspan="2" 
 				= "How many addresses to generate? (at most #{KEYS_LIMIT})"
 			td.align_right 
 				= text_field_tag :howmany,0, placeholder: howmany_placeholder, class: "input-mini"
 		tr
 			td colspan="3"
+				hr style="margin-top:0;"
+		tr
+			td colspan="3"
 				= text_field_tag :password,'', placeholder: password_placeholder, class: "input-xxlarge"
+		tr
+			td colspan="3"
+				hr	style="margin-bottom:10;"			
 		tr
 			td colspan="3"
 				div.left
@@ -19,5 +25,8 @@ h2.view_header
 					= text_field_tag :ssss_k,3, placeholder: ssss_k_placeholder,title: ssss_k_title, class: "input-mini"
 					| to recover
 		tr
-			td.center colspan="3"
+			td colspan="3"
+				hr style="margin-top:10;"					
+		tr
+			td colspan="3"
 				= submit_tag generate_button,  id: "howmany_button", class: "btn btn-primary"

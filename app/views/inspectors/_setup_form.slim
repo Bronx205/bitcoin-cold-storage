@@ -1,10 +1,13 @@
 h2.view_header
 	= inspect_page_header
 = form_tag({action: :create}, multipart: true) do
-	table id="setup" cellpadding="1em"
+	table id="setup" 
 		tr
 			td 
 				= file_field_tag 'file',:accept => "text/csv", class: 'file_upload'
+		tr
+			td colspan="3" 
+				hr style="margin-top:0;"
 		tr
 			td 
 				= text_field_tag :password,'', placeholder: recover_passwd_placeholder, class: "input-xxlarge"
@@ -13,7 +16,10 @@ h2.view_header
 				hr
 		tr
 			td 
-				= text_area_tag :shares,'', placeholder: shares_placeholder, size: "25x5"				
+				= text_area_tag :shares,'', placeholder: shares_placeholder, size: "25x5"		
+		tr
+			td 
+				hr style="margin-top:0;"						
 		tr
 			td 
 				= submit_tag recover_button,  id: "recover_button", class: "btn btn-danger"

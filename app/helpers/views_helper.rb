@@ -51,7 +51,7 @@ module ViewsHelper
 	end	
 
 	def inspect_page_title
-		'Inspect the content of your Cold Storage files'
+		'Inspect Cold Storage files'
 	end
 
 	def inspect_page_header
