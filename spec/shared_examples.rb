@@ -1,8 +1,7 @@
 shared_examples_for "all pages" do 
 	it { should have_selector('header.navbar.navbar-fixed-top.navbar-inverse') }
 	it { should have_link(app_title, href: root_path) }	
-	it { should have_link('navbar_freeze', href: freeze_path) }	
-	it { should have_link('navbar_inspect', href: inspect_path) }
+
 	it { should have_link('About', href: about_path) }
 	it { should have_link('Help', href: help_path) }
 end	
@@ -18,11 +17,11 @@ shared_examples_for "the freeze page" do
 	it { should have_selector('input#ssss_k.input-mini') }
 end
 
-shared_examples_for "the inspect page" do
+shared_examples_for "the upload page" do
 	it { should have_title full_title(inspect_page_title) }
 	it { should have_selector('h2', inspect_page_header)}
 	it { should have_xpath("//input[@type='file']")}
-	it { should have_button inspect_button}
+	it { should have_button recover_button}
 	it { should have_selector('input#password.input-xxlarge') }
 	it { should have_selector('textarea#shares')}
 end
@@ -115,8 +114,8 @@ shared_examples_for "flash should go away" do
 		before { click_link freeze_button }
 		it { should_not have_selector('div.alert')}
 	end		
-	describe "when navigating to the inspect page" do
-		before { click_link inspect_button }
+	describe "when navigating to the upload page" do
+		before { click_link upload_button }
 		it { should_not have_selector('div.alert')}
 	end		
 end

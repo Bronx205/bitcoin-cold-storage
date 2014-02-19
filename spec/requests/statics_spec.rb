@@ -13,13 +13,13 @@ describe "Static" do
     it { should have_selector('div#catchy', text: catch_phrase) }
     it { should have_selector('div#elevator', text: elevator_pitch) }
     it { should have_xpath("//a[@class='btn btn-primary'][@title='#{freeze_button_title}'][@id='big_freeze_button']")}
-    it { should have_xpath("//a[@class='btn btn-danger'][@title='#{inspect_button_title}'][@id='big_inspect_button']")}    
+    it { should have_xpath("//a[@class='btn btn-danger'][@title='#{upload_button_title}'][@id='big_upload_button']")}    
     describe "big freeze button takes you to the freeze page" do
       before { find('#big_freeze_button',visible: true).click}
       it { should have_title(freeze_page_title) }
     end
-    describe "big inspect button should take you to the inspect page" do
-      before { find('#big_inspect_button',visible: true).click }
+    describe "big inspect button should take you to the upload page" do
+      before { find('#big_upload_button',visible: true).click }
       it { should have_title(inspect_page_title) } 
     end
   end 

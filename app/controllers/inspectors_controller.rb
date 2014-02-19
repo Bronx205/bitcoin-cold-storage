@@ -38,7 +38,7 @@ class InspectorsController < ApplicationController
         process_aes(file,password,shares.split(/\s+/))
       else
         flash[:error] = upload_format_error
-        redirect_to inspect_path
+        redirect_to upload_path
       end   
     end
 
@@ -61,7 +61,7 @@ class InspectorsController < ApplicationController
         decrypted_data=JSON.parse decrypt(encrypted_data,password)
       rescue
         flash[:error] = wrong_password_flash
-        redirect_to inspect_path
+        redirect_to upload_path
       else
         address_or_key(decrypted_data)      
       end    
@@ -75,7 +75,7 @@ class InspectorsController < ApplicationController
         process_private_keys(csv_data)    
       else
         flash[:error] = incorrect_format_flash
-        redirect_to inspect_path        
+        redirect_to upload_path        
       end   
     end
 
@@ -86,7 +86,7 @@ class InspectorsController < ApplicationController
         redirect_to inspect_addresses_path
       else
         flash[:error] = incorrect_format_flash
-        redirect_to inspect_path
+        redirect_to upload_path
       end    
     end
 
@@ -97,11 +97,11 @@ class InspectorsController < ApplicationController
         redirect_to inspect_keys_path
       else
         flash[:error] = incorrect_format_flash
-        redirect_to inspect_path
+        redirect_to upload_path
       end
     end  
 
     def redirect_on_refresh
-      redirect_to inspect_path if $keys.blank?
+      redirect_to upload_path if $keys.blank?
     end
 end

@@ -18,7 +18,7 @@ describe "layout" do
 		it_should_behave_like "the freeze page"
 	end
 	describe "inspect link should show inspect page" do
-		before { find('#navbar_inspect',:visible => true).click }
-		it_should_behave_like "the inspect page"
+		before { find('#navbar_upload',:visible => true).click }
+		it_should_behave_like "the upload page"
 	end		
 end

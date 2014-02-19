@@ -11,7 +11,7 @@ Coldcoin::Application.routes.draw do
   match "/new_addresses",		  to: 'freezers#addresses',				via: :get
   match "/new_keys",          to: 'freezers#private_keys',		via: :get
   match	"/download",				  to: 'freezers#download',				via: :get
-  match "/inspect",           to: 'inspectors#new',           via: :get
+  match "/upload",	          to: 'inspectors#new',           via: :get
   match "/inspect_addresses", to: 'inspectors#addresses',     via: :get
   match "/inspect_keys",      to: 'inspectors#private_keys',  via: :get
 

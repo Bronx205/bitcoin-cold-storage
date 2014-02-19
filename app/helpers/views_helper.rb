@@ -41,32 +41,24 @@ module ViewsHelper
 		'Or, enter password shares (encrypted files only)'
 		# 'Your cold storage password'
 	end	
-
-	def cold_view_title
-		'Inspect your new cold storage addresses'
-	end
-
-	def hot_view_title
-		'Inspect the addresses recovered from cold storage'
-	end	
-
+	
 	def inspect_page_title
-		'Inspect Cold Storage files'
+		'Upload Cold Storage files'
 	end
 
 	def inspect_page_header
 		inspect_page_title
 	end
 	
-	def inspect_button
-		'Inspect'
+	def upload_button
+		'Upload'
 	end
 
 	def recover_button
-		'Inspect Cold Storage file'
+		'Upload for inspection'
 	end
 
-	def inspect_button_title
+	def upload_button_title
 		inspect_page_title
 	end
 
