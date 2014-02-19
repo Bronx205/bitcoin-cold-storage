@@ -7,7 +7,7 @@ h2.view_header
 				= file_field_tag 'file',:accept => "text/csv", class: 'file_upload'
 		tr
 			td colspan="3" 
-				hr style="margin-top:0;"
+				hr.low
 		tr
 			td 
 				= text_field_tag :password,'', placeholder: recover_passwd_placeholder, class: "input-xxlarge"
@@ -19,7 +19,7 @@ h2.view_header
 				= text_area_tag :shares,'', placeholder: shares_placeholder, size: "25x5"		
 		tr
 			td 
-				hr style="margin-top:0;"						
+				hr.low
 		tr
 			td 
 				= submit_tag recover_button,  id: "recover_button", class: "btn btn-danger"

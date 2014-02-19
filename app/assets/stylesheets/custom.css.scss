@@ -95,6 +95,15 @@ p {
 table#setup{
   td.align_right{
     text-align:right;
+   }
+   hr.low{
+    margin-top:0;
+   }
+   hr.high{
+    margin-top:10;
+   }
+   hr.bot{
+    margin-bottom:10;
    }  
 }
 

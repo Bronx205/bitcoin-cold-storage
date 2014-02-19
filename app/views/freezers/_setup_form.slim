@@ -9,13 +9,13 @@ h2.view_header
 				= text_field_tag :howmany,0, placeholder: howmany_placeholder, class: "input-mini"
 		tr
 			td colspan="3"
-				hr style="margin-top:0;"
+				hr.low
 		tr
 			td colspan="3"
 				= text_field_tag :password,'', placeholder: password_placeholder, class: "input-xxlarge"
 		tr
 			td colspan="3"
-				hr	style="margin-bottom:10;"			
+				hr.bot
 		tr
 			td colspan="3"
 				div.left
@@ -26,7 +26,7 @@ h2.view_header
 					| to recover
 		tr
 			td colspan="3"
-				hr style="margin-top:10;"					
+				hr.high
 		tr
 			td colspan="3"
 				= submit_tag generate_button,  id: "howmany_button", class: "btn btn-primary"
