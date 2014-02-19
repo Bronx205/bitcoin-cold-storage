@@ -43,12 +43,6 @@ class FreezersController < ApplicationController
     @keys=build_private_keys_hash_array(@data)
   end
 
-  # def download_plain
-  # 	@data=CSV.read(public_addresses_file_path('csv'))
-  # 	send_data @data,
-  # 	filename: public_addresses_file_path+'.csv'
-  # end
-
   def download
   	begin
 	  	case params[:download]
@@ -115,26 +109,3 @@ class FreezersController < ApplicationController
 	  end
 
 end
-
-# send_data(inject_css(render_to_string), :filename => "colds.html") if @download=='plaintext'
-# send_data(encrypt_my_page(inject_css(render_to_string),@password), :filename => "cold.html.aes") if @download=='encrypted'
-
-  # def show
-  # 	@title=cold_view_title  	
-		# @coldstorage=Rails.cache.read(:cold)
-		# if @coldstorage.nil? || !flash[:new]
-		# 	redirect_to root_path 
-		# else
-		# 	@keys=@coldstorage.keys
-		# 	@howmany=@coldstorage.howmany
-		# 	@password=@coldstorage.password
-		# 	@entropy=PasswordGenerator.new.calculate_entropy(@password)
-		# 	@alphabet=PasswordGenerator.new.alphabet
-		# 	@explanation=entropy_explanation(@password.length, @alphabet,@entropy)
-		# 	html=render_to_string
-		# 	plaintext=inject_css(html)
-		# 	encrypted=encrypt(plaintext,@password)
-		# 	save_full_html(plaintext,encrypted)
-		# 	# send_data('foo', filename: 'foo.txt')
-		# end
-  # end

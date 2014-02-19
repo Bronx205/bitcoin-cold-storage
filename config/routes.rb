@@ -1,6 +1,6 @@
 Coldcoin::Application.routes.draw do
 
- 	resources :freezers, only: [:new, :create, :show]
+ 	resources :freezers, only: [:new, :create, :addresses,:private_keys]
  	resources :inspectors, only: [:new, :create, :addresses, :private_keys]
  
  	root                        to: "static#home"
@@ -8,7 +8,6 @@ Coldcoin::Application.routes.draw do
   match "/about",             to: 'static#about',             via: :get
 
   match "/freeze",  				  to: 'freezers#new',   					via: :get
-  match "/cold_view", 			  to: 'freezers#show',  					via: :get
   match "/new_addresses",		  to: 'freezers#addresses',				via: :get
   match "/new_keys",          to: 'freezers#private_keys',		via: :get
   match	"/download",				  to: 'freezers#download',				via: :get

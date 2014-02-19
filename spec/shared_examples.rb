@@ -98,17 +98,6 @@ shared_examples_for 'it saved the files' do
 	 end
 end
 
-# shared_examples_for 'it saved the files' do
-# 	specify{File.exist?(pa_path).should be_true }			
-# 	specify{(File.ctime(pa_path).to_f-Time.now.to_f).to_i.should be < 1}
-# 	specify{File.exist?(non_encrypted_pk_path).should be_true }
-# 	specify{(File.ctime(non_encrypted_pk_path).to_f-Time.now.to_f).to_i.should be < 1}
-# 	specify{File.exist?(encrypted_pk_path).should be_true }
-# 	specify{(File.ctime(encrypted_pk_path).to_f-Time.now.to_f).to_i.should be < 1}		
-# end
-
-
-
 shared_examples_for "flash should go away" do
 	describe "when navigating home" do
 		before { click_link app_title }
