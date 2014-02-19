@@ -18,7 +18,7 @@ class FreezersController < ApplicationController
 			keys=KeyGenerator.new(howmany).keys			
 			@qm=Quartermaster.new(keys,password,$ssss,$tag)			
 			@qm.dump_files
-			flash[:password]=password_message(password,password==params[:password])
+			flash[:password]=password_message(password,password==params[:password])			
 			redirect_to new_keys_path 
 		else
 			flash.now[:error] = build_validation_message(howmany,$ssss)			

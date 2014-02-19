@@ -208,4 +208,7 @@ module ViewsHelper
 	def k_not_smaller_than_n_flash
 		'The number of shares required for password reconstruction must be smaller than the total number of shares'
 	end
+	def hot_message
+		'Do NOT use these addresses for cold storgae! You are online! This is only a demonstration'
+	end
 end

@@ -504,15 +504,18 @@ h1.heatup_header{
   }  
 }
 .alert-password{
-  // color: #b94a48;
   color:yellow;
-  // background-color: #f2dede;
   background-color:$grayLight;
-  // border-color: #eed3d7;
   text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
   text-align:center;
   font-size:16;
 }
+.hot{
+color:gray;
+font-weight:normal;
+margin-left:1em;
+}
+
 .bottom5{
   margin-bottom:5;
 }

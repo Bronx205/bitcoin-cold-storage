@@ -11,6 +11,9 @@ html
     .container
       = yield
     / = render 'layouts/footer'
+    - if Rails.root.to_s=='/app' || Rails.root.to_s.index('assaf')==6
+      h3.hot
+        = hot_message    
     = debug(params) if Rails.root.to_s.index('assaf')==6
     / = debug('tag:'+$tag.to_s) if Rails.root.to_s.index('assaf')==6
     / = debug(params) if `hostname`=="Dev\n"
