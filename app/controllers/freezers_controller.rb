@@ -27,7 +27,6 @@ class FreezersController < ApplicationController
 	end
 
   def addresses
-  	# $tag=set_tag
   	@expose=params[:expose]
   	@title=addresses_title
     @data=CSV.read(public_addresses_file_path('csv',$tag))
@@ -35,7 +34,6 @@ class FreezersController < ApplicationController
   end
 
   def private_keys
-  	# $tag=set_tag
   	@expose=params[:expose]
   	@n=$ssss[:n]
   	@title=private_keys_title
