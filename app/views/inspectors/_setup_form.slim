@@ -1,7 +1,7 @@
 h2.view_header
 	= inspect_page_header
 = form_tag({action: :create}, multipart: true) do
-	table id="inspector_setup" cellpadding="1em"
+	table id="setup" cellpadding="1em"
 		tr
 			td 
 				= file_field_tag 'file',:accept => "text/csv", class: 'file_upload'
