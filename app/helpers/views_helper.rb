@@ -33,12 +33,12 @@ module ViewsHelper
 	end
 
 	def recover_passwd_placeholder
-		'Enter the password used for encrypting your Cold Storage files'
+		'Enter password (encrypted files only)'
 		# 'Your cold storage password'
 	end	
 
 	def shares_placeholder
-		'Or, Enter shares of the password used for encrypting your Cold Storage files'
+		'Or, enter password shares (encrypted files only)'
 		# 'Your cold storage password'
 	end	
 
