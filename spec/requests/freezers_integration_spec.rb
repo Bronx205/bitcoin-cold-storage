@@ -79,7 +79,7 @@ describe "Freezers" do
 			describe "save addresses button should redirect home if no file" do
 				before do
 				  clear_coldstorage_files($tag)
-				  click_link save_addresses_button
+				  click_link download_addresses_button
 				end
 				it { should have_title(home_title) }				
 				it { should have_selector('div.alert.alert-error', text: missing_file_error) }				

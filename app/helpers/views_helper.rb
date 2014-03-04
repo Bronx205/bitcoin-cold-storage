@@ -77,14 +77,6 @@ module ViewsHelper
 	def freeze_button_title
 		freeze_page_title
 	end
-
-	def heatup_title
-		'Heat-up'
-	end
-
-	def heatup_button_title
-		'Decrypt and inspect your Cold Stored Bitcoin Addresses'
-	end
 	
 	def addresses_title
 		'Bitcoin Addresses'
@@ -136,11 +128,11 @@ module ViewsHelper
 	end
 
 	def save_non_encrypted_button
-		'Save NON-ENCRYPTED'
+		'Download NON-ENCRYPTED'
 	end
 
-	def save_encrypted_button
-		'Save encrypted'
+	def download_encrypted_link
+		'Download encrypted keys'
 	end
 
 	def save_non_encrypted_title
@@ -151,11 +143,8 @@ module ViewsHelper
 		'Save an encrypted copy'
 	end
 
-	def save_addresses_button
-		'Save a copy'
-	end
-	def save_private_keys_button
-		save_addresses_button
+	def download_addresses_button
+		'Download addresses'
 	end
 
 	def missing_file_error
@@ -191,8 +180,8 @@ module ViewsHelper
 	def ssss_k_title
 		'Minimal number of shares needed for password retrieval'
 	end
-	def save_shares_button
-		'Save Shares'
+	def download_keys_button
+		'Download Keys'
 	end
 	def at_least_two_shares_flash
 		'Number of shares must be an interger between 2 and '+ SHARES_LIMIT.to_s
