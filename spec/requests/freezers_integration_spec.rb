@@ -16,7 +16,7 @@ describe "Freezers" do
 		before do
 			fill_in 'howmany', 	with: 2		
 			fill_in 'password', with: 'supercali'  
-		  click_button generate_button			  
+		  click_button generate_button
 		end		
 		it_should_behave_like 'it saved the files'
 		it_should_behave_like 'the private keys page'

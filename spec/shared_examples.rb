@@ -58,10 +58,11 @@ end
 
 shared_examples_for 'it has download buttons' do
   it { should have_xpath("//a[@class='btn btn-danger'][text()='#{save_non_encrypted_button}']")} 
-  it { should have_xpath("//a[@class='btn btn-success'][text()='#{download_encrypted_link}']")} 
-  it { should have_xpath("//a[@class='btn btn-success'][text()='#{download_addresses_button}']")}    
-  it { should have_button download_keys_button}
-	it { should have_link 'password_share_1'}  
+  # it { should have_xpath("//a[@class='btn btn-success'][text()='#{download_keys_button}']")} 
+  it { should have_xpath("//a[@class='btn btn-success'][text()='#{download_addresses_button}']")}
+  it { should have_button download_keys_button}    
+  it { should have_link download_encrypted_link}  
+  it { should have_link 'password_share_1'}  
 end
 
 shared_examples_for 'it does not have download buttons' do

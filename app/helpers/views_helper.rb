@@ -132,7 +132,7 @@ module ViewsHelper
 	end
 
 	def download_encrypted_link
-		'Download encrypted keys'
+		'private keys file'
 	end
 
 	def save_non_encrypted_title
@@ -142,7 +142,9 @@ module ViewsHelper
 	def save_encrypted_title
 		'Save an encrypted copy'
 	end
-
+	def download_keys_button
+		'Download ENCRYPTED'
+	end
 	def download_addresses_button
 		'Download addresses'
 	end
@@ -180,9 +182,7 @@ module ViewsHelper
 	def ssss_k_title
 		'Minimal number of shares needed for password retrieval'
 	end
-	def download_keys_button
-		'Download Keys'
-	end
+
 	def at_least_two_shares_flash
 		'Number of shares must be an interger between 2 and '+ SHARES_LIMIT.to_s
 	end

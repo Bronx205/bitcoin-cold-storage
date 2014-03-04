@@ -1,5 +1,5 @@
 div.btn-group.bottom5
-  button.btn.btn-info.dropdown-toggle type='button' data-toggle='dropdown'
+  button.btn.btn-success.dropdown-toggle type='button' data-toggle='dropdown'
     = download_keys_button
     span.caret
   ul.dropdown-menu role='menu'
@@ -8,5 +8,5 @@ div.btn-group.bottom5
     li.divider
     li
       - @n.times do |n|
-        = link_to "Share ##{n+1}", download_path(download: :password_share,share: "#{n+1}"), id: "password_share_#{n+1}"
+        = link_to "Password Share ##{n+1}", download_path(download: :password_share,share: "#{n+1}"), id: "password_share_#{n+1}"
     

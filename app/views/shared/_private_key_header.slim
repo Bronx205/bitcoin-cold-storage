@@ -2,11 +2,10 @@ th.separator
 th.title_prvkey colspan="2"
 	- unless params[:controller]=='inspectors'
 		.private_keys_download_button    
-		  = link_to save_non_encrypted_button,download_path(download: :unencrypted_private_keys), target: "_blank", class: "btn btn-danger"
+		  = link_to save_non_encrypted_button,download_path(download: :unencrypted_private_keys), class: "btn btn-danger"
 	| Private Key 
 	.normal title="Wallet Import Format"
 		| (WIF)
 	- unless params[:controller]=='inspectors'
 		.private_keys_download_button    
-		  = link_to download_encrypted_link,download_path(download: :encrypted_private_keys), target: "_blank", class: "btn btn-success"
 		  = render 'shares_button'
