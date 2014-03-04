@@ -91,8 +91,8 @@ class FreezersController < ApplicationController
 	  end
 
 	  def redirect_home
-	  	$tag=set_tag
-	  	redirect_to root_path unless files_exist?($tag)
+	  	$tag=set_tag	  	
+	  	redirect_to root_path unless all_files_there?($tag)
 	  end
 
 	  def build_validation_message(howmany,ssss_hash)

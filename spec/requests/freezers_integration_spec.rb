@@ -71,7 +71,6 @@ describe "Freezers" do
 					before do
 					  clear_coldstorage_files($tag)
 					  visit new_addresses_path
-					  # save_and_open_page
 					end
 					it { should have_title(home_title) }
 				end
@@ -100,10 +99,26 @@ describe "Freezers" do
 					it { should have_title(home_title) }
 				end				
 			end
-			describe "save unencrypted button should redirect home if no file" do
+			describe "download unencrypted button should redirect home if no file" do
 				before do
 				  clear_coldstorage_files($tag)
 				  click_link save_non_encrypted_button
+				end
+				it { should have_title(home_title) }
+				it { should have_selector('div.alert.alert-error', text: missing_file_error) }				
+			end
+			describe "download encrypted button should redirect home if no file" do
+				before do
+				  clear_coldstorage_files($tag)
+				  click_link download_encrypted_link
+				end
+				it { should have_title(home_title) }
+				it { should have_selector('div.alert.alert-error', text: missing_file_error) }				
+			end
+			describe "download shares link should redirect home if no file" do
+				before do
+				  clear_coldstorage_files($tag)
+				  click_link 'password_share_1'
 				end
 				it { should have_title(home_title) }
 				it { should have_selector('div.alert.alert-error', text: missing_file_error) }				
@@ -118,7 +133,7 @@ describe "Freezers" do
 					specify{File.exist?(password_shares_path(4,$tag)).should be_false }						
 				end
 			end						
-		end				
+		end
 	end
 	describe "should not die on a big dispatch" do
 		before do

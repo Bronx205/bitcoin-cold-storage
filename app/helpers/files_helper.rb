@@ -154,5 +154,13 @@ module FilesHelper
 		# !Dir.glob('*'+tag+'.csv').empty?
 	end
 
+	def all_files_there?(tag='')
+		tag=tag.to_s
+		File.exists?(public_addresses_file_path('csv',tag)) &&
+		File.exists?(private_keys_file_path('csv',false,tag)) &&
+		File.exists?(private_keys_file_path('csv',true,tag)) &&
+		!Dir.glob(password_shares_path(1)[0..-(tag.length+6)]+'*.csv').empty?
+		# !Dir.glob('*'+tag+'.csv').empty?
+	end
 
 end

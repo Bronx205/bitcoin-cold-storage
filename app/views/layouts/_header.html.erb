@@ -11,11 +11,13 @@
               Inspect <b class="caret"></b>
             </a>
             <ul class="dropdown-menu">
-              <li><%= link_to "New Addresses", new_addresses_path %></li>
-              <li><%= link_to "New Keys", new_keys_path %></li>
-              <li class="divider"></li>
-              <li><%= link_to "Uploaded Addresses", inspect_addresses_path %></li>
+              <% if all_files_there?($tag) %>
+                <li><%= link_to "New Keys", new_keys_path %></li>
+                <li><%= link_to "New Addresses", new_addresses_path %></li>
+                <li class="divider"></li>
+              <% end %>
               <li><%= link_to "Uploaded Keys", inspect_keys_path %></li>
+              <li><%= link_to "Uploaded Addresses", inspect_addresses_path %></li>              
             </ul>
           </li>
           <li><%= link_to "About", about_path %></li>
