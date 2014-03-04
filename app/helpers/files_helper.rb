@@ -150,7 +150,8 @@ module FilesHelper
 		File.exists?(public_addresses_file_path('csv',tag)) ||
 		File.exists?(private_keys_file_path('csv',false,tag)) ||
 		File.exists?(private_keys_file_path('csv',true,tag)) ||
-		!Dir.glob(password_shares_path(1)[0..-(tag.length+6)]+'*.csv').empty?
+		!Dir.glob(password_shares_path(1)[0..-6]+'*'+tag+'.csv').empty?
+		# !Dir.glob(password_shares_path(1)[0..-(tag.length+6)]+'*.csv').empty?
 		# !Dir.glob('*'+tag+'.csv').empty?
 	end
 
@@ -159,7 +160,7 @@ module FilesHelper
 		File.exists?(public_addresses_file_path('csv',tag)) &&
 		File.exists?(private_keys_file_path('csv',false,tag)) &&
 		File.exists?(private_keys_file_path('csv',true,tag)) &&
-		!Dir.glob(password_shares_path(1)[0..-(tag.length+6)]+'*.csv').empty?
+		!Dir.glob(password_shares_path(1)[0..-6]+'*'+tag+'.csv').empty?
 		# !Dir.glob('*'+tag+'.csv').empty?
 	end
 
