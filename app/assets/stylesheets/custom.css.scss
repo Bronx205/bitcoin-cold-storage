@@ -53,10 +53,15 @@ div.center{
 }
 
 div.right{
+  display:inline;
   float:right;
   width:50%;
 }
-
+div.left{
+  display:inline;
+  float:left;
+  width:50%;
+}
 .table_header{
   color:yellow;
   font-weight:none;  
@@ -106,6 +111,11 @@ table#setup{
     margin-bottom:10;
    }  
 }
+
+td.align_right{
+  text-align:right;
+}
+
 
 /* header */
 .navbar {

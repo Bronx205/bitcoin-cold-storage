@@ -20,10 +20,11 @@ end
 shared_examples_for "the upload page" do
 	it { should have_title full_title(inspect_page_title) }
 	it { should have_selector('h2', inspect_page_header)}
-	it { should have_xpath("//input[@type='file']")}
+	it { should have_xpath("//input[@type='file'][@id='file']")}
 	it { should have_button recover_button}
 	it { should have_selector('input#password.input-xxlarge') }
 	it { should have_selector('textarea#shares')}
+	# it { should have_xpath("//input[@type='file'][@id='password_share_1']")}
 end
 
 shared_examples_for "the private keys page" do	

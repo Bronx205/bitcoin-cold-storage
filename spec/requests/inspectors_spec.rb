@@ -79,7 +79,7 @@ describe "Inspectors:" do
 			it { should_not have_selector('td.text_pubkey#address_11') }						
 		end
 	end
-	describe "loading an encrypted private keys csv.aes file with 3 ssss shares" do
+	describe "loading an encrypted private keys csv.aes file with 3 ssss shares using the text interface" do
 		let!(:encrypted_pkss_path) { file_fixtures_directory+'valid/private_keys_assafassaf.csv.aes' }	
 		before do
 		  attach_file "file", encrypted_pkss_path
@@ -95,7 +95,29 @@ describe "Inspectors:" do
 			it { should have_selector("td#qr_prvkey_wif_2") }				
 			it { should_not have_selector('td.text_pubkey#address_4') }						
 		end
-	end		
+	end
+	# describe "loading an encrypted private keys csv.aes file with 3 ssss shares using the share file upload interface" do
+	# 	let!(:encrypted_pkss_path) { file_fixtures_directory+'valid/private_keys_wherethewildthingsare.csv.aes' }	
+	# 	let!(:share_1_path) { file_fixtures_directory+'valid/password_share_1_wherethewildthingsare.csv' }	
+	# 	let!(:share_2_path) { file_fixtures_directory+'valid/password_share_3_wherethewildthingsare.csv' }	
+	# 	let!(:share_3_path) { file_fixtures_directory+'valid/password_share_5_wherethewildthingsare.csv' }	
+	# 	before do
+	# 	  attach_file "file", encrypted_pkss_path
+	# 	  attach_file "password_share_1", share_1_path
+	# 	  attach_file "password_share_2", share_2_path
+	# 	  attach_file "password_share_3", share_3_path
+	# 	  click_button recover_button
+	# 	end
+	# 	it_should_behave_like 'the private keys page'
+	# 	it_should_behave_like 'it does not have download buttons'		
+	# 	describe "should show the keys correctly" do
+	# 		it { should have_selector('td.text_pubkey#address_1', text: '122W7noC6zD6AEidRgcdX6NpxwRZnm1usH') }
+	# 		it { should have_selector('td.text_prvkey#prvkey_wif_3', text: '5KYJ1bwzwVLSf8RtNsELnjFmScT4eTDTDbMUKFVESe5v1b9fnUf') }
+	# 		it { should have_selector("td#qr_address_2") }
+	# 		it { should have_selector("td#qr_prvkey_wif_2") }				
+	# 		it { should_not have_selector('td.text_pubkey#address_11') }						
+	# 	end
+	# end					
 	describe "invalid files" do
 		describe "foo.bar" do		
 			before do
