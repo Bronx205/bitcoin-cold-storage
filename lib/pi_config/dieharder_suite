@@ -1,6 +1,0 @@
-#! /bin/bash
-echo "Running All reliable dieharder tests (numbers: 0-4, 8-13, 15-209)"
-date +"%T"
-dieharder -d  0 & dieharder -d  1 & dieharder -d  2 & dieharder -d  3 & dieharder -d  4 & dieharder -d  8 & dieharder -d  9 & dieharder -d  10 & dieharder -d  11  & dieharder -d  12  & dieharder -d  13  & dieharder -d  15 & dieharder -d  16 & dieharder -d  17 & dieharder -d  100 & dieharder -d  101 & dieharder -d  102 & dieharder -d  200 & dieharder -d  201 & dieharder -d  202 & dieharder -d  203 & dieharder -d  204 & dieharder -d  205 & dieharder -d  206 & dieharder -d  207 & dieharder -d  208 & dieharder -d  209 
-date +"%T"
-echo "Done."
