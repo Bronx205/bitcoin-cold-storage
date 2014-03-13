@@ -5,7 +5,7 @@ module PathHelper
 	end
 
 	def usb_path
-		'/media/coldstorage/' + Time.now.strftime('%Y-%m-%d_%H-%M/').to_s
+		'/media/coldstorage/' +  Time.now.strftime("%Y-%m-%d#{$tag}/").to_s
 	end
 
 	def coldstorage_directory(usb=false)
