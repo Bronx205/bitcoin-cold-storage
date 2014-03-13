@@ -11,4 +11,25 @@ class ApplicationController < ActionController::Base
   include DataHelper
   include InspectorsHelper
 
+  def set_global_vars
+    set_env
+    set_tag
+  end
+
+  private
+
+    def set_env
+      $env ||= `hostname`[0..-2]      
+    end
+
+    def set_tag
+      if Rails.env=='test'
+        $tag='_test'
+      elsif Rails.env=='development'
+        $tag='_dev'
+      elsif Rails.env=='production'
+        $tag='_'+session.id.to_s if session.id.to_s.length>0  
+      end     
+    end
+
 end

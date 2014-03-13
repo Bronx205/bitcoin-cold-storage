@@ -1,13 +1,12 @@
 class FreezersController < ApplicationController
 	require 'rqrcode'
 	
+	before_filter :set_global_vars
 	before_filter :clear_flash_messages
 	before_filter	:redirect_home,						only: [:addresses, :private_keys]
-	before_filter :set_env
 
   def new
-		@title=freeze_page_title
-		$tag=set_tag
+		@title=freeze_page_title		
 	end
 	
 	def create
@@ -83,10 +82,6 @@ class FreezersController < ApplicationController
 
   private
 
-  	def set_env
-  		$env ||= `hostname`[0..-2]
-  	end
-
   	def copy_files
 	  	case params[:download]
 	  	when 'addresses'
@@ -125,18 +120,6 @@ class FreezersController < ApplicationController
 	  def freezers_params
 	    params.require(:keys).permit(:howmany, :password)
 	  end
-
-	  def set_tag
-	  	if Rails.env=='test'
-	  		$tag='_test'
-	  	elsif Rails.env=='development'
-	  		$tag='_dev'
-	  	elsif Rails.env=='production'
-	  		$tag='_'+session.id.to_s if session.id.to_s.length>0	
-	  	end	  	
-	  end
-
-
 
 		def set_password(string)
 			return PasswordGenerator.new.password if string.blank?
