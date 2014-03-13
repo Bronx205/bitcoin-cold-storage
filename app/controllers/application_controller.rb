@@ -6,6 +6,7 @@ class ApplicationController < ActionController::Base
   include CryptoHelper
   include QrHelper
   include FreezersHelper
+  include PathHelper
   include FilesHelper
   include DataHelper
   include InspectorsHelper

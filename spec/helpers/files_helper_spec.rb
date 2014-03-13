@@ -35,15 +35,6 @@ describe FilesHelper do
 		end
 	end
 
-	describe "path selection" do
-		it "should choose the right path for unencrypted" do
-			private_keys_file_path('foo',false).should == unencrypted_directory_path + private_keys_file_name + '.foo'
-		end
-		it "should choose the right path for encrypted" do
-			private_keys_file_path('foo').should == encrypted_directory_path + private_keys_file_name + '.foo.aes'
-		end		
-	end
-
 	describe "addresses_csv_format" do
 		let!(:foo) { CSV.read(file_fixtures_directory+'invalid/foo.bar') }
 		let!(:test_pa_path) { file_fixtures_directory+'valid/'+public_addresses_file_name+'.csv' }

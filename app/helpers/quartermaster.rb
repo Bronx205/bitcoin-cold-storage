@@ -1,5 +1,6 @@
 class Quartermaster
-	include FilesHelper
+	include FilesHelper	
+	include PathHelper
 	include CryptoHelper
 
 	require 'bitcoin'

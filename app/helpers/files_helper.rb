@@ -1,6 +1,6 @@
 module FilesHelper
 	require 'csv'
-	require 'bitcoin'
+	require 'bitcoin'  
 
 	def save_file(path, data)
 		File.open(path,'w') {|file| file.write data }
@@ -10,75 +10,8 @@ module FilesHelper
 		File.delete(path) if File.exist?(path)
 	end	
 
-	def relative_root_path
-		File.expand_path(Rails.root)
-	end
-
 	def file_there?(path)
 		File.exist?(path)
-	end
-
-	def coldstorage_directory
-		relative_root_path +  '/files/'
-	end
-
-	def file_fixtures_directory
-		relative_root_path +  '/spec/fixtures/files/'
-	end
-
-	def plaintext_file_name
-		public_addresses_file_path('html')
-	end
-
-	def encrypted_file_name
-		'coldstorage.html.aes'
-	end
-
-	def no_file_message
-		'Decryption failed because the file '+ encrypted_file_name + ' was not found'
-	end
-
-	def public_directory_path
-		coldstorage_directory + 'public/'
-	end
-			
-	def private_directory_path
-		coldstorage_directory + 'PRIVATE/'
-	end
-
-	def encrypted_directory_path
-		private_directory_path + 'encrypted/'
-	end
-
-	def unencrypted_directory_path
-		private_directory_path + 'NON-ENCRYPTED/'
-	end	
-
-	def public_addresses_file_name
-		'addresses'
-	end
-	def private_keys_file_name
-		'private_keys'
-	end
-	def password_share_file_name
-		'password_share'
-	end
-
-	def public_addresses_file_path(file_type,tag='')
-		public_directory_path+public_addresses_file_name+tag.to_s+"."+file_type
-	end
-
-	def private_keys_file_path(file_type,encrypted = true,tag='')
-		if encrypted
-			return encrypted_directory_path+private_keys_file_name+tag.to_s+"."+file_type+".aes"		
-		else
-			return unencrypted_directory_path+private_keys_file_name+tag.to_s+"."+file_type
-		end		
-	end
-
-	def password_shares_path(number,tag='')
-		raise 'Share number must be positive' unless number > 0
-		encrypted_directory_path+password_share_file_name+'_'+number.to_s+tag.to_s+'.csv'
 	end
 
 	def read_address_csv(path)
@@ -86,11 +19,6 @@ module FilesHelper
 			[row[0],row[1]]
 		end		
 	end
-
-	# def save_full_html(plain_file,encrypted_file)
-	# 	save_file(private_keys_file_path('html',false),plain_file)
-	# 	save_file(private_keys_file_path('html',true),encrypted_file)
-	# end	
 
 	def save_csv(path,header_array,data_nested_array)
 		CSV.open(path,"wb",col_sep: ",") do |csv|
@@ -163,5 +91,7 @@ module FilesHelper
 		!Dir.glob(password_shares_path(1)[0..-6]+'*'+tag+'.csv').empty?
 		# !Dir.glob('*'+tag+'.csv').empty?
 	end
+
+# FileUtils.cp_r(coldstorage_directory,'/home/assaf/Desktop')
 
 end

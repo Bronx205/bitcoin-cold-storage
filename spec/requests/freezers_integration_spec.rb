@@ -1,6 +1,7 @@
 require 'spec_helper'
 require 'shared_examples'
 include ViewsHelper
+include PathHelper
 include FilesHelper
 
 describe "Freezers" do
@@ -56,6 +57,62 @@ describe "Freezers" do
 			fill_in 'ssss_k', 	with: '2' 
 		  click_button generate_button	
 		end
+		describe "private keys view" do
+			describe "should show in HTML the content of private_keys.csv" do
+				let!(:data) { CSV.read(non_encrypted_pk_path) }
+				before { visit new_keys_path }
+				it_should_behave_like 'the private keys page'
+				it { should have_selector('td.text_pubkey#address_1', text: data[1][1]) }
+				it { should have_selector('td.text_prvkey#prvkey_wif_1', text: data[1][2]) }
+				describe "and redirect home if there is no such file" do
+					before do
+					  clear_coldstorage_files($tag)
+					  visit new_keys_path
+					end
+					it { should have_title(home_title) }
+				end				
+			end
+			describe "download UNencrypted button should" do
+				describe "copy the unencrypted private keys file to the media directory" do
+					
+				end
+				describe "redirect home if no file" do
+					before do
+					  clear_coldstorage_files($tag)
+					  click_link save_non_encrypted_button
+					end
+					it { should have_title(home_title) }
+					it { should have_selector('div.alert.alert-error', text: missing_file_error) }				
+				end				
+			end
+
+			describe "download encrypted button should redirect home if no file" do
+				before do
+				  clear_coldstorage_files($tag)
+				  click_link download_encrypted_link
+				end
+				it { should have_title(home_title) }
+				it { should have_selector('div.alert.alert-error', text: missing_file_error) }				
+			end
+			describe "download shares link should redirect home if no file" do
+				before do
+				  clear_coldstorage_files($tag)
+				  click_link 'password_share_1'
+				end
+				it { should have_title(home_title) }
+				it { should have_selector('div.alert.alert-error', text: missing_file_error) }				
+			end
+			describe "the number of share links should be 3" do
+				it { should have_link 'password_share_3'}  
+				it { should_not have_link 'password_share_4'}  
+				describe "as is the number of shares files" do
+					3.times do |n|
+						specify{File.exist?(password_shares_path(n+1,$tag)).should be_true }	
+					end						
+					specify{File.exist?(password_shares_path(4,$tag)).should be_false }						
+				end
+			end						
+		end
 		describe "addresses view" do
 			describe "should show in HTML the content of addresses.csv" do
 				let!(:data) { CSV.read(pa_path) }
@@ -83,56 +140,6 @@ describe "Freezers" do
 				it { should have_title(home_title) }				
 				it { should have_selector('div.alert.alert-error', text: missing_file_error) }				
 			end
-		end
-		describe "private keys view" do
-			describe "should show in HTML the content of private_keys.csv" do
-				let!(:data) { CSV.read(non_encrypted_pk_path) }
-				before { visit new_keys_path }
-				it_should_behave_like 'the private keys page'
-				it { should have_selector('td.text_pubkey#address_1', text: data[1][1]) }
-				it { should have_selector('td.text_prvkey#prvkey_wif_1', text: data[1][2]) }
-				describe "and redirect home if there is no such file" do
-					before do
-					  clear_coldstorage_files($tag)
-					  visit new_keys_path
-					end
-					it { should have_title(home_title) }
-				end				
-			end
-			describe "download unencrypted button should redirect home if no file" do
-				before do
-				  clear_coldstorage_files($tag)
-				  click_link save_non_encrypted_button
-				end
-				it { should have_title(home_title) }
-				it { should have_selector('div.alert.alert-error', text: missing_file_error) }				
-			end
-			describe "download encrypted button should redirect home if no file" do
-				before do
-				  clear_coldstorage_files($tag)
-				  click_link download_encrypted_link
-				end
-				it { should have_title(home_title) }
-				it { should have_selector('div.alert.alert-error', text: missing_file_error) }				
-			end
-			describe "download shares link should redirect home if no file" do
-				before do
-				  clear_coldstorage_files($tag)
-				  click_link 'password_share_1'
-				end
-				it { should have_title(home_title) }
-				it { should have_selector('div.alert.alert-error', text: missing_file_error) }				
-			end
-			describe "the number of share links should be 3" do
-				it { should have_link 'password_share_3'}  
-				it { should_not have_link 'password_share_4'}  
-				describe "as is the number of shares files" do
-					3.times do |n|
-						specify{File.exist?(password_shares_path(n+1,$tag)).should be_true }	
-					end						
-					specify{File.exist?(password_shares_path(4,$tag)).should be_false }						
-				end
-			end						
 		end
 	end
 	describe "should not die on a big dispatch" do

@@ -192,4 +192,7 @@ module ViewsHelper
 	def hot_message
 		'Do NOT use these addresses for cold storgae! You are online! This is only a demonstration'
 	end
+	def no_file_message
+		'Decryption failed because the file '+ encrypted_file_name + ' was not found'
+	end
 end

@@ -16,4 +16,6 @@ html
         = hot_message    
     = debug(params) if Rails.root.to_s.index('assaf')==6
     / = debug('tag:'+$tag.to_s) if Rails.root.to_s.index('assaf')==6
+    = debug('env:'+$env.to_s) if Rails.root.to_s.index('assaf')==6
     / = debug(params) if `hostname`=="Dev\n"
+    / on RP `hostname`=="raspberrypi"

@@ -1,4 +1,5 @@
 class StaticController < ApplicationController
+	before_filter :set_env
 
   def home
   	@title='Home'
@@ -12,4 +13,9 @@ class StaticController < ApplicationController
   	@title='About'
   end
 
+  private
+
+  	def set_env
+  		$env ||= `hostname`[0..-2]
+  	end
 end

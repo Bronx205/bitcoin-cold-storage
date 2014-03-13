@@ -3,6 +3,7 @@ class FreezersController < ApplicationController
 	
 	before_filter :clear_flash_messages
 	before_filter	:redirect_home,						only: [:addresses, :private_keys]
+	before_filter :set_env
 
   def new
 		@title=freeze_page_title
@@ -43,7 +44,71 @@ class FreezersController < ApplicationController
 
   def download
   	begin
+  		if $env=='raspberrypi' || $env=='Dev'
+  			copy_files
+  		else
+  			download_files
+  		end
+	  	# case params[:download]
+	  	# when 'addresses'
+		  # 	# send_file public_addresses_file_path('csv',$tag), filename: public_addresses_file_name+".csv"
+		  # 	# FileUtils.cp(public_addresses_file_path('csv',$tag),'/media/coldstorage')
+		  # 	FileUtils.cp_r(public_directory_path,'/media/coldstorage')
+		  # 	flash[:success] = "Successfully copied addresses file..."
+		  # 	redirect_to new_keys_path
+		  # when 'unencrypted_private_keys'
+		  # 	# send_file private_keys_file_path('csv',false,$tag), filename: private_keys_file_name+".csv"
+		  # 	FileUtils.cp(private_keys_file_path('csv',false,$tag),'/media/coldstorage/PRIVATE/NON-ENCRYPTED')
+		  # 	flash[:danger] = "Successfully copied UNENCRYPTED private keys file..."
+		  # 	redirect_to new_keys_path		  	
+		  # when 'encrypted_private_keys'
+		  # 	# send_file private_keys_file_path('csv',true,$tag), filename: private_keys_file_name+".csv.aes"
+		  # 	FileUtils.cp_r(private_keys_file_path('csv',true,$tag),'/media/coldstorage/PRIVATE/encrypted')
+		  # 	flash[:danger] = "Successfully copied encrypted private keys file..."
+		  # 	redirect_to new_keys_path				  	
+		  # when 'password_share'
+		  # 	# send_file password_shares_path(params[:share].to_i,$tag), filename: password_share_file_name+'_'+params[:share]+'.csv'
+		  # 	FileUtils.cp_r(password_shares_path(params[:share].to_i,$tag),'/media/coldstorage/PRIVATE/encrypted')
+		  # 	flash[:danger] = "Successfully copied password share #" + params[:share].to_i.to_s + " file..."
+		  # 	redirect_to new_keys_path			  	
+		  # else
+		  # 	render 'addresses'
+		  # end
+		rescue ActionController::MissingFile
+			flash[:error]= missing_file_error
+			redirect_to root_path
+		end
+  end
+
+
+  private
+
+  	def set_env
+  		$env ||= `hostname`[0..-2]
+  	end
+
+  	def copy_files
 	  	case params[:download]
+	  	when 'addresses'
+		  	FileUtils.cp_r(public_directory_path,'/media/coldstorage')
+		  	flash[:success] = "Successfully copied " + public_addresses_file_name + " file to external drive"
+		  when 'unencrypted_private_keys'
+		  	FileUtils.cp(private_keys_file_path('csv',false,$tag),'/media/coldstorage/PRIVATE/NON-ENCRYPTED')
+		  	flash[:danger] = "Successfully copied UNENCRYPTED " + private_keys_file_name + " file to external drive"
+		  when 'encrypted_private_keys'
+		  	FileUtils.cp(private_keys_file_path('csv',true,$tag),'/media/coldstorage/PRIVATE/encrypted')
+		  	flash[:success] = "Successfully copied encrypted " + private_keys_file_name + " file to external drive"
+		  when 'password_share'
+		  	FileUtils.cp(password_shares_path(params[:share].to_i,$tag),'/media/coldstorage/PRIVATE/encrypted')
+		  	flash[:success] = "Successfully copied "+ password_share_file_name + " #" + params[:share].to_i.to_s + " file to external drive"
+		  else
+		  	redirect_to root_path
+		  end  		
+		  redirect_to new_keys_path			  	
+  	end
+
+  	def download_files
+ 	  	case params[:download]
 	  	when 'addresses'
 		  	send_file public_addresses_file_path('csv',$tag), filename: public_addresses_file_name+".csv"
 		  when 'unencrypted_private_keys'
@@ -53,15 +118,9 @@ class FreezersController < ApplicationController
 		  when 'password_share'
 		  	send_file password_shares_path(params[:share].to_i,$tag), filename: password_share_file_name+'_'+params[:share]+'.csv'
 		  else
-		  	render 'addresses'
-		  end
-		rescue ActionController::MissingFile
-			flash[:error]= missing_file_error
-			redirect_to root_path
-		end
-  end
-
-  private
+		  	redirect_to root_path
+		  end 		
+  	end
 
 	  def freezers_params
 	    params.require(:keys).permit(:howmany, :password)
@@ -76,6 +135,8 @@ class FreezersController < ApplicationController
 	  		$tag='_'+session.id.to_s if session.id.to_s.length>0	
 	  	end	  	
 	  end
+
+
 
 		def set_password(string)
 			return PasswordGenerator.new.password if string.blank?
