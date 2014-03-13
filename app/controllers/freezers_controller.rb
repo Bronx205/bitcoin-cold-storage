@@ -60,19 +60,20 @@ class FreezersController < ApplicationController
   	def copy_files  		
 	  	case params[:download]
 	  	when /addresses/	  		
-		  	FileUtils.cp_r(public_directory_path,usb_path)
+	  		FileUtils.mkdir_p public_directory_path(true)
+		  	FileUtils.cp(public_addresses_file_path('csv',false),public_directory_path(true)+public_addresses_file_name+'.csv')
 		  	flash[:success] = "Successfully copied " + public_addresses_file_name + " file to external drive"
 		  when 'unencrypted_private_keys'
 		  	FileUtils.mkdir_p unencrypted_directory_path(true)
-		  	FileUtils.cp(private_keys_file_path('csv',false),unencrypted_directory_path(true))
+		  	FileUtils.cp(private_keys_file_path('csv',false),unencrypted_directory_path(true)+private_keys_file_name+'.csv')
 		  	flash[:danger] = "Successfully copied UNENCRYPTED " + private_keys_file_name + " file to external drive"
 		  when 'encrypted_private_keys'
 		  	FileUtils.mkdir_p encrypted_directory_path(true)
-		  	FileUtils.cp(private_keys_file_path('csv',true),encrypted_directory_path(true))
+		  	FileUtils.cp(private_keys_file_path('csv',true),encrypted_directory_path(true)+private_keys_file_name+'.csv.aes')
 		  	flash[:success] = "Successfully copied encrypted " + private_keys_file_name + " file to external drive"
 		  when 'password_share'
 		  	FileUtils.mkdir_p encrypted_directory_path(true)
-		  	FileUtils.cp(password_shares_path(params[:share].to_i),encrypted_directory_path(true))
+		  	FileUtils.cp(password_shares_path(params[:share].to_i),encrypted_directory_path(true) +password_share_file_name + '.csv')
 		  	flash[:success] = "Successfully copied "+ password_share_file_name + " #" + params[:share].to_i.to_s + " file to external drive"
 		  else
 		  	redirect_to root_path

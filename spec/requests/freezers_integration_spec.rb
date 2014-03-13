@@ -10,7 +10,7 @@ describe "Freezers" do
 	let!(:encrypted_pk_path) { private_keys_file_path('csv',true) }
 	subject { page }
 	before do
-		nuke_coldstorage_directory
+		# nuke_coldstorage_directory
 	  visit freeze_path
 	end
 	describe "submitting should redirect to view if a positive number is requested"  do
@@ -78,7 +78,7 @@ describe "Freezers" do
 					  clear_coldstorage_files(true)
 					  click_link save_non_encrypted_button
 					end					
-					specify{File.exist?(private_keys_file_path('csv',false,true)).should be_true }
+					specify{File.exist?(unencrypted_directory_path(true)+private_keys_file_name+'.csv').should be_true }
 				end
 				describe "and redirect home if no file" do
 					before do
@@ -95,7 +95,7 @@ describe "Freezers" do
 					  clear_coldstorage_files(true)
 					  click_link download_encrypted_link
 					end					
-					specify{File.exist?(private_keys_file_path('csv',true,true)).should be_true }
+					specify{File.exist?(encrypted_directory_path(true)+private_keys_file_name+'.csv.aes').should be_true }
 				end
 				describe "and redirect home if no file" do
 					before do
@@ -112,7 +112,7 @@ describe "Freezers" do
 					  clear_coldstorage_files(true)
 					  click_link 'password_share_1'
 					end					
-					specify{File.exist?(password_shares_path(1,true)).should be_true }
+					specify{File.exist?(encrypted_directory_path(true)+password_share_file_name+'.csv').should be_true }
 				end
 				describe "and redirect home if no file" do
 					before do
@@ -160,7 +160,7 @@ describe "Freezers" do
 					  clear_coldstorage_files(true)
 					  click_link download_addresses_button
 					end					
-					specify{File.exist?(public_addresses_file_path('csv',true)).should be_true }
+					specify{File.exist?(public_directory_path(true)+public_addresses_file_name+'.csv').should be_true }
 				end
 				describe "and redirect home if no file" do
 					before do
@@ -182,7 +182,7 @@ describe "Freezers" do
 		it_should_behave_like 'it has download buttons'
 	end
 	after(:all) do
-		nuke_coldstorage_directory
+		# nuke_coldstorage_directory
 	end
 
 end

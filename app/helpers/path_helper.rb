@@ -5,7 +5,7 @@ module PathHelper
 	end
 
 	def usb_path
-		'/media/coldstorage/'
+		'/media/coldstorage/' + Time.now.strftime('%Y-%m-%d_%H-%M/').to_s
 	end
 
 	def coldstorage_directory(usb=false)
@@ -51,19 +51,19 @@ module PathHelper
 	end
 
 	def public_addresses_file_path(file_type,usb=false)
-		public_directory_path(usb)+public_addresses_file_name+$tag+"."+file_type
+		public_directory_path(usb)+public_addresses_file_name+$tag.to_s+"."+file_type
 	end
 
 	def private_keys_file_path(file_type,encrypted,usb=false)
 		if encrypted
-			return encrypted_directory_path(usb)+private_keys_file_name+$tag+"."+file_type+".aes"		
+			return encrypted_directory_path(usb)+private_keys_file_name+$tag.to_s+"."+file_type+".aes"		
 		else
-			return unencrypted_directory_path(usb)+private_keys_file_name+$tag+"."+file_type
+			return unencrypted_directory_path(usb)+private_keys_file_name+$tag.to_s+"."+file_type
 		end		
 	end
 
 	def password_shares_path(number,usb=false)
 		raise 'Share number must be positive' unless number > 0
-		encrypted_directory_path(usb)+password_share_file_name+'_'+number.to_s+$tag+'.csv'
+		encrypted_directory_path(usb)+password_share_file_name+'_'+number.to_s+$tag.to_s+'.csv'
 	end
 end
