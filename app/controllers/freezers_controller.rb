@@ -60,7 +60,7 @@ class FreezersController < ApplicationController
   	def copy_files  		
 	  	case params[:download]
 	  	when /addresses/	  		
-		  	FileUtils.cp_r(public_directory_path,'/media/coldstorage')
+		  	FileUtils.cp_r(public_directory_path,usb_path)
 		  	flash[:success] = "Successfully copied " + public_addresses_file_name + " file to external drive"
 		  when 'unencrypted_private_keys'
 		  	FileUtils.mkdir_p unencrypted_directory_path(true)

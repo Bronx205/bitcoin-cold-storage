@@ -73,35 +73,56 @@ describe "Freezers" do
 				end				
 			end
 			describe "download UNencrypted button should" do
-				describe "copy the unencrypted private keys file to the media directory" do
-					
-				end
-				describe "redirect home if no file" do
+				describe "save the file to the usb location" do
 					before do
-					  clear_coldstorage_files
+					  clear_coldstorage_files(true)
+					  click_link save_non_encrypted_button
+					end					
+					specify{File.exist?(private_keys_file_path('csv',false,true)).should be_true }
+				end
+				describe "and redirect home if no file" do
+					before do
+					  clear_coldstorage_files(false)
 					  click_link save_non_encrypted_button
 					end
-					it { should have_title(home_title) }
-					it { should have_selector('div.alert.alert-error', text: missing_file_error) }				
-				end				
+					it { should have_title(home_title) }				
+					it { should have_selector('div.alert.alert-error', text: missing_file_error) }						
+				end			
 			end
-
-			describe "download encrypted button should redirect home if no file" do
-				before do
-				  clear_coldstorage_files
-				  click_link download_encrypted_link
+			describe "download encrypted link should" do
+				describe "save the file to the usb location" do
+					before do
+					  clear_coldstorage_files(true)
+					  click_link download_encrypted_link
+					end					
+					specify{File.exist?(private_keys_file_path('csv',true,true)).should be_true }
 				end
-				it { should have_title(home_title) }
-				it { should have_selector('div.alert.alert-error', text: missing_file_error) }				
+				describe "and redirect home if no file" do
+					before do
+					  clear_coldstorage_files(false)
+					  click_link download_encrypted_link
+					end
+					it { should have_title(home_title) }				
+					it { should have_selector('div.alert.alert-error', text: missing_file_error) }						
+				end			
 			end
-			describe "download shares link should redirect home if no file" do
-				before do
-				  clear_coldstorage_files
-				  click_link 'password_share_1'
+			describe "download shares link should" do
+				describe "save the file to the usb location" do
+					before do
+					  clear_coldstorage_files(true)
+					  click_link 'password_share_1'
+					end					
+					specify{File.exist?(password_shares_path(1,true)).should be_true }
 				end
-				it { should have_title(home_title) }
-				it { should have_selector('div.alert.alert-error', text: missing_file_error) }				
-			end
+				describe "and redirect home if no file" do
+					before do
+					  clear_coldstorage_files(false)
+					  click_link 'password_share_1'
+					end
+					it { should have_title(home_title) }				
+					it { should have_selector('div.alert.alert-error', text: missing_file_error) }						
+				end			
+			end											
 			describe "the number of share links should be 3" do
 				it { should have_link 'password_share_3'}  
 				it { should_not have_link 'password_share_4'}  
@@ -133,13 +154,22 @@ describe "Freezers" do
 					it { should have_selector('div.alert.alert-error', text: missing_file_error) }
 				end
 			end
-			describe "save addresses button should redirect home if no file" do
-				before do
-				  clear_coldstorage_files
-				  click_link download_addresses_button
+			describe "save addresses button should" do
+				describe "save the files to the usb location" do
+					before do
+					  clear_coldstorage_files(true)
+					  click_link download_addresses_button
+					end					
+					specify{File.exist?(public_addresses_file_path('csv',true)).should be_true }
 				end
-				it { should have_title(home_title) }				
-				it { should have_selector('div.alert.alert-error', text: missing_file_error) }				
+				describe "and redirect home if no file" do
+					before do
+					  clear_coldstorage_files
+					  click_link download_addresses_button
+					end
+					it { should have_title(home_title) }				
+					it { should have_selector('div.alert.alert-error', text: missing_file_error) }						
+				end			
 			end
 		end
 	end

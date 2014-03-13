@@ -62,13 +62,17 @@ module FilesHelper
 		FileUtils.rm_rf(Dir["#{encrypted_directory_path}*.aes"])
 		FileUtils.rm_rf(Dir["#{encrypted_directory_path}*.csv"])
 		FileUtils.rm_rf(Dir["#{unencrypted_directory_path}*.csv"])
+		FileUtils.rm_rf(Dir["#{public_directory_path(true)}*.csv"])
+		FileUtils.rm_rf(Dir["#{encrypted_directory_path(true)}*.aes"])
+		FileUtils.rm_rf(Dir["#{encrypted_directory_path(true)}*.csv"])
+		FileUtils.rm_rf(Dir["#{unencrypted_directory_path(true)}*.csv"])		
 	end
 
-	def clear_coldstorage_files	
-		delete_file(public_addresses_file_path('csv'))
-		delete_file(private_keys_file_path('csv',false))
-		delete_file(private_keys_file_path('csv',true))
-		FileUtils.rm Dir[password_shares_path(1)[0..-($tag.length+6)]+'*.csv']
+	def clear_coldstorage_files(usb=false)	
+		delete_file(public_addresses_file_path('csv',usb))
+		delete_file(private_keys_file_path('csv',false,usb))
+		delete_file(private_keys_file_path('csv',true,usb))
+		FileUtils.rm Dir[password_shares_path(1,usb)[0..-($tag.length+6)]+'*.csv']
 	end
 
 	def files_exist?

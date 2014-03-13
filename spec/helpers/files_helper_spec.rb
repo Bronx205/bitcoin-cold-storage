@@ -1,4 +1,5 @@
 require 'spec_helper'
+include PathHelper
 
 describe FilesHelper do
 	let!(:header) { ['c1','c2'] }
