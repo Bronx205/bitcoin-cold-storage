@@ -64,34 +64,28 @@ module FilesHelper
 		FileUtils.rm_rf(Dir["#{unencrypted_directory_path}*.csv"])
 	end
 
-	def clear_coldstorage_files(tag='')
-		tag=tag.to_s
-		delete_file(public_addresses_file_path('csv',tag))
-		delete_file(private_keys_file_path('csv',false,tag))
-		delete_file(private_keys_file_path('csv',true,tag))
-		FileUtils.rm Dir[password_shares_path(1,tag)[0..-(tag.length+6)]+'*.csv']
-		# FileUtils.rm Dir['*'+tag+'.csv']
+	def clear_coldstorage_files	
+		delete_file(public_addresses_file_path('csv'))
+		delete_file(private_keys_file_path('csv',false))
+		delete_file(private_keys_file_path('csv',true))
+		FileUtils.rm Dir[password_shares_path(1)[0..-($tag.length+6)]+'*.csv']
 	end
 
-	def files_exist?(tag='')
-		tag=tag.to_s
-		File.exists?(public_addresses_file_path('csv',tag)) ||
-		File.exists?(private_keys_file_path('csv',false,tag)) ||
-		File.exists?(private_keys_file_path('csv',true,tag)) ||
-		!Dir.glob(password_shares_path(1)[0..-6]+'*'+tag+'.csv').empty?
-		# !Dir.glob(password_shares_path(1)[0..-(tag.length+6)]+'*.csv').empty?
-		# !Dir.glob('*'+tag+'.csv').empty?
+	def files_exist?
+		File.exists?(public_addresses_file_path('csv')) ||
+		File.exists?(private_keys_file_path('csv',false)) ||
+		File.exists?(private_keys_file_path('csv',true)) ||
+		!Dir.glob(password_shares_path(1)[0..-(6+$tag.length)]+'*'+$tag+'.csv').empty?
 	end
 
-	def all_files_there?(tag='')
-		tag=tag.to_s
-		File.exists?(public_addresses_file_path('csv',tag)) &&
-		File.exists?(private_keys_file_path('csv',false,tag)) &&
-		File.exists?(private_keys_file_path('csv',true,tag)) &&
-		!Dir.glob(password_shares_path(1)[0..-6]+'*'+tag+'.csv').empty?
-		# !Dir.glob('*'+tag+'.csv').empty?
+	def all_files_there?		
+		File.exists?(public_addresses_file_path('csv')) &&
+		File.exists?(private_keys_file_path('csv',false)) &&
+		File.exists?(private_keys_file_path('csv',true)) &&
+		!Dir.glob(password_shares_path(1)[0..-(6+$tag.length)]+'*'+$tag+'.csv').empty?
 	end
 
 # FileUtils.cp_r(coldstorage_directory,'/home/assaf/Desktop')
+# FileUtils.mkdir_p usb_path+'foo/bar'
 
 end

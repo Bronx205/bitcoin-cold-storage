@@ -11,7 +11,7 @@
               Inspect <b class="caret"></b>
             </a>
             <ul class="dropdown-menu">
-              <% if all_files_there?($tag) %>
+              <% if all_files_there? %>
                 <li><%= link_to "New Keys", new_keys_path %></li>
                 <li><%= link_to "New Addresses", new_addresses_path %></li>
                 <li class="divider"></li>

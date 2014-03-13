@@ -1,6 +1,7 @@
 require 'spec_helper'
 
 include FilesHelper
+include PathHelper
 include CryptoHelper
 
 describe "quartermaster" do
@@ -22,10 +23,8 @@ describe "quartermaster" do
 		subject { qm }
 		it { should respond_to :keys }
 		it { should respond_to :password }
-		it { should respond_to :tag }
 		its(:keys) { should==keygen.keys }
 		its(:password) { should==pass }
-		its(:tag) { should be_blank }
 		it { should respond_to :save_public_addresses }
 		it { should respond_to :save_unencrypted_private_keys }
 		describe "cleanup of old files" do

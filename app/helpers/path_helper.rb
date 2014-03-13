@@ -1,7 +1,11 @@
 module PathHelper
-	
+
 	def relative_root_path
 		File.expand_path(Rails.root)
+	end
+
+	def usb_path
+		'/media/coldstorage/'
 	end
 
 	def coldstorage_directory
@@ -42,20 +46,20 @@ module PathHelper
 		'password_share'
 	end
 
-	def public_addresses_file_path(file_type,tag='')
-		public_directory_path+public_addresses_file_name+tag.to_s+"."+file_type
+	def public_addresses_file_path(file_type)
+		public_directory_path+public_addresses_file_name+$tag+"."+file_type
 	end
 
-	def private_keys_file_path(file_type,encrypted = true,tag='')
+	def private_keys_file_path(file_type,encrypted = true)
 		if encrypted
-			return encrypted_directory_path+private_keys_file_name+tag.to_s+"."+file_type+".aes"		
+			return encrypted_directory_path+private_keys_file_name+$tag+"."+file_type+".aes"		
 		else
-			return unencrypted_directory_path+private_keys_file_name+tag.to_s+"."+file_type
+			return unencrypted_directory_path+private_keys_file_name+$tag+"."+file_type
 		end		
 	end
 
-	def password_shares_path(number,tag='')
+	def password_shares_path(number)
 		raise 'Share number must be positive' unless number > 0
-		encrypted_directory_path+password_share_file_name+'_'+number.to_s+tag.to_s+'.csv'
+		encrypted_directory_path+password_share_file_name+'_'+number.to_s+$tag+'.csv'
 	end
 end

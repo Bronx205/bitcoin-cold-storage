@@ -27,9 +27,11 @@ class ApplicationController < ActionController::Base
         $tag='_test'
       elsif Rails.env=='development'
         $tag='_dev'
-      elsif Rails.env=='production'
-        $tag='_'+session.id.to_s if session.id.to_s.length>0  
-      end     
+      elsif Rails.env=='production' && session.id.to_s.length>0  
+        $tag='_'+session.id.to_s 
+      else
+        $tag=''
+      end
     end
 
 end

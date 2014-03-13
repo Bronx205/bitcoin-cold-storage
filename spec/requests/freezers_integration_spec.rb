@@ -5,9 +5,9 @@ include PathHelper
 include FilesHelper
 
 describe "Freezers" do
-	let!(:pa_path) { public_addresses_file_path('csv',$tag) }
-	let!(:non_encrypted_pk_path) { private_keys_file_path('csv',false,$tag) }
-	let!(:encrypted_pk_path) { private_keys_file_path('csv',true,$tag) }
+	let!(:pa_path) { public_addresses_file_path('csv') }
+	let!(:non_encrypted_pk_path) { private_keys_file_path('csv',false) }
+	let!(:encrypted_pk_path) { private_keys_file_path('csv',true) }
 	subject { page }
 	before do
 		nuke_coldstorage_directory
@@ -66,7 +66,7 @@ describe "Freezers" do
 				it { should have_selector('td.text_prvkey#prvkey_wif_1', text: data[1][2]) }
 				describe "and redirect home if there is no such file" do
 					before do
-					  clear_coldstorage_files($tag)
+					  clear_coldstorage_files
 					  visit new_keys_path
 					end
 					it { should have_title(home_title) }
@@ -78,7 +78,7 @@ describe "Freezers" do
 				end
 				describe "redirect home if no file" do
 					before do
-					  clear_coldstorage_files($tag)
+					  clear_coldstorage_files
 					  click_link save_non_encrypted_button
 					end
 					it { should have_title(home_title) }
@@ -88,7 +88,7 @@ describe "Freezers" do
 
 			describe "download encrypted button should redirect home if no file" do
 				before do
-				  clear_coldstorage_files($tag)
+				  clear_coldstorage_files
 				  click_link download_encrypted_link
 				end
 				it { should have_title(home_title) }
@@ -96,7 +96,7 @@ describe "Freezers" do
 			end
 			describe "download shares link should redirect home if no file" do
 				before do
-				  clear_coldstorage_files($tag)
+				  clear_coldstorage_files
 				  click_link 'password_share_1'
 				end
 				it { should have_title(home_title) }
@@ -107,9 +107,9 @@ describe "Freezers" do
 				it { should_not have_link 'password_share_4'}  
 				describe "as is the number of shares files" do
 					3.times do |n|
-						specify{File.exist?(password_shares_path(n+1,$tag)).should be_true }	
+						specify{File.exist?(password_shares_path(n+1)).should be_true }	
 					end						
-					specify{File.exist?(password_shares_path(4,$tag)).should be_false }						
+					specify{File.exist?(password_shares_path(4)).should be_false }						
 				end
 			end						
 		end
@@ -126,7 +126,7 @@ describe "Freezers" do
 				end				
 				describe "and redirect home if there is no such file" do
 					before do
-					  clear_coldstorage_files($tag)
+					  clear_coldstorage_files
 					  visit new_addresses_path
 					end
 					it { should have_title(home_title) }
@@ -134,7 +134,7 @@ describe "Freezers" do
 			end
 			describe "save addresses button should redirect home if no file" do
 				before do
-				  clear_coldstorage_files($tag)
+				  clear_coldstorage_files
 				  click_link download_addresses_button
 				end
 				it { should have_title(home_title) }				
