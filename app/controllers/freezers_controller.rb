@@ -48,32 +48,7 @@ class FreezersController < ApplicationController
   		else
   			download_files
   		end
-	  	# case params[:download]
-	  	# when 'addresses'
-		  # 	# send_file public_addresses_file_path('csv',$tag), filename: public_addresses_file_name+".csv"
-		  # 	# FileUtils.cp(public_addresses_file_path('csv',$tag),'/media/coldstorage')
-		  # 	FileUtils.cp_r(public_directory_path,'/media/coldstorage')
-		  # 	flash[:success] = "Successfully copied addresses file..."
-		  # 	redirect_to new_keys_path
-		  # when 'unencrypted_private_keys'
-		  # 	# send_file private_keys_file_path('csv',false,$tag), filename: private_keys_file_name+".csv"
-		  # 	FileUtils.cp(private_keys_file_path('csv',false,$tag),'/media/coldstorage/PRIVATE/NON-ENCRYPTED')
-		  # 	flash[:danger] = "Successfully copied UNENCRYPTED private keys file..."
-		  # 	redirect_to new_keys_path		  	
-		  # when 'encrypted_private_keys'
-		  # 	# send_file private_keys_file_path('csv',true,$tag), filename: private_keys_file_name+".csv.aes"
-		  # 	FileUtils.cp_r(private_keys_file_path('csv',true,$tag),'/media/coldstorage/PRIVATE/encrypted')
-		  # 	flash[:danger] = "Successfully copied encrypted private keys file..."
-		  # 	redirect_to new_keys_path				  	
-		  # when 'password_share'
-		  # 	# send_file password_shares_path(params[:share].to_i,$tag), filename: password_share_file_name+'_'+params[:share]+'.csv'
-		  # 	FileUtils.cp_r(password_shares_path(params[:share].to_i,$tag),'/media/coldstorage/PRIVATE/encrypted')
-		  # 	flash[:danger] = "Successfully copied password share #" + params[:share].to_i.to_s + " file..."
-		  # 	redirect_to new_keys_path			  	
-		  # else
-		  # 	render 'addresses'
-		  # end
-		rescue ActionController::MissingFile
+		rescue
 			flash[:error]= missing_file_error
 			redirect_to root_path
 		end
@@ -82,29 +57,37 @@ class FreezersController < ApplicationController
 
   private
 
-  	def copy_files
+  	def copy_files  		
 	  	case params[:download]
-	  	when 'addresses'
+	  	when /addresses/	  		
 		  	FileUtils.cp_r(public_directory_path,'/media/coldstorage')
 		  	flash[:success] = "Successfully copied " + public_addresses_file_name + " file to external drive"
 		  when 'unencrypted_private_keys'
-		  	FileUtils.cp(private_keys_file_path('csv',false),'/media/coldstorage/PRIVATE/NON-ENCRYPTED')
+		  	FileUtils.mkdir_p unencrypted_directory_path(true)
+		  	FileUtils.cp(private_keys_file_path('csv',false),unencrypted_directory_path(true))
 		  	flash[:danger] = "Successfully copied UNENCRYPTED " + private_keys_file_name + " file to external drive"
 		  when 'encrypted_private_keys'
-		  	FileUtils.cp(private_keys_file_path('csv',true),'/media/coldstorage/PRIVATE/encrypted')
+		  	FileUtils.mkdir_p encrypted_directory_path(true)
+		  	FileUtils.cp(private_keys_file_path('csv',true),encrypted_directory_path(true))
 		  	flash[:success] = "Successfully copied encrypted " + private_keys_file_name + " file to external drive"
 		  when 'password_share'
-		  	FileUtils.cp(password_shares_path(params[:share].to_i),'/media/coldstorage/PRIVATE/encrypted')
+		  	FileUtils.mkdir_p encrypted_directory_path(true)
+		  	FileUtils.cp(password_shares_path(params[:share].to_i),encrypted_directory_path(true))
 		  	flash[:success] = "Successfully copied "+ password_share_file_name + " #" + params[:share].to_i.to_s + " file to external drive"
 		  else
 		  	redirect_to root_path
-		  end  		
-		  redirect_to new_keys_path			  	
+		  end
+		  case params[:download]  		
+		  when 'addresses_only'
+		  	redirect_to new_addresses_path
+		  else
+		  	redirect_to new_keys_path			  	
+		  end
   	end
 
   	def download_files
  	  	case params[:download]
-	  	when 'addresses'
+	  	when /addresses/
 		  	send_file public_addresses_file_path('csv'), filename: public_addresses_file_name+".csv"
 		  when 'unencrypted_private_keys'
 		  	send_file private_keys_file_path('csv',false), filename: private_keys_file_name+".csv"
@@ -112,7 +95,7 @@ class FreezersController < ApplicationController
 		  	send_file private_keys_file_path('csv',true), filename: private_keys_file_name+".csv.aes"
 		  when 'password_share'
 		  	send_file password_shares_path(params[:share].to_i), filename: password_share_file_name+'_'+params[:share]+'.csv'
-		  else
+		  else		  	 
 		  	redirect_to root_path
 		  end 		
   	end
@@ -134,8 +117,11 @@ class FreezersController < ApplicationController
 	  	Rails.cache.clear
 	  end
 
-	  def redirect_home	  	
-	  	redirect_to root_path unless all_files_there?
+	  def redirect_home
+	  	unless all_files_there?
+		  	flash[:error]= missing_file_error 
+		  	redirect_to root_path
+	  	end  
 	  end
 
 	  def build_validation_message(howmany,ssss_hash)

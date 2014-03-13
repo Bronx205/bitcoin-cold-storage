@@ -130,6 +130,7 @@ describe "Freezers" do
 					  visit new_addresses_path
 					end
 					it { should have_title(home_title) }
+					it { should have_selector('div.alert.alert-error', text: missing_file_error) }
 				end
 			end
 			describe "save addresses button should redirect home if no file" do

@@ -3,4 +3,7 @@ th.title_pubkey colspan="2"
 	| Bitcoin Address
 	.addresses_download_button
 		- unless params[:controller]=='inspectors'
-			= link_to download_addresses_button,download_path(download: :addresses),class: "btn btn-success"
+			- if download == :only
+				= link_to download_addresses_button,download_path(download: :addresses_only),class: "btn btn-success"
+			- else
+				= link_to download_addresses_button,download_path(download: :addresses),class: "btn btn-success"
