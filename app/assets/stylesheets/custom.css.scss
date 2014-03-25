@@ -60,7 +60,7 @@ div.right{
 div.left{
   display:inline;
   float:left;
-  width:50%;
+  width:100%;
 }
 .table_header{
   color:yellow;
@@ -549,4 +549,14 @@ input#password{
 }
 .setup{
   margin-left:10; 
+}
+input#howmany, input#ssss_n, input#ssss_k{
+  font-weight: bold;
+  font-size: 16;
+  text-align: center;
+  color: red;
+}
+input#password{
+  font-size:16;
+  color:red;
 }
