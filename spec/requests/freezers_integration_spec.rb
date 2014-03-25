@@ -4,10 +4,7 @@ include ViewsHelper
 include PathHelper
 include FilesHelper
 
-describe "Freezers" do
-	let!(:pa_path) { public_addresses_file_path('csv') }
-	let!(:non_encrypted_pk_path) { private_keys_file_path('csv',false) }
-	let!(:encrypted_pk_path) { private_keys_file_path('csv',true) }
+describe "Freezers" do	
 	subject { page }
 	before do
 		nuke_coldstorage_directory
@@ -18,7 +15,8 @@ describe "Freezers" do
 			fill_in 'howmany', 	with: 2		
 			fill_in 'password', with: 'supercali'  
 		  click_button generate_button
-		end		
+		end
+		it { $tag[0..5].should == '_test_' }		
 		it_should_behave_like 'it saved the files'
 		it_should_behave_like 'the private keys page'
 		it { should_not have_selector('td.black')}
@@ -59,7 +57,7 @@ describe "Freezers" do
 		end
 		describe "private keys view" do
 			describe "should show in HTML the content of private_keys.csv" do
-				let!(:data) { CSV.read(non_encrypted_pk_path) }
+				let!(:data) { CSV.read(private_keys_file_path('csv',false)) }
 				before { visit new_keys_path }
 				it_should_behave_like 'the private keys page'
 				it { should have_selector('td.text_pubkey#address_1', text: data[1][1]) }
@@ -136,7 +134,7 @@ describe "Freezers" do
 		end
 		describe "addresses view" do
 			describe "should show in HTML the content of addresses.csv" do
-				let!(:data) { CSV.read(pa_path) }
+				let!(:data) { CSV.read(public_addresses_file_path('csv')) }
 				before { visit new_addresses_path }
 				it_should_behave_like 'the addresses page'
 				it { should_not have_selector('td.black')}

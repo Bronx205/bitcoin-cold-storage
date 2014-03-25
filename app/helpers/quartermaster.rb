@@ -8,12 +8,12 @@ class Quartermaster
 	attr_reader :keys, :password
 
 	def initialize(key_array,password,ssss_hash,tag='')
-		raise 'Invalid keys' unless valid_array?(key_array)		
+		raise 'Invalid keys' unless valid_array?(key_array)	
+		set_tag	
 		clear_coldstorage_files if files_exist?
 		@keys=key_array
 		@password=password
-		@ssss_hash=ssss_hash
-		
+		@ssss_hash=ssss_hash		
 	end
 
 	def save_public_addresses
@@ -53,6 +53,18 @@ class Quartermaster
 	end
 
 	private
+
+    def set_tag
+      if Rails.env=='test'
+        tag='_test_'
+      elsif Rails.env=='development'
+        tag='_dev_'
+      else
+        tag='_'
+      end
+      $tag=tag+rand(100000..999999).to_s 
+    end	  
+
 		def valid_array?(key_array)
 			return false unless key_array.class == Array
 			return false if key_array.blank?

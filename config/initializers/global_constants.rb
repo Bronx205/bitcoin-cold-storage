@@ -1,2 +1,3 @@
 KEYS_LIMIT=100
 SHARES_LIMIT=10
+MYENV=`hostname`[0..-2] 

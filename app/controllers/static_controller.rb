@@ -1,7 +1,5 @@
 class StaticController < ApplicationController
   
-  before_filter :set_global_vars
-
   def home
   	@title='Home'
   end

@@ -1,7 +1,6 @@
 class FreezersController < ApplicationController
 	require 'rqrcode'
 	
-	before_filter :set_global_vars
 	before_filter :clear_flash_messages
 	before_filter	:redirect_home,						only: [:addresses, :private_keys]
 
@@ -43,7 +42,7 @@ class FreezersController < ApplicationController
 
   def download
   	begin
-  		if $env=='raspberrypi' || $env=='Dev'
+  		if MYENV =='raspberrypi' || MYENV =='Dev'
   			copy_files
   		else
   			download_files

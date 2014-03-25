@@ -1,9 +1,6 @@
 require 'rubygems'
 require 'spork'
 
-$tag='_test'
-$env ||= `hostname`[0..-2]
-
 Spork.prefork do
   ENV["RAILS_ENV"] ||= 'test'
   require File.expand_path("../../config/environment", __FILE__)
@@ -56,6 +53,4 @@ end
 
 Spork.each_run do
   # This code will be run each time you run your specs.
-  $env ||= `hostname`[0..-2]      
-  $tag ||= '_test'
 end
