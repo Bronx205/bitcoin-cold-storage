@@ -1,7 +1,8 @@
 shared_examples_for "all pages" do 
 	it { should have_selector('header.navbar.navbar-fixed-top.navbar-inverse') }
 	it { should have_link(app_title, href: root_path) }	
-
+	it { should have_link(freeze_button, href: freeze_path)}
+	it { should have_link(upload_button, href: upload_path)}
 	it { should have_link('About', href: about_path) }
 	it { should have_link('Help', href: help_path) }
 end	

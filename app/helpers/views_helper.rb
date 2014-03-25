@@ -51,7 +51,7 @@ module ViewsHelper
 	end
 	
 	def upload_button
-		'Upload'
+		'Inspect'
 	end
 
 	def recover_button
@@ -71,7 +71,7 @@ module ViewsHelper
 	end
 	
 	def freeze_button
-		'Freeze'
+		'Generate'
 	end
 
 	def freeze_button_title
