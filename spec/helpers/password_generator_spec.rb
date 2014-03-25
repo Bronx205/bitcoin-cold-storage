@@ -11,13 +11,13 @@ describe "password generator" do
 	end
 
 	describe "initializer" do
-		its(:entropy) { should == 30 * eunit }
+		its(:entropy) { should == 40 * eunit }
 	end
 
 	describe "alphabet" do		
 		subject { pass.alphabet }
 		its(:class) { should == String }
-		its(:length) { should == 72 }
+		its(:length) { should == 71 }
 	end
 
 	describe "in alphabet?" do
@@ -25,9 +25,9 @@ describe "password generator" do
 		specify {pass.in_alphabet?('!').should be_true}
 		specify {pass.in_alphabet?('B').should be_true}
 		specify {pass.in_alphabet?('4').should be_true}
-		specify {pass.in_alphabet?('a4!A123@#$').should be_true}
-		specify {pass.in_alphabet?('!@#$').should be_true}		
-		specify {pass.in_alphabet?('a4!@#$').should be_true}
+		specify {pass.in_alphabet?('a4!A123@$').should be_true}
+		specify {pass.in_alphabet?('!@$').should be_true}		
+		specify {pass.in_alphabet?('a4!@$').should be_true}
 		specify {pass.in_alphabet?('vS6Il1!h$e&q4x^B%rF7J+Mz9~k5uZ').should be_true}		 
 		specify {pass.in_alphabet?('').should be_true}
 		specify {pass.in_alphabet?(' ').should be_false}

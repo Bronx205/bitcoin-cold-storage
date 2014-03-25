@@ -2,7 +2,7 @@ class PasswordGenerator
 
 	attr_reader :password
 
-	def initialize(length=30)
+	def initialize(length=40)
 		@password=generate_strong_password(length)
 	end
 
@@ -46,7 +46,7 @@ class PasswordGenerator
 		end
 
 		def char_array
-			"!@#$%^&*+~".split("")
+			"!@$%^&*+~".split("")
 		end
 
 		def generate_strong_password(howlong=30)

@@ -92,15 +92,15 @@ module ViewsHelper
 	end
 
 	def password_flash_prefix
-		"Your cold storage file was encrypted with the password =>  "
+		"Your cold storage file is encrypted with the password '"
 	end
 
 	def strong_password_flash_prefix
-		"Your cold storage files where encrypted with the randomly generated password => "
+		"Your cold storage file is encrypted with the randomly generated password '"
 	end
 
 	def password_flash_suffix
-		"  <= Please make a note of this password and keep it safe."
+		"' Please make a note of this password and keep it safe."
 	end
 
 	def password_message(password,by_user)
@@ -190,7 +190,7 @@ module ViewsHelper
 		'The number of shares required for password reconstruction must be smaller than the total number of shares'
 	end
 	def hot_message
-		'Do NOT use these addresses for cold storgae! You are online! This is only a demonstration'
+		'Do NOT use these addresses for cold storage! You are online! This is only a demonstration'
 	end
 	def no_file_message
 		'Decryption failed because the file '+ encrypted_file_name + ' was not found'
