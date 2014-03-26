@@ -33,7 +33,7 @@ class FreezersController < ApplicationController
   end
 
   def private_keys
-    flash.now[:hot] = hot_message if Rails.root.to_s=='/app' || Rails.root.to_s.index('assaf')==6
+    flash.now[:hot] = hot_message if HOT
   	@password= cookies[:password]
   	@user_password= (cookies[:user_password] == true.to_s)
   	@expose=params[:expose]
