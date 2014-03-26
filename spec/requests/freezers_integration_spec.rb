@@ -43,8 +43,8 @@ describe "Freezers" do
 		end		
 		it_should_behave_like 'the private keys page'	
 		it_should_behave_like 'it has download buttons'	
-		describe "the number of share links should be 5 (default)" do
-			it { should have_link 'password_share_5'}  
+		describe "the number of share links should be #{DEFAULT_SSSN} (default)" do
+			it { should have_link "password_share_#{DEFAULT_SSSN}"}  
 		end
 		# it { should have_selector('div.alert.alert-password', text: 'randomly generated') }			
 		it { should have_selector('div#password_message', text: 'randomly generated') }

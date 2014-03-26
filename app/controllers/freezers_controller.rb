@@ -45,7 +45,7 @@ class FreezersController < ApplicationController
 
   def download
   	begin
-  		if MYENV =='raspberrypi' || MYENV =='Dev'
+  		if MYENV =='raspberrypi'
   			copy_files
   		else
   			download_files

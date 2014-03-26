@@ -1,0 +1,21 @@
+tr
+	td 
+		= file_field_tag 'file',:accept => "text/csv", class: 'file_upload'
+tr
+	td colspan="3" 
+		hr.low
+tr
+	td 
+		= text_field_tag :password,'', placeholder: recover_passwd_placeholder, class: "input-xxlarge"
+tr
+	td 
+		hr
+tr
+	td 
+		= text_area_tag :shares,'', placeholder: shares_placeholder, size: "25x5"		
+tr
+	td 
+		hr.low
+tr
+	td 
+		= submit_tag recover_button,  id: "recover_button", class: "btn btn-danger"

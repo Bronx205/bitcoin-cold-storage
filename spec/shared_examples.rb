@@ -25,7 +25,8 @@ shared_examples_for "the upload page" do
 	it { should have_button recover_button}
 	it { should have_selector('input#password.input-xxlarge') }
 	it { should have_selector('textarea#shares')}
-	# it { should have_xpath("//input[@type='file'][@id='password_share_1']")}
+	it { should have_xpath("//input[@type='file'][@id='password_share_1']")}
+	it { should have_xpath("//input[@type='file'][@id='password_share_5']")}
 end
 
 shared_examples_for "the private keys page" do	

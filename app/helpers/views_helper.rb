@@ -43,7 +43,7 @@ module ViewsHelper
 	end	
 	
 	def inspect_page_title
-		'Upload Cold Storage files'
+		'Inspec the content of your Cold Storage files'
 	end
 
 	def inspect_page_header
@@ -55,7 +55,7 @@ module ViewsHelper
 	end
 
 	def recover_button
-		'Upload for inspection'
+		'Inspect cold storage file'
 	end
 
 	def upload_button_title

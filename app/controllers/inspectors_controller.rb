@@ -11,8 +11,15 @@ class InspectorsController < ApplicationController
     if params[:file].blank?
       flash.now[:error] = no_file_loaded_flash
       render 'new'      
-    else
+    elsif params[:password_share_1].blank?
       process_uploaded_file(params[:file],params[:password],params[:shares])  
+    else
+      shares=''
+      (1..5).each do |share_number|
+        share_file_meta=params["password_share_#{share_number.to_s}"]
+        shares << CSV.read(share_file_meta.path)[1][0]+" " unless share_file_meta.blank?
+      end
+      process_uploaded_file(params[:file],params[:password],shares)  
     end    
   end
 
