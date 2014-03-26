@@ -1,3 +1,4 @@
 / - cache('private_keys')	do
-= render 'shared/password'
+- unless params[:controller]=='inspectors'
+	= render 'shared/password'
 = render 'shared/private_table', keys: keys
