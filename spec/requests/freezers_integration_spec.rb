@@ -112,7 +112,7 @@ describe "Freezers" do
 					  clear_coldstorage_files(true)
 					  click_link 'password_share_1'
 					end					
-					specify{File.exist?(encrypted_directory_path(true)+password_share_file_name+'.csv').should be_true }
+					specify{File.exist?(encrypted_directory_path(true)+password_share_file_name+'_1.csv').should be_true }
 				end
 				describe "and redirect home if no file" do
 					before do
