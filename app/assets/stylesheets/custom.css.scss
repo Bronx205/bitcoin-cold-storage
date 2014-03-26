@@ -517,12 +517,19 @@ h1.heatup_header{
     padding:0.8em;
   }  
 }
+.alert{
+  margin-bottom:5px;
+}
 .alert-password{
   color:yellow;
   background-color:$grayLight;
   text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
   text-align:center;
   font-size:16;
+}
+.alert-hot{
+  color:red;
+  text-align:center;
 }
 .bottom5{
   margin-bottom:5;
