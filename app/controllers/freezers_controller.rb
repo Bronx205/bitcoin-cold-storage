@@ -14,10 +14,10 @@ class FreezersController < ApplicationController
 		$ssss={n: params[:ssss_n].to_i,k: params[:ssss_k].to_i}
 		if valid_params?(howmany,$ssss) 
 			password=set_password(params[:password])			
+			save_password(password,(password==params[:password]))
 			keys=KeyGenerator.new(howmany).keys			
 			@qm=Quartermaster.new(keys,password,$ssss)			
 			@qm.dump_files
-			flash[:password]=password_message(password,password==params[:password])			
 			redirect_to new_keys_path 
 		else
 			flash.now[:error] = build_validation_message(howmany,$ssss)			
@@ -33,6 +33,8 @@ class FreezersController < ApplicationController
   end
 
   def private_keys
+  	@password= cookies[:password]
+  	@user_password= (cookies[:user_password] == true.to_s)
   	@expose=params[:expose]
   	@n=$ssss[:n]
   	@title=private_keys_title
@@ -108,7 +110,10 @@ class FreezersController < ApplicationController
 			return PasswordGenerator.new.password if string.blank?
 			string.to_s
 		end
-
+	  def save_password(string,bool)			
+			cookies[:password]=string
+			cookies[:user_password]= bool
+	  end
 	  def clear_flash_messages
 	  	flash[:error].clear if flash[:error] 
 	  end	

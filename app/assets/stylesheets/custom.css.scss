@@ -373,7 +373,7 @@ h2.view_header{
 }
 
 table#private_output, table#public_output{
-  margin-top:50;
+  margin-top:20;
   margin-left:25;
  th {
     font-size:20;
@@ -460,19 +460,23 @@ table#private_output, table#public_output{
   display: inline;
   width: 5;
 }
-h2#show_password{
-  text-align:left;
-  .highlight_password{
+.hot{
+  color:orange;
+  font-weight:normal;
+  margin-left:1em;
+}
+div#password_message{
+  margin-left:2em;
+  margin-bottom:1em;
+  margin-top:1em;
+  color:black;
+  font-size:16;  
+  display: inline;
+  float:left;
+  div#show_password{
+    display:inline;
     color:red;
-    display:inline;
-  }
-  .show_entropy{
-    font-size:0.8em;
-    display:inline;
-    .highlight_entropy{
-      color:blue;
-      display:inline;
-    }     
+    font-weight:bold;
   }
 }
 h1.heatup_header{
@@ -520,12 +524,6 @@ h1.heatup_header{
   text-align:center;
   font-size:16;
 }
-.hot{
-color:red;
-font-weight:normal;
-margin-left:1em;
-}
-
 .bottom5{
   margin-bottom:5;
 }
@@ -544,9 +542,6 @@ textarea#shares{
   padding:5;
   margin-top:1;
 }
-input#password{
-  margin-bottom:1;
-}
 .setup{
   margin-left:10; 
 }
@@ -557,6 +552,7 @@ input#howmany, input#ssss_n, input#ssss_k{
   color: red;
 }
 input#password{
+  margin-bottom:1;
   font-size:16;
   color:red;
 }
