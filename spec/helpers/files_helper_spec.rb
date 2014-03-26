@@ -56,4 +56,8 @@ describe FilesHelper do
 		end		
 	end
 
+	describe "unless_usb" do
+		it { unless_usb(true,'foo').should be_blank }
+		it { unless_usb(false,'bar').should == 'bar' }
+	end
 end

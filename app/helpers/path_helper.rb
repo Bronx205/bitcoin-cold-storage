@@ -4,8 +4,12 @@ module PathHelper
 		File.expand_path(Rails.root) +'/'
 	end
 
+	def cold_storage_directory_name
+		Time.now.strftime("%Y-%m-%d#{$tag}/").to_s
+	end
+
 	def usb_path
-		'/media/coldstorage/' +  Time.now.strftime("%Y-%m-%d#{$tag}/").to_s
+		'/media/coldstorage/' +  cold_storage_directory_name
 	end
 
 	def coldstorage_directory(usb=false)
@@ -14,6 +18,11 @@ module PathHelper
 		else
 			return relative_root_path +  'files/' 				
 		end		
+	end
+
+	def unless_usb(bool,string)
+		return '' if bool
+		string
 	end
 
 	def file_fixtures_directory
@@ -25,19 +34,19 @@ module PathHelper
 	end
 
 	def public_directory_path(usb=false)
-		coldstorage_directory(usb) + 'public/'
+		coldstorage_directory(usb) + unless_usb(usb,'public/')
 	end
 			
 	def private_directory_path(usb=false)
-		coldstorage_directory(usb) + 'PRIVATE/'
+		coldstorage_directory(usb) +  unless_usb(usb,'PRIVATE/')
 	end
 
 	def encrypted_directory_path(usb=false)
-		private_directory_path(usb) + 'encrypted/'
+		private_directory_path(usb) +  unless_usb(usb,'encrypted/')
 	end
 
 	def unencrypted_directory_path(usb=false)
-		private_directory_path(usb) + 'NON-ENCRYPTED/'
+		private_directory_path(usb) +  unless_usb(usb,'NON-ENCRYPTED/')
 	end	
 
 	def public_addresses_file_name
