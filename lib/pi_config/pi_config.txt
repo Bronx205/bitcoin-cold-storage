@@ -3,3 +3,107 @@ Things to do on pi
 2. sudo chmod a+wx files/ 
 2. sudo chmod a+wx files/PRIVATE
 2. sudo chmod a+wx files/public
+
+or you could just sudo chmod -R a+wx files/
+
+
+
+
+Also purging files on boot with
+sudo chmod 755 /etc/init.d/coldpurger.sh
+sudo update-rc.d coldpurger.sh defaults
+
+where the file is:
+
+-----------
+
+#! /bin/bash
+find /home/pi/coldstorage/files -iname "*.*" -exec rm {} \;
+find /media/coldstorage/ -type f -exec rm {} \;
+find /media/coldstorage/ -mindepth 1 -depth -type d -exec rmdir {} \;
+find /media/uploads/ -type f -exec rm {} \;
+find /media/uploads/ -mindepth 1 -depth -type d -exec rmdir {} \;
+
+----------- 
+
+
+And we boot to rails using the file in:
+
+sudo nano /etc/xdg/lxsession/LXDE/autostart
+
+which is:
+
+--------------
+@lxpanel --profile LXDE
+@pcmanfm --desktop --profile LXDE
+@xscreensaver -no-splash
+@lxterminal -t "Launching CoinCooler (a little less than 2 minutes)" --working-directory=/home/pi/projects/scripts/ -e ./coincooler.sh
+--------------
+
+where the boot script is sitting in /home/pi/projects/scripts/coincooler.sh is
+
+-------------
+#! /bin/bash
+echo 'Loading environment (about 20 seconds)'
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" 
+# cd /home/pi/rails_projects/cold
+cd /home/pi/coldstorage
+clear
+echo 'Starting application. This takes about 1 minute, hold on'
+rails s webrick -e production &
+for ((i=5;i<=60;i=i+5)) 
+ do
+ sleep 5
+ clear
+ echo 'Starting application. This takes about 1 minute, hold on'
+ echo -e "$(($i*100/60))% \n"
+ for ((k=1;k<=$i;k++))
+  do
+   echo -n '*'
+ done
+ echo -e "\n"
+done
+echo -e "\n Fasten your seat belt, CoinCooler Launching!!"
+midori -e Fullscreen -a http://localhost:3000
+
+------------
+
+Note the second line loads rvm which is what /bin/bash --login was achieving
+
+
+
+And finally the crazy mounting is done on the file /etc/fstab
+
+------------------
+proc            /proc           proc    defaults          0       0
+/dev/mmcblk0p5  /boot           vfat    defaults          0       2
+/dev/mmcblk0p6  /               ext4    defaults,noatime  0       1
+# a swapfile is not a swap partition, so no using swapon|off from here on, use  dp$
+/dev/sda1        /media/coldstorage    auto   auto,nofail,rw,user    0  2
+/dev/sdb1        /media/coldstorage    auto   auto,nofail,rw,user    0  2
+/dev/sdc1        /media/coldstorage    auto   auto,nofail,rw,user    0  2
+/dev/sdd1        /media/coldstorage    auto   auto,nofail,rw,user    0  2
+/dev/sde1        /media/coldstorage    auto   auto,nofail,rw,user    0  2
+/dev/sdf1        /media/coldstorage    auto   auto,nofail,rw,user    0  2
+/dev/sdg1        /media/coldstorage    auto   auto,nofail,rw,user    0  2
+/dev/sdh1        /media/coldstorage    auto   auto,nofail,rw,user    0  2
+/dev/sdi1        /media/coldstorage    auto   auto,nofail,rw,user    0  2
+/dev/sdj1        /media/coldstorage    auto   auto,nofail,rw,user    0  2
+/dev/sdk1        /media/coldstorage    auto   auto,nofail,rw,user    0  2
+/dev/sdl1        /media/coldstorage    auto   auto,nofail,rw,user    0  2
+/dev/sdm1        /media/coldstorage    auto   auto,nofail,rw,user    0  2
+/dev/sdn1        /media/coldstorage    auto   auto,nofail,rw,user    0  2
+/dev/sdo1        /media/coldstorage    auto   auto,nofail,rw,user    0  2
+/dev/sdp1        /media/coldstorage    auto   auto,nofail,rw,user    0  2
+/dev/sdq1        /media/coldstorage    auto   auto,nofail,rw,user    0  2
+/dev/sdr1        /media/coldstorage    auto   auto,nofail,rw,user    0  2
+/dev/sds1        /media/coldstorage    auto   auto,nofail,rw,user    0  2
+/dev/sdt1        /media/coldstorage    auto   auto,nofail,rw,user    0  2
+/dev/sdu1        /media/coldstorage    auto   auto,nofail,rw,user    0  2
+/dev/sdv1        /media/coldstorage    auto   auto,nofail,rw,user    0  2
+/dev/sdw1        /media/coldstorage    auto   auto,nofail,rw,user    0  2
+/dev/sdx1        /media/coldstorage    auto   auto,nofail,rw,user    0  2
+/dev/sdy1        /media/coldstorage    auto   auto,nofail,rw,user    0  2
+/dev/sdz1        /media/coldstorage    auto   auto,nofail,rw,user    0  2
+-----------------
+
